@@ -51,36 +51,38 @@
             display: block;
         }
         
-        text {
-            font-family: Arial, sans-serif;
-        }
-        
         .info-section {
-            max-width: 800px;
             width: 100%;
-            background-color: rgba(0, 0, 0, 0.3);
+            max-width: 800px;
             padding: 20px;
-            border-radius: 8px;
-            line-height: 1.6;
-            font-size: clamp(0.9rem, 2vw, 1rem);
-            margin: 20px;
+            margin-top: 60px; /* Aumentada a margem superior */
             box-sizing: border-box;
         }
         
-        @media (max-width: 600px) {
-            .back-button {
-                width: 40px;
-                height: 40px;
-                font-size: 20px;
-            }
-            
-            text {
-                font-size: 80% !important;
-            }
-            
+        h1, h2 {
+            color: #66D9E8; /* Cor azul esverdeado para h1 e h2 */
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-top: 60px;
+        }
+        
+        h2 {
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
             .info-section {
                 padding: 15px;
-                margin: 10px;
+                margin-top: 40px;
+            }
+            
+            h1 {
+                margin-top: 40px;
             }
         }
     </style>
@@ -88,91 +90,93 @@
 <body>
     <button class="back-button" onclick="window.location.href='index.html'">←</button>
     
+    <h1>Visualização da Translação da Terra</h1>
+    
     <div class="info-section">
-        <svg viewBox="0 0 800 2000" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
             <!-- Fundo -->
-            <rect width="800" height="2000" fill="#111" />
+            <rect width="800" height="600" fill="#111" />
             
             <!-- Área da visualização -->
-            <g transform="translate(0, 100)">
+            <g transform="translate(0, 50)">
               <!-- Linhas de referência -->
-              <line x1="405" y1="50" x2="405" y2="450" stroke="#333" stroke-width="1" />
+              <line x1="405" y1="50" x2="405" y2="550" stroke="#333" stroke-width="1" />
               <line x1="205" y1="250" x2="605" y2="250" stroke="#333" stroke-width="1" />
               
               <!-- Órbita da Terra (elipse) -->
               <ellipse cx="405" cy="250" rx="299.2" ry="299.16" 
-                       fill="none" stroke="#555" stroke-width="1" />
+                     fill="none" stroke="#444" stroke-width="1.5" />
               
-              <!-- Eixo maior -->
-              <line x1="105.8" y1="250" x2="704.2" y2="250" 
-                    stroke="#444" stroke-width="1" stroke-dasharray="5,5" />
-              
-              <!-- Eixo menor -->
-              <line x1="405" y1="-49.16" x2="405" y2="549.16" 
-                    stroke="#444" stroke-width="1" stroke-dasharray="5,5" />
-              
-              <!-- Sol -->
-              <circle cx="400" cy="250" r="20" fill="#FF9900">
-                <animate attributeName="r" values="20;22;20" dur="2s" repeatCount="indefinite" />
+              <!-- Sol no centro -->
+              <circle cx="400" cy="250" r="25" fill="#FFD700">
+                <title>Sol</title>
               </circle>
-              <circle cx="400" cy="250" r="25" fill="rgba(255,153,0,0.3)" />
-              <circle cx="400" cy="250" r="30" fill="rgba(255,153,0,0.1)" />
+              <circle cx="400" cy="250" r="35" fill="rgba(255,215,0,0.3)" />
               
-              <!-- Terra nos pontos principais -->
-              <!-- Periélio (Verão no Brasil) - Solstício de Verão -->
-              <g transform="translate(105.8, 250)">
-                <circle r="8" fill="#1E90FF" />
-                <circle r="10" fill="rgba(30,144,255,0.3)" />
-                <!-- Inclinação do eixo da Terra ~23.5° -->
-                <line x1="0" y1="-12" x2="0" y2="12" stroke="#FFF" stroke-width="1" transform="rotate(-23.5)" />
-                <text x="15" y="5" fill="white" font-size="14">Terra (Verão)</text>
-                <text x="15" y="25" fill="orange" font-size="12">21 Dez</text>
-                <text x="15" y="45" fill="#AAA" font-size="12">147.1 milhões km</text>
-                <text x="15" y="65" fill="#FF5" font-size="12">Solstício de Verão</text>
+              <!-- Raios solares -->
+              <g>
+                <line x1="400" y1="200" x2="400" y2="180" stroke="#FFD700" stroke-width="1.5" />
+                <line x1="400" y1="300" x2="400" y2="320" stroke="#FFD700" stroke-width="1.5" />
+                <line x1="350" y1="250" x2="330" y2="250" stroke="#FFD700" stroke-width="1.5" />
+                <line x1="450" y1="250" x2="470" y2="250" stroke="#FFD700" stroke-width="1.5" />
+                <line x1="365" y1="215" x2="350" y2="200" stroke="#FFD700" stroke-width="1.5" />
+                <line x1="435" y1="285" x2="450" y2="300" stroke="#FFD700" stroke-width="1.5" />
+                <line x1="365" y1="285" x2="350" y2="300" stroke="#FFD700" stroke-width="1.5" />
+                <line x1="435" y1="215" x2="450" y2="200" stroke="#FFD700" stroke-width="1.5" />
               </g>
               
-              <!-- Eixo menor 1 (Outono no Brasil) - Equinócio de Outono -->
-              <g transform="translate(405, -49.16)">
-                <circle r="8" fill="#1E90FF" />
-                <circle r="10" fill="rgba(30,144,255,0.3)" />
-                <line x1="0" y1="-12" x2="0" y2="12" stroke="#FFF" stroke-width="1" transform="rotate(-23.5)" />
-                <text x="-80" y="-15" fill="white" font-size="14">Terra (Outono)</text>
-                <text x="-80" y="-35" fill="orange" font-size="12">20 Mar</text>
-                <text x="-80" y="-55" fill="#AAA" font-size="12">149.58 milhões km</text>
-                <text x="-80" y="-75" fill="#FF5" font-size="12">Equinócio de Outono</text>
-              </g>
-              
-              <!-- Afélio (Inverno no Brasil) - Solstício de Inverno -->
+              <!-- Terra em diferentes posições -->
+              <!-- Posição 1: Periélio (3 de janeiro) -->
               <g transform="translate(704.2, 250)">
-                <circle r="8" fill="#1E90FF" />
-                <circle r="10" fill="rgba(30,144,255,0.3)" />
-                <line x1="0" y1="-12" x2="0" y2="12" stroke="#FFF" stroke-width="1" transform="rotate(-23.5)" />
-                <text x="-110" y="5" fill="white" font-size="14">Terra (Inverno)</text>
-                <text x="-110" y="25" fill="orange" font-size="12">21 Jun</text>
-                <text x="-110" y="45" fill="#AAA" font-size="12">152.1 milhões km</text>
-                <text x="-110" y="65" fill="#FF5" font-size="12">Solstício de Inverno</text>
+                <circle cx="0" cy="0" r="12" fill="#1E90FF">
+                  <title>Terra - Periélio (3 de janeiro)</title>
+                </circle>
+                <circle cx="0" cy="0" r="16" fill="rgba(30,144,255,0.3)" />
+                <!-- Linha de inclinação do eixo da Terra ~23.5° -->
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#FFF" stroke-width="1" transform="rotate(-23.5)" />
+                <text x="40" y="-50" fill="white" font-size="16">Periélio</text>
+                <text x="40" y="-30" fill="#AAA" font-size="14">3 de Janeiro</text>
+                <text x="40" y="-10" fill="#AAA" font-size="14">147,1 milhões km</text>
               </g>
               
-              <!-- Eixo menor 2 (Primavera no Brasil) - Equinócio de Primavera -->
+              <!-- Posição 2: Equinócio de Outono (20 de março) -->
+              <g transform="translate(405, -49.16)">
+                <circle cx="0" cy="0" r="12" fill="#1E90FF">
+                  <title>Terra - Equinócio de Outono (20 de março)</title>
+                </circle>
+                <circle cx="0" cy="0" r="16" fill="rgba(30,144,255,0.3)" />
+                <!-- Linha de inclinação do eixo da Terra ~23.5° -->
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#FFF" stroke-width="1" transform="rotate(-23.5)" />
+                <text x="-100" y="-50" fill="white" font-size="16">Equinócio de Outono</text>
+                <text x="-100" y="-30" fill="#AAA" font-size="14">20 de Março</text>
+                <text x="-100" y="-10" fill="#AAA" font-size="14">~149 milhões km</text>
+              </g>
+              
+              <!-- Posição 3: Afélio (4 de julho) -->
+              <g transform="translate(105.8, 250)">
+                <circle cx="0" cy="0" r="12" fill="#1E90FF">
+                  <title>Terra - Afélio (4 de julho)</title>
+                </circle>
+                <circle cx="0" cy="0" r="16" fill="rgba(30,144,255,0.3)" />
+                <!-- Linha de inclinação do eixo da Terra ~23.5° -->
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#FFF" stroke-width="1" transform="rotate(-23.5)" />
+                <text x="-80" y="-50" fill="white" font-size="16">Afélio</text>
+                <text x="-80" y="-30" fill="#AAA" font-size="14">4 de Julho</text>
+                <text x="-80" y="-10" fill="#AAA" font-size="14">152,1 milhões km</text>
+              </g>
+              
+              <!-- Posição 4: Equinócio de Primavera (22 de setembro) -->
               <g transform="translate(405, 549.16)">
-                <circle r="8" fill="#1E90FF" />
-                <circle r="10" fill="rgba(30,144,255,0.3)" />
-                <line x1="0" y1="-12" x2="0" y2="12" stroke="#FFF" stroke-width="1" transform="rotate(-23.5)" />
-                <text x="15" y="5" fill="white" font-size="14">Terra (Primavera)</text>
-                <text x="15" y="25" fill="orange" font-size="12">22 Set</text>
-                <text x="15" y="45" fill="#AAA" font-size="12">149.58 milhões km</text>
-                <text x="15" y="65" fill="#FF5" font-size="12">Equinócio de Primavera</text>
+                <circle cx="0" cy="0" r="12" fill="#1E90FF">
+                  <title>Terra - Equinócio de Primavera (22 de setembro)</title>
+                </circle>
+                <circle cx="0" cy="0" r="16" fill="rgba(30,144,255,0.3)" />
+                <!-- Linha de inclinação do eixo da Terra ~23.5° -->
+                <line x1="0" y1="-16" x2="0" y2="16" stroke="#FFF" stroke-width="1" transform="rotate(-23.5)" />
+                <text x="40" y="-50" fill="white" font-size="16">Equinócio de Primavera</text>
+                <text x="40" y="-30" fill="#AAA" font-size="14">22 de Setembro</text>
+                <text x="40" y="-10" fill="#AAA" font-size="14">~149 milhões km</text>
               </g>
-              
-              <!-- Setores das estações -->
-              <path d="M 400 250 L 105.8 250 A 299.2 299.16 0 0 1 405 -49.16 Z" 
-                    fill="rgba(255,100,100,0.15)" stroke="none" />
-              <path d="M 400 250 L 405 -49.16 A 299.2 299.16 0 0 1 704.2 250 Z" 
-                    fill="rgba(255,200,100,0.15)" stroke="none" />
-              <path d="M 400 250 L 704.2 250 A 299.2 299.16 0 0 1 405 549.16 Z" 
-                    fill="rgba(100,100,255,0.15)" stroke="none" />
-              <path d="M 400 250 L 405 549.16 A 299.2 299.16 0 0 1 105.8 250 Z" 
-                    fill="rgba(100,200,100,0.15)" stroke="none" />
               
               <!-- Linhas de solstícios e equinócios -->
               <line x1="400" y1="250" x2="105.8" y2="250" stroke="#FFD700" stroke-width="1.5" stroke-dasharray="10,5" />
@@ -180,87 +184,73 @@
               <line x1="400" y1="250" x2="405" y2="-49.16" stroke="#87CEEB" stroke-width="1.5" stroke-dasharray="10,5" />
               <line x1="400" y1="250" x2="405" y2="549.16" stroke="#87CEEB" stroke-width="1.5" stroke-dasharray="10,5" />
               
-              <!-- Legenda -->
-              <text x="50" y="30" fill="white" font-size="18" font-weight="bold">Translação da Terra</text>
-              <text x="50" y="60" fill="rgb(255,100,100)" font-size="16">■ Verão</text>
-              <text x="50" y="85" fill="rgb(255,200,100)" font-size="16">■ Outono</text>
-              <text x="50" y="110" fill="rgb(100,100,255)" font-size="16">■ Inverno</text>
-              <text x="50" y="135" fill="rgb(100,200,100)" font-size="16">■ Primavera</text>
-              <text x="50" y="170" fill="#AAA" font-size="14">* Estações no Hemisfério Sul (Brasil)</text>
-              <text x="50" y="195" fill="#AAA" font-size="14">* Inclinação do eixo da Terra: ~23.5°</text>
-              <text x="50" y="220" fill="#FFD700" font-size="14">--- Solstícios (21 Dez e 21 Jun)</text>
-              <text x="50" y="245" fill="#87CEEB" font-size="14">--- Equinócios (20 Mar e 22 Set)</text>
-            </g>
-            
-            <!-- Informações adicionais -->
-            <g transform="translate(50, 700)">
-              <text x="0" y="0" fill="white" font-size="18" font-weight="bold">Informações sobre a Órbita Terrestre</text>
-              
-              <text x="0" y="40" fill="white" font-size="16">
-                A Terra realiza um movimento elíptico ao redor do Sol, embora seja uma elipse com baixa 
-              </text>
-              <text x="0" y="65" fill="white" font-size="16">
-                excentricidade (aproximadamente 0,0167), o que a torna quase circular.
-              </text>
-              
-              <text x="20" y="100" fill="white" font-size="16">• Quando a Terra está no periélio, ela está mais próxima do Sol</text>
-              <text x="20" y="130" fill="white" font-size="16">• Quando está no afélio, está mais distante do Sol</text>
-              
-              <text x="0" y="170" fill="white" font-size="16">
-                A equação que descreve a distância (raio) entre a Terra e o Sol em qualquer ponto da 
-              </text>
-              <text x="0" y="195" fill="white" font-size="16">
-                órbita elíptica é:
-              </text>
-              
-              <text x="0" y="235" fill="#8CF" font-size="20" font-weight="bold">r = a(1-e²)/(1+e·cos(θ))</text>
-              
-              <text x="0" y="275" fill="white" font-size="16">Onde:</text>
-              <text x="20" y="305" fill="white" font-size="16">• r é a distância Terra-Sol</text>
-              <text x="20" y="335" fill="white" font-size="16">• a é o semi-eixo maior da órbita (aproximadamente 149,6 milhões de km)</text>
-              <text x="20" y="365" fill="white" font-size="16">• e é a excentricidade da órbita terrestre (aproximadamente 0,0167)</text>
-              <text x="20" y="395" fill="white" font-size="16">• θ é o ângulo no plano orbital</text>
-              
-              <text x="0" y="435" fill="white" font-size="16">
-                A variação total do raio entre esses pontos extremos é: Δr = r_afélio - r_periélio ≈ 5 milhões de km
-              </text>
-              
-              <text x="0" y="475" fill="white" font-size="16">
-                Esta variação de aproximadamente 3,3% na distância Terra-Sol ao longo do ano é relativamente 
-              </text>
-              <text x="0" y="500" fill="white" font-size="16">
-                pequena, mas suficiente para causar uma mudança perceptível na intensidade da radiação solar 
-              </text>
-              <text x="0" y="525" fill="white" font-size="16">
-                recebida pela Terra, sendo aproximadamente 6,9% maior no periélio que no afélio.
-              </text>
-              
-              <text x="0" y="575" fill="white" font-size="16" font-weight="bold">Pontos principais da órbita:</text>
-              <text x="20" y="605" fill="white" font-size="16">• Periélio: 147,1 milhões de km (coincide com o Solstício de Verão no</text>
-              <text x="35" y="630" fill="white" font-size="16">Hemisfério Sul - 21 de dezembro)</text>
-              <text x="20" y="660" fill="white" font-size="16">• Afélio: 152,1 milhões de km (coincide com o Solstício de Inverno no</text>
-              <text x="35" y="685" fill="white" font-size="16">Hemisfério Sul - 21 de junho)</text>
-              <text x="20" y="715" fill="white" font-size="16">• Pontos do eixo menor: 149,58 milhões de km (coincidem com os Equinócios -</text>
-              <text x="35" y="740" fill="white" font-size="16">20 de março e 22 de setembro)</text>
-              
-              <text x="0" y="790" fill="white" font-size="16" font-weight="bold">Características astronômicas representadas:</text>
-              <text x="20" y="820" fill="white" font-size="16">• Solstícios: pontos em que o Sol atinge a posição mais extrema em relação</text>
-              <text x="35" y="845" fill="white" font-size="16">ao equador celeste</text>
-              <text x="20" y="875" fill="white" font-size="16">• Equinócios: momentos em que o Sol cruza o plano do equador da Terra</text>
-              <text x="20" y="905" fill="white" font-size="16">• A inclinação do eixo da Terra de aproximadamente 23,5°</text>
-              <text x="20" y="935" fill="white" font-size="16">• A excentricidade da órbita de 0,0167</text>
-              
-              <text x="0" y="985" fill="white" font-size="16" font-weight="bold">Relação com as estações:</text>
-              <text x="20" y="1015" fill="white" font-size="16">• Verão no Brasil: entre o Solstício de Verão (21 Dez) e o Equinócio de</text>
-              <text x="35" y="1040" fill="white" font-size="16">Outono (20 Mar)</text>
-              <text x="20" y="1070" fill="white" font-size="16">• Outono no Brasil: entre o Equinócio de Outono (20 Mar) e o Solstício de</text>
-              <text x="35" y="1095" fill="white" font-size="16">Inverno (21 Jun)</text>
-              <text x="20" y="1125" fill="white" font-size="16">• Inverno no Brasil: entre o Solstício de Inverno (21 Jun) e o Equinócio de</text>
-              <text x="35" y="1150" fill="white" font-size="16">Primavera (22 Set)</text>
-              <text x="20" y="1180" fill="white" font-size="16">• Primavera no Brasil: entre o Equinócio de Primavera (22 Set) e o Solstício de</text>
-              <text x="35" y="1205" fill="white" font-size="16">Verão (21 Dez)</text>
+              <!-- Legendas -->
+              <text x="550" y="230" fill="#FFD700" font-size="16">Solstício de Verão (21 Dez)</text>
+              <text x="150" y="230" fill="#FFD700" font-size="16">Solstício de Inverno (21 Jun)</text>
+              <text x="415" y="50" fill="#87CEEB" font-size="16">Equinócio de Outono (20 Mar)</text>
+              <text x="415" y="550" fill="#87CEEB" font-size="16">Equinócio de Primavera (22 Set)</text>
             </g>
           </svg>
+    </div>
+    <div class="info-section">
+      <!-- Informações adicionais -->
+      <h2 style="color: #66D9E8; font-size: 35px;">Informações sobre a Órbita Terrestre</h2>
+      
+      <p style="font-size: 27px;">
+        A Terra realiza um movimento elíptico ao redor do Sol, embora seja uma elipse com baixa 
+        excentricidade (0,0167), muito próxima de um círculo perfeito.
+      </p>
+      
+      <p style="font-size: 27px; font-weight: bold;">A equação da órbita terrestre:</p>
+      <p style="color: #8CF; font-size: 27px; font-weight: bold;">r = a(1-e²)/(1+e·cos(θ))</p>
+      
+      <p style="font-size: 27px;">Onde:</p>
+      <ul style="font-size: 27px;">
+        <li>r é a distância Terra-Sol</li>
+        <li>a é o semi-eixo maior da órbita (149,6 milhões km)</li>
+        <li>e é a excentricidade da órbita (0,0167)</li>
+        <li>θ é o ângulo no plano orbital</li>
+      </ul>
+      
+      <p style="font-size: 27px;">
+        A variação da distância entre o periélio e o afélio é de aproximadamente 5 milhões de
+        quilômetros, o que representa cerca de 3,4% da distância média Terra-Sol.
+      </p>
+      
+      <h3 style="color: #66D9E8; font-size: 27px; font-weight: bold;">Características da órbita terrestre:</h3>
+      <ul style="font-size: 27px;">
+        <li>Período orbital (ano sideral): 365,256 dias</li>
+        <li>Período orbital (ano tropical): 365,242 dias</li>
+        <li>Velocidade orbital média: 29,78 km/s</li>
+        <li>Velocidade no periélio: 30,29 km/s</li>
+        <li>Velocidade no afélio: 29,29 km/s</li>
+      </ul>
+      
+      <h3 style="color: #66D9E8; font-size: 27px; font-weight: bold;">Pontos importantes da órbita:</h3>
+      <ul style="font-size: 27px;">
+        <li>Periélio: ponto mais próximo do Sol (3 de janeiro)</li>
+        <li>Afélio: ponto mais distante do Sol (4 de julho)</li>
+        <li>Equinócio de Outono: 20 de março (hemisfério sul)</li>
+        <li>Solstício de Inverno: 21 de junho (hemisfério sul)</li>
+        <li>Equinócio de Primavera: 22 de setembro (hemisfério sul)</li>
+        <li>Solstício de Verão: 21 de dezembro (hemisfério sul)</li>
+      </ul>
+      
+      <h3 style="color: #66D9E8; font-size: 27px; font-weight: bold;">Inclinação do eixo terrestre:</h3>
+      <ul style="font-size: 27px;">
+        <li>A Terra tem seu eixo de rotação inclinado em 23,5° em relação ao plano de sua órbita (plano da eclíptica).</li>
+        <li>Esta inclinação é responsável pelas estações do ano, pois altera a quantidade de luz solar recebida em diferentes latitudes ao longo do ano.</li>
+        <li>Nos solstícios, um dos hemisférios recebe mais luz solar que o outro.</li>
+        <li>Nos equinócios, ambos os hemisférios recebem a mesma quantidade de luz.</li>
+      </ul>
+
+      <h3 style="color: #66D9E8; font-size: 27px; font-weight: bold;">Estações do ano no hemisfério sul:</h3>
+      <ul style="font-size: 27px;">
+        <li>Verão no Brasil: entre o Solstício de Verão (21 Dez) e o Equinócio de Outono (20 Mar)</li>
+        <li>Outono no Brasil: entre o Equinócio de Outono (20 Mar) e o Solstício de Inverno (21 Jun)</li>
+        <li>Inverno no Brasil: entre o Solstício de Inverno (21 Jun) e o Equinócio de Primavera (22 Set)</li>
+        <li>Primavera no Brasil: entre o Equinócio de Primavera (22 Set) e o Solstício de Verão (21 Dez)</li>
+      </ul>
     </div>
 </body>
 </html>

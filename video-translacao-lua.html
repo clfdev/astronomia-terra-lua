@@ -21,18 +21,25 @@
     }
 
     h1 {
-      color: #e7e6e1;
+      color: #66D9E8;
       text-align: center;
       margin-bottom: 20px;
       font-size: clamp(1.5rem, 4vw, 2.5rem);
       width: 100%;
     }
 
+    h2 {
+      color: #66D9E8;
+      border-bottom: 1px solid #444;
+      padding-bottom: 8px;
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+    }
+
     canvas {
       border: 2px solid #444;
       border-radius: 8px;
       box-shadow: 0 0 20px rgba(108, 99, 255, 0.2);
-      margin-bottom: 20px;
+      margin-bottom: 60px;
       max-width: 100%;
       height: auto;
     }
@@ -42,7 +49,7 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 60px;
       width: 100%;
       max-width: 800px;
     }
@@ -105,64 +112,17 @@
     .info-section {
       max-width: 800px;
       background-color: rgba(0, 0, 0, 0.3);
-      padding: 20px;
+      padding: 30px;
       border-radius: 8px;
       line-height: 1.6;
-      font-size: clamp(0.9rem, 2vw, 1rem);
+      font-size: clamp(1.0rem, 2.5vw, 1.5rem);
       width: 100%;
-    }
-
-    h2 {
-      color: #e7e6e1;
-      border-bottom: 1px solid #444;
-      padding-bottom: 8px;
-      font-size: clamp(1.2rem, 3vw, 1.5rem);
-    }
-
-    .moon-phases {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
+      margin-top: 20px;
       margin-bottom: 20px;
     }
 
-    .phase-card {
-      background-color: rgba(0, 0, 0, 0.2);
-      padding: 15px;
-      border-radius: 8px;
-      text-align: center;
-      width: 150px;
-      transition: transform 0.3s;
-    }
-
-    .phase-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .phase-image {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto 10px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .phase-name {
-      font-weight: bold;
-      margin-bottom: 5px;
-      color: #e7e6e1;
-    }
-
-    .phase-day {
-      font-size: 14px;
-      color: #aaa;
-    }
-
     .info-section h3 {
-      color: #8be9fd;
+      color: #66D9E8;
       margin-top: 20px;
       margin-bottom: 10px;
       font-size: clamp(1.1rem, 2.5vw, 1.3rem);
@@ -213,7 +173,67 @@
       background-color: rgba(35, 35, 50, 0.95);
       transform: scale(1.05);
     }
+
+    .th {
+      color: #66D9E8;
+    }
+
+    .strong{
+      color: #66D9E8;
+    }
+
+    .phase-name {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #e7e6e1;
+    }
     
+    .phase-day {
+      font-size: 14px;
+      color: #aaa;
+    }
+    
+    .moon-phases {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+      margin-bottom: 60px;
+    }
+
+    .phase-card {
+      background-color: rgba(0, 0, 0, 0.2);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      width: 150px;
+      transition: transform 0.3s;
+    }
+
+    .phase-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .phase-circle {
+      width: 60px;
+      height: 60px;
+      background-color: #e7e6e1;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    
+    .dark-side {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      background-color: #111;
+      z-index: 1;
+    }
+
     @media (max-width: 600px) {
       body {
         padding: 15px;
@@ -358,10 +378,10 @@
     <p>
       Onde:
       <ul>
-        <li>r é a distância Terra-Lua</li>
-        <li>a é o semi-eixo maior da órbita (384.400 km)</li>
-        <li>e é a excentricidade da órbita (0,0549)</li>
-        <li>θ é o ângulo no plano orbital</li>
+        <li><strong class="strong">r</strong> é a distância Terra-Lua</li>
+        <li><strong class="strong">a</strong> é o semi-eixo maior da órbita (384.400 km)</li>
+        <li><strong class="strong">e</strong> é a excentricidade da órbita (0,0549)</li>
+        <li><strong class="strong">θ</strong> é o ângulo no plano orbital</li>
       </ul>
     </p>
     
@@ -372,8 +392,8 @@
     
     <table>
       <tr>
-        <th>Parâmetro</th>
-        <th>Valor</th>
+        <th class="th">Parâmetro</th>
+        <th class="th">Valor</th>
       </tr>
       <tr>
         <td>Período orbital sideral</td>
@@ -413,24 +433,24 @@
     </p>
     
     <ul>
-      <li><strong>Lua Nova:</strong> A face iluminada da Lua está voltada para o Sol e não é visível da Terra.</li>
-      <li><strong>Quarto Crescente:</strong> Metade da face visível da Lua está iluminada, formando um "D".</li>
-      <li><strong>Lua Cheia:</strong> A face visível da Lua está completamente iluminada.</li>
-      <li><strong>Quarto Minguante:</strong> Metade da face visível está iluminada, formando um "C".</li>
+      <li><strong class="strong">Lua Nova:</strong> A face iluminada da Lua está voltada para o Sol e não é visível da Terra.</li>
+      <li><strong class="strong">Quarto Crescente:</strong> Metade da face visível da Lua está iluminada, formando um "D".</li>
+      <li><strong class="strong">Lua Cheia:</strong> A face visível da Lua está completamente iluminada.</li>
+      <li><strong class="strong">Quarto Minguante:</strong> Metade da face visível está iluminada, formando um "C".</li>
     </ul>
     
     <p>
-      <strong>Características adicionais:</strong>
+      <strong class="strong">Características adicionais:</strong>
     </p>
     
     <ul>
-      <li><strong>Rotação síncrona:</strong> A Lua sempre mostra a mesma face para a Terra, pois seu período de rotação é igual ao seu período orbital.</li>
-      <li><strong>Inclinação orbital:</strong> A órbita da Lua tem uma inclinação de aproximadamente 5,14° em relação ao plano da eclíptica (órbita da Terra ao redor do Sol).</li>
+      <li><strong class="strong">Rotação síncrona:</strong> A Lua sempre mostra a mesma face para a Terra, pois seu período de rotação é igual ao seu período orbital.</li>
+      <li><strong class="strong">Inclinação orbital:</strong> A órbita da Lua tem uma inclinação de aproximadamente 5,14° em relação ao plano da eclíptica (órbita da Terra ao redor do Sol).</li>
       <li><strong>Esta inclinação é responsável por eclipses não ocorrerem mensalmente.</strong></li>
     </ul>
     
     <div class="keyboard-controls">
-      <p><strong>Controles:</strong></p>
+      <p><strong class="strong">Controles:</strong></p>
       <p>• Barra de espaço: Pausar/Continuar a animação</p>
       <p>• Setas para cima/baixo: Ajustar a velocidade da rotação</p>
     </div>

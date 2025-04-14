@@ -107,9 +107,25 @@
       margin-top: 20px;
       max-width: 800px;
       width: 100%;
-      font-size: clamp(0.9rem, 2vw, 1rem);
+      font-size: clamp(1.3rem, 3vw, 1.5rem);
     }
-    
+
+    .explanation{
+      font-size: clamp(1.3rem, 2.5vw, 1.5rem);
+      color: #8be9fd;
+    }
+
+    .keyboard-controls{
+      font-size: clamp(1.3rem, 2.5vw, 1.5rem);
+    }
+    h3{
+      font-size: clamp(1.3rem, 3vw, 1.5rem);
+    }
+
+    .note{
+      font-size: clamp(1.3rem, 2.5vw, 1.5rem);
+    }
+
     .back-button {
       position: fixed;
       top: 15px;
@@ -187,25 +203,25 @@
     <div class="seasons-grid">
       <div class="season-card" style="background-color: rgba(255, 87, 34, 0.2);">
         <h3 style="color: #FF5722;">Verão</h3>
-        <p>Dezembro a Março</p>
+        <p class="note">Dezembro a Março</p>
         <p class="note">Periélio - Terra mais próxima do Sol</p>
       </div>
       
       <div class="season-card" style="background-color: rgba(255, 152, 0, 0.2);">
         <h3 style="color: #FF9800;">Outono</h3>
-        <p>Março a Junho</p>
+        <p class="note">Março a Junho</p>
         <p class="note">Equinócio - Dia e noite com mesma duração</p>
       </div>
       
       <div class="season-card" style="background-color: rgba(33, 150, 243, 0.2);">
         <h3 style="color: #2196F3;">Inverno</h3>
-        <p>Junho a Setembro</p>
+        <p class="note">Junho a Setembro</p>
         <p class="note">Afélio - Terra mais distante do Sol</p>
       </div>
       
       <div class="season-card" style="background-color: rgba(76, 175, 80, 0.2);">
         <h3 style="color: #4CAF50;">Primavera</h3>
-        <p>Setembro a Dezembro</p>
+        <p class="note">Setembro a Dezembro</p>
         <p class="note">Equinócio - Dia e noite com mesma duração</p>
       </div>
     </div>
@@ -539,7 +555,7 @@
     
     // Desenhar os marcadores de estações
     function drawSeasonMarkers() {
-      ctx.font = '14px Arial';
+      ctx.font = '18px Arial';
       ctx.textBaseline = 'middle';
       
       // Verão (21 Dez)
