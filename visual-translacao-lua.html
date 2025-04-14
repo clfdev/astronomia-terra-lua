@@ -237,7 +237,7 @@
         <polygon points="400,0 390,5 390,-5" fill="#FFD700" />
         
         <!-- Lua em diferentes posições e fases -->
-        <!-- Posição 1: Lua Nova (0°) - CORRETA -->
+        <!-- Posição 1: Lua Nova (0°) - NÃO ALTERADA -->
         <g transform="translate(192, 0)">
           <circle cx="0" cy="0" r="8" fill="#888" />
           <circle cx="0" cy="0" r="8" fill="#111" />
@@ -246,38 +246,37 @@
           <text x="15" y="25" fill="#AAA" font-size="20">Dia 1</text>
         </g>
         
-        <!-- Posição 2: Lua Crescente (45°) - CORRIGIDO -->
+        <!-- Posição 2: Lua Minguante (45°) - AINDA MAIS ESCURA E MENOS CLARA -->
         <g transform="translate(135.76, -135.76)">
-          <circle cx="0" cy="0" r="8" fill="#888" />
-          <!-- Parte clara à direita um pouco maior -->
-          <path d="M -8,-8 A 8,8 0 0 0 -8,8 A 8,8 0 0 0 8,8 A 8,8 0 0 0 8,-8 Z" fill="#111" />
-          <path d="M -4,-8 A 8,8 0 0 1 -4,8 L 8,8 L 8,-8 Z" fill="#888" />
-          <text x="25" y="-15" fill="white" font-size="22">Lua Crescente</text>
+          <circle cx="0" cy="0" r="8" fill="#111" />
+          <!-- Parte clara MINÚSCULA À ESQUERDA e parte ESCURA QUASE TOTAL -->
+          <path d="M -8,-8 A 8,8 0 0 0 -8,8 L -7.9,8 L -7.9,-8 Z" fill="#888" />
+          <text x="25" y="-15" fill="white" font-size="22">Lua Minguante</text>
           <text x="25" y="5" fill="#AAA" font-size="20">~373.000 km</text>
-          <text x="25" y="25" fill="#AAA" font-size="20">~Dia 7</text>
+          <text x="25" y="25" fill="#AAA" font-size="20">~Dia 26</text>
         </g>
         
-        <!-- Posição 3: Quarto Crescente (90°) - CORRIGIDO -->
+        <!-- Posição 3: Quarto Minguante (90°) - JÁ ESTÁ CORRETA -->
         <g transform="translate(0, -191.91)">
           <circle cx="0" cy="0" r="8" fill="#888" />
-          <!-- Metade escura à esquerda (como na seção de fases) -->
-          <path d="M -8,-8 A 8,8 0 0 0 -8,8 A 8,8 0 0 0 0,8 L 0,-8 Z" fill="#111" />
-          <text x="-15" y="-65" fill="white" font-size="22">Quarto Crescente</text>
+          <!-- Metade escura à direita -->
+          <path d="M 0,-8 L 0,8 A 8,8 0 0 0 8,8 A 8,8 0 0 0 8,-8 Z" fill="#111" />
+          <text x="-15" y="-65" fill="white" font-size="22">Quarto Minguante</text>
           <text x="-15" y="-35" fill="#AAA" font-size="20">383.241 km</text>
-          <text x="-15" y="-15" fill="#AAA" font-size="20">Dia ~7.4</text>
+          <text x="-15" y="-15" fill="#AAA" font-size="20">Dia ~22.1</text>
         </g>
         
-        <!-- Posição 4: Lua Gibosa Crescente (135°) - CORRIGIDO -->
+        <!-- Posição 4: Lua Gibosa Minguante (135°) - JÁ ESTÁ CORRETA -->
         <g transform="translate(-135.76, -135.76)">
           <circle cx="0" cy="0" r="8" fill="#888" />
-          <!-- Pequena parte escura à esquerda (como na seção de fases) -->
-          <path d="M -8,-8 A 8,8 0 0 0 -8,8 A 8,8 0 0 0 -5,8 L -5,-8 Z" fill="#111" />
-          <text x="-170" y="-15" fill="white" font-size="22">Lua Gibosa Crescente</text>
+          <!-- Parte clara BEM MAIOR PARA A ESQUERDA e parte escura BEM MENOR PARA A DIREITA -->
+          <path d="M 6,-8 L 6,8 A 8,8 0 0 0 8,8 A 8,8 0 0 0 8,-8 Z" fill="#111" />
+          <text x="-170" y="-15" fill="white" font-size="22">Lua Gibosa Minguante</text>
           <text x="-140" y="5" fill="#AAA" font-size="20">~395.000 km</text>
-          <text x="-140" y="25" fill="#AAA" font-size="20">~Dia 11</text>
+          <text x="-140" y="25" fill="#AAA" font-size="20">~Dia 18</text>
         </g>
         
-        <!-- Posição 5: Lua Cheia (180°) - CORRETA -->
+        <!-- Posição 5: Lua Cheia (180°) - NÃO ALTERADA -->
         <g transform="translate(-192, 0)">
           <circle cx="0" cy="0" r="8" fill="#DDD" />
           <text x="-120" y="-15" fill="white" font-size="22">Lua Cheia</text>
@@ -285,35 +284,34 @@
           <text x="-120" y="25" fill="#AAA" font-size="20">Dia ~14.8</text>
         </g>
         
-        <!-- Posição 6: Lua Gibosa Minguante (225°) - CORRIGIDO -->
+        <!-- Posição 6: Lua Gibosa Crescente (225°) - JÁ ESTÁ CORRETA -->
         <g transform="translate(-135.76, 135.76)">
           <circle cx="0" cy="0" r="8" fill="#888" />
-          <!-- Pequena parte escura à direita (como na seção de fases) -->
-          <path d="M 5,-8 L 5,8 A 8,8 0 0 0 8,8 A 8,8 0 0 0 8,-8 Z" fill="#111" />
-          <text x="-170" y="25" fill="white" font-size="22">Lua Gibosa Minguante</text>
+          <!-- Parte clara BEM MAIOR PARA A DIREITA e parte escura BEM MENOR PARA A ESQUERDA -->
+          <path d="M -8,-8 L -8,8 A 8,8 0 0 0 -7,8 A 8,8 0 0 0 -7,-8 Z" fill="#111" />
+          <text x="-170" y="25" fill="white" font-size="22">Lua Gibosa Crescente</text>
           <text x="-140" y="45" fill="#AAA" font-size="20">~395.000 km</text>
-          <text x="-140" y="65" fill="#AAA" font-size="20">~Dia 18</text>
+          <text x="-140" y="65" fill="#AAA" font-size="20">~Dia 11</text>
         </g>
         
-        <!-- Posição 7: Quarto Minguante (270°) - CORRIGIDO -->
+        <!-- Posição 7: Quarto Crescente (270°) - JÁ ESTÁ CORRETA -->
         <g transform="translate(0, 191.91)">
           <circle cx="0" cy="0" r="8" fill="#888" />
-          <!-- Metade escura à direita (como na seção de fases) -->
-          <path d="M 0,-8 L 0,8 A 8,8 0 0 0 8,8 A 8,8 0 0 0 8,-8 Z" fill="#111" />
-          <text x="-25" y="45" fill="white" font-size="22">Quarto Minguante</text>
+          <!-- Metade escura à esquerda -->
+          <path d="M -8,-8 L -8,8 A 8,8 0 0 0 0,8 L 0,-8 Z" fill="#111" />
+          <text x="-25" y="45" fill="white" font-size="22">Quarto Crescente</text>
           <text x="-25" y="65" fill="#AAA" font-size="20">383.241 km</text>
-          <text x="-25" y="85" fill="#AAA" font-size="20">Dia ~22.1</text>
+          <text x="-25" y="85" fill="#AAA" font-size="20">Dia ~7.4</text>
         </g>
         
-        <!-- Posição 8: Lua Minguante (315°) - CORRIGIDO -->
+        <!-- Posição 8: Lua Crescente (315°) - AINDA MAIS ESCURA E MENOS CLARA -->
         <g transform="translate(135.76, 135.76)">
-          <circle cx="0" cy="0" r="8" fill="#888" />
-          <!-- Parte escura BEM maior à direita, parte clara BEM menorzinha à esquerda -->
-          <circle cx="0" cy="0" r="8" fill="#888" />
-          <path d="M -5,-8 L -5,8 A 8,8 0 0 0 8,8 A 8,8 0 0 0 8,-8 Z" fill="#111" />
-          <text x="15" y="25" fill="white" font-size="22">Lua Minguante</text>
+          <circle cx="0" cy="0" r="8" fill="#111" />
+          <!-- Parte clara MINÚSCULA PARA A DIREITA e parte ESCURA QUASE TOTAL -->
+          <path d="M 7.9,-8 L 7.9,8 A 8,8 0 0 0 8,8 A 8,8 0 0 0 8,-8 Z" fill="#888" />
+          <text x="15" y="25" fill="white" font-size="22">Lua Crescente</text>
           <text x="15" y="45" fill="#AAA" font-size="20">~373.000 km</text>
-          <text x="15" y="65" fill="#AAA" font-size="20">~Dia 26</text>
+          <text x="15" y="65" fill="#AAA" font-size="20">~Dia 7</text>
         </g>
       </g>
     </svg>
@@ -333,7 +331,7 @@
       
       <div class="phase-card">
         <div class="phase-circle">
-          <div class="dark-side" style="left: 0; width: 45px; border-radius: 60px 0 0 60px;"></div>
+          <div class="dark-side" style="left: 0; width: 59px; border-radius: 60px 0 0 60px;"></div>
         </div>
         <div class="phase-name">Crescente</div>
         <div class="phase-day">Dia 7</div>
@@ -349,7 +347,7 @@
       
       <div class="phase-card">
         <div class="phase-circle">
-          <div class="dark-side" style="left: 0; width: 15px; border-radius: 60px 0 0 60px;"></div>
+          <div class="dark-side" style="left: 0; width: 10px; border-radius: 60px 0 0 60px;"></div>
         </div>
         <div class="phase-name">Gibosa Crescente</div>
         <div class="phase-day">Dia 11</div>
@@ -381,7 +379,7 @@
       
       <div class="phase-card">
         <div class="phase-circle">
-          <div class="dark-side" style="right: 0; width: 45px; border-radius: 0 60px 60px 0;"></div>
+          <div class="dark-side" style="right: 0; width: 59px; border-radius: 0 60px 60px 0;"></div>
         </div>
         <div class="phase-name">Minguante</div>
         <div class="phase-day">Dia 26</div>
@@ -438,12 +436,14 @@
     <h3>Informações adicionais</h3>
             <!-- Legenda -->
             <p><strong class="strong">Órbita da Lua</strong></p>
-            <p>* Distância média Terra-Lua: 384.400 km</p>
-            <p>* Perigeu (ponto mais próximo): 363.296 km</p>
-            <p>* Apogeu (ponto mais distante): 405.504 km</p>
-            <p>* Período orbital sideral: 27,32 dias</p>
-            <p>* Período sinódico (ciclo de fases): 29,53 dias</p>
-            <p>* Excentricidade da órbita: 0,0549</p>
+            <ul>
+              <li> Distância média Terra-Lua: 384.400 km</li>
+              <li> Perigeu (ponto mais próximo): 363.296 km</li>
+              <li> Apogeu (ponto mais distante): 405.504 km</li>
+              <li> Período orbital sideral: 27,32 dias</li>
+              <li> Período sinódico (ciclo de fases): 29,53 dias</li>
+              <li> Excentricidade da órbita: 0,0549</li>
+            </ul>
     </div>
   </div>
 </body>
