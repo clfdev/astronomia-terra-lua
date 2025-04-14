@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="description" content="Vídeo da Translação da Terra e Estações do Ano no Brasil">
+  <title>Translação da Terra e Estações do Ano no Brasil</title>
+  <style>
+    body {
+      background-color: #1a1a2e;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      color: #e7e6e1;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      width: 100%;
+    }
+
+    canvas {
+      border: 2px solid #444;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 0, 255, 0.2);
+      margin-bottom: 20px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    button {
+      background-color: #4361ee;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+      min-width: 100px;
+      min-height: 44px; /* Mínimo recomendado para alvos de toque */
+      touch-action: manipulation;
+    }
+
+    button:hover, button:active {
+      background-color: #3046eb;
+    }
+
+    .speed-control {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .speed-control input[type="range"] {
+      width: 150px;
+      height: 30px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: #333;
+      border-radius: 10px;
+      padding: 0;
+    }
+
+    .speed-control input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 25px;
+      height: 25px;
+      background: #4361ee;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .speed-control input[type="range"]::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: #4361ee;
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+    }
+
+    .info-panel {
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+      max-width: 800px;
+      width: 100%;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+    }
+    
+    .back-button {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background-color: rgba(25, 25, 35, 0.9);
+      color: #8be9fd;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      z-index: 100;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .back-button:hover, .back-button:active {
+      background-color: rgba(35, 35, 45, 0.9);
+      transform: scale(1.05);
+    }
+    
+    @media (max-width: 600px) {
+      body {
+        padding: 15px;
+      }
+      
+      .back-button {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+      
+      .controls {
+        gap: 10px;
+      }
+      
+      button {
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+      
+      .info-panel {
+        padding: 15px;
+      }
+      
+      canvas {
+        max-height: 50vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-button">←</a>
+  <h1>Translação da Terra e Estações do Ano no Brasil</h1>
+  
+  <canvas id="orbitCanvas" width="800" height="700"></canvas>
+  
+  <div class="controls">
+    <button id="pauseBtn">Pausar</button>
+    <div class="speed-control">
+      <span>Velocidade:</span>
+      <input type="range" id="speedSlider" min="0.1" max="5" step="0.1" value="1">
+      <span id="speedValue">1.0x</span>
+    </div>
+  </div>
+  
+  <div class="info-section">
+    <h2>Estações do Ano no Brasil</h2>
+    
+    <div class="seasons-grid">
+      <div class="season-card" style="background-color: rgba(255, 87, 34, 0.2);">
+        <h3 style="color: #FF5722;">Verão</h3>
+        <p>Dezembro a Março</p>
+        <p class="note">Periélio - Terra mais próxima do Sol</p>
+      </div>
+      
+      <div class="season-card" style="background-color: rgba(255, 152, 0, 0.2);">
+        <h3 style="color: #FF9800;">Outono</h3>
+        <p>Março a Junho</p>
+        <p class="note">Equinócio - Dia e noite com mesma duração</p>
+      </div>
+      
+      <div class="season-card" style="background-color: rgba(33, 150, 243, 0.2);">
+        <h3 style="color: #2196F3;">Inverno</h3>
+        <p>Junho a Setembro</p>
+        <p class="note">Afélio - Terra mais distante do Sol</p>
+      </div>
+      
+      <div class="season-card" style="background-color: rgba(76, 175, 80, 0.2);">
+        <h3 style="color: #4CAF50;">Primavera</h3>
+        <p>Setembro a Dezembro</p>
+        <p class="note">Equinócio - Dia e noite com mesma duração</p>
+      </div>
+    </div>
+    
+    <div class="explanation">
+      <p>
+        Esta animação mostra a Terra em sua órbita elíptica ao redor do Sol, com foco nas estações
+        do ano no Brasil.
+      </p>
+      <p>
+        As estações são causadas principalmente pela inclinação do eixo da Terra (aproximadamente 23,5°)
+        em relação ao plano orbital. Esta inclinação faz com que diferentes hemisférios recebam
+        diferentes quantidades de luz solar ao longo do ano.
+      </p>
+      <p>
+        No Brasil (hemisfério sul), o verão ocorre quando o polo sul está inclinado na direção do Sol,
+        recebendo mais luz solar direta. O inverno ocorre quando o polo sul está inclinado para longe do Sol.
+      </p>
+    </div>
+    
+    <div class="keyboard-controls">
+      <p><strong>Controles:</strong></p>
+      <p>• Barra de espaço: Pausar/Continuar a animação</p>
+      <p>• Setas para cima/baixo: Ajustar a velocidade da translação</p>
+    </div>
+  </div>
+
+  <script>
+    // Configuração do canvas
+    const canvas = document.getElementById('orbitCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Definição de constantes
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const semiMajorAxis = 250; // Eixo maior da elipse orbital
+    const semiMinorAxis = 240; // Eixo menor da elipse orbital
+    const earthRadius = 20;
+    const sunRadius = 40;
+    const axialTilt = 23.5; // Inclinação do eixo da Terra (em graus)
+
+    // Estado da animação
+    let orbitalPosition = 0;
+    let isPaused = false;
+    let speed = 1;
+    
+    // Controles da interface
+    const pauseBtn = document.getElementById('pauseBtn');
+    const speedSlider = document.getElementById('speedSlider');
+    const speedValue = document.getElementById('speedValue');
+    
+    pauseBtn.addEventListener('click', function() {
+      isPaused = !isPaused;
+      pauseBtn.textContent = isPaused ? 'Continuar' : 'Pausar';
+    });
+    
+    speedSlider.addEventListener('input', function() {
+      speed = parseFloat(this.value);
+      speedValue.textContent = `${speed.toFixed(1)}x`;
+    });
+    
+    // Controles de teclado
+    document.addEventListener('keydown', function(e) {
+      if (e.code === 'Space') {
+        isPaused = !isPaused;
+        pauseBtn.textContent = isPaused ? 'Continuar' : 'Pausar';
+      } else if (e.code === 'ArrowUp') {
+        speed = Math.min(5, speed + 0.1);
+        speedSlider.value = speed;
+        speedValue.textContent = `${speed.toFixed(1)}x`;
+      } else if (e.code === 'ArrowDown') {
+        speed = Math.max(0.1, speed - 0.1);
+        speedSlider.value = speed;
+        speedValue.textContent = `${speed.toFixed(1)}x`;
+      }
+    });
+
+    // Calcular a posição da Terra na órbita
+    function calculateEarthPosition(angle) {
+      // Converter para radianos
+      const rad = (angle * Math.PI) / 180;
+      
+      // Calcular posição na elipse
+      const x = centerX + semiMajorAxis * Math.cos(rad);
+      const y = centerY + semiMinorAxis * Math.sin(rad);
+      
+      return { x, y };
+    }
+
+    // Determinar a estação atual no Brasil (hemisfério sul)
+    function getCurrentSeason(angle) {
+      // No hemisfério sul:
+      // 0° (periélio) - Verão (Dezembro a Março)
+      // 90° - Outono (Março a Junho)
+      // 180° (afélio) - Inverno (Junho a Setembro)
+      // 270° - Primavera (Setembro a Dezembro)
+      
+      if (angle >= 315 || angle < 45) {
+        return { 
+          name: "Verão", 
+          color: "#FF5722", 
+          month: getDayMonth(angle) 
+        };
+      } else if (angle >= 45 && angle < 135) {
+        return { 
+          name: "Outono", 
+          color: "#FF9800", 
+          month: getDayMonth(angle) 
+        };
+      } else if (angle >= 135 && angle < 225) {
+        return { 
+          name: "Inverno", 
+          color: "#2196F3", 
+          month: getDayMonth(angle) 
+        };
+      } else {
+        return { 
+          name: "Primavera", 
+          color: "#4CAF50", 
+          month: getDayMonth(angle) 
+        };
+      }
+    }
+
+    // Obter mês e dia aproximados com base no ângulo orbital
+    function getDayMonth(angle) {
+      // 0° = 21 de dezembro (solstício)
+      // 90° = 20 de março (equinócio)
+      // 180° = 21 de junho (solstício)
+      // 270° = 22 de setembro (equinócio)
+      
+      const months = [
+        "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+      ];
+      
+      // Ajuste para que 0° corresponda a 21 de dezembro
+      const adjustedAngle = (angle + 10) % 360;
+      const dayOfYear = Math.floor(adjustedAngle * 365 / 360);
+      
+      // Dias aproximados em cada mês
+      const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+      let month = 0;
+      
+      // Começar em dezembro (21 de dezembro)
+      let remainingDays = dayOfYear;
+      if (remainingDays < 10) {
+        return "21 de Dezembro";
+      }
+      
+      remainingDays -= 10; // Dias restantes de dezembro
+      
+      for (let i = 0; i < 12; i++) {
+        month = (i) % 12;
+        if (remainingDays < daysInMonth[month]) {
+          return `${remainingDays + 1} de ${months[month]}`;
+        }
+        remainingDays -= daysInMonth[month];
+      }
+      
+      return "21 de Dezembro";
+    }
+
+    // Função para determinar se estamos em um solstício ou equinócio
+    function getSpecialDay(angle) {
+      const tolerance = 3; // Tolerância em graus
+      
+      if (Math.abs(angle - 0) < tolerance || Math.abs(angle - 360) < tolerance) {
+        return "Solstício de Verão (Sul)";
+      } else if (Math.abs(angle - 90) < tolerance) {
+        return "Equinócio de Outono (Sul)";
+      } else if (Math.abs(angle - 180) < tolerance) {
+        return "Solstício de Inverno (Sul)";
+      } else if (Math.abs(angle - 270) < tolerance) {
+        return "Equinócio de Primavera (Sul)";
+      }
+      return "";
+    }
+
+    // Desenhar estrelas no fundo
+    function drawStars() {
+      const numStars = 200;
+      
+      for (let i = 0; i < numStars; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const radius = Math.random() * 1.5;
+        const opacity = Math.random() * 0.8 + 0.2;
+        
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+        ctx.fill();
+      }
+    }
+
+    // Desenhar a órbita da Terra
+    function drawOrbit() {
+      ctx.beginPath();
+      ctx.ellipse(centerX, centerY, semiMajorAxis, semiMinorAxis, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = '#444';
+      ctx.setLineDash([5, 5]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      
+      // Linhas de solstícios e equinócios
+      ctx.beginPath();
+      ctx.moveTo(centerX - semiMajorAxis, centerY);
+      ctx.lineTo(centerX + semiMajorAxis, centerY);
+      ctx.strokeStyle = '#666';
+      ctx.stroke();
+      
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY - semiMinorAxis);
+      ctx.lineTo(centerX, centerY + semiMinorAxis);
+      ctx.stroke();
+    }
+
+    // Desenhar o Sol
+    function drawSun() {
+      // Glow externo
+      const gradient = ctx.createRadialGradient(
+        centerX, centerY, sunRadius / 2,
+        centerX, centerY, sunRadius * 1.5
+      );
+      gradient.addColorStop(0, 'rgba(253, 184, 19, 0.8)');
+      gradient.addColorStop(1, 'rgba(253, 184, 19, 0)');
+      
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, sunRadius * 1.5, 0, Math.PI * 2);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+      
+      // Sol principal
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, sunRadius, 0, Math.PI * 2);
+      ctx.fillStyle = '#FDB813';
+      ctx.fill();
+      
+      // Círculos de glow adicional
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, sunRadius + 10, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(253, 184, 19, 0.3)';
+      ctx.fill();
+      
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, sunRadius + 20, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(253, 184, 19, 0.1)';
+      ctx.fill();
+    }
+
+    // Desenhar a Terra na sua posição atual
+    function drawEarth(position, season) {
+      const { x, y } = position;
+      
+      // Linha entre Sol e Terra
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY);
+      ctx.lineTo(x, y);
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+      ctx.setLineDash([3, 3]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      
+      // Salvar o contexto antes de aplicar transformações
+      ctx.save();
+      
+      // Transladar para a posição da Terra
+      ctx.translate(x, y);
+      
+      // Aplicar a inclinação do eixo
+      ctx.rotate((axialTilt * Math.PI) / 180);
+      
+      // Desenhar o globo terrestre
+      ctx.beginPath();
+      ctx.arc(0, 0, earthRadius, 0, Math.PI * 2);
+      ctx.fillStyle = '#1E88E5';
+      ctx.fill();
+      
+      // Desenhar continentes simplificados
+      ctx.beginPath();
+      ctx.moveTo(-earthRadius/2, -earthRadius/3);
+      ctx.quadraticCurveTo(
+        earthRadius/3, 0,
+        -earthRadius/2, earthRadius/3
+      );
+      ctx.fillStyle = '#4CAF50';
+      ctx.globalAlpha = 0.7;
+      ctx.fill();
+      ctx.globalAlpha = 1.0;
+      
+      // Desenhar o Brasil (destacado com a cor da estação)
+      ctx.beginPath();
+      ctx.arc(-earthRadius/2, earthRadius/4, earthRadius/5, 0, Math.PI * 2);
+      ctx.fillStyle = season.color;
+      ctx.fill();
+      
+      // Desenhar o eixo da Terra
+      ctx.beginPath();
+      ctx.moveTo(0, -earthRadius * 1.2);
+      ctx.lineTo(0, earthRadius * 1.2);
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      
+      // Restaurar o contexto
+      ctx.restore();
+    }
+    
+    // Desenhar o setor da estação atual
+    function drawSeasonSector(position, season) {
+      const prevAngle = (orbitalPosition - 45 + 360) % 360;
+      const prevPos = calculateEarthPosition(prevAngle);
+      
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY);
+      ctx.lineTo(prevPos.x, prevPos.y);
+      ctx.arc(
+        centerX, centerY,
+        semiMajorAxis,
+        (prevAngle * Math.PI) / 180,
+        (orbitalPosition * Math.PI) / 180,
+        false
+      );
+      ctx.lineTo(centerX, centerY);
+      ctx.fillStyle = season.color;
+      ctx.globalAlpha = 0.1;
+      ctx.fill();
+      ctx.globalAlpha = 1.0;
+    }
+    
+    // Desenhar os marcadores de estações
+    function drawSeasonMarkers() {
+      ctx.font = '14px Arial';
+      ctx.textBaseline = 'middle';
+      
+      // Verão (21 Dez)
+      ctx.fillStyle = '#FF5722';
+      ctx.textAlign = 'right';
+      ctx.fillText('Verão (21 Dez)', centerX - semiMajorAxis - 10, centerY);
+      
+      // Outono (20 Mar)
+      ctx.fillStyle = '#FF9800';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'bottom';
+      ctx.fillText('Outono (20 Mar)', centerX, centerY - semiMinorAxis - 10);
+      
+      // Inverno (21 Jun)
+      ctx.fillStyle = '#2196F3';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('Inverno (21 Jun)', centerX + semiMajorAxis + 10, centerY);
+      
+      // Primavera (22 Set)
+      ctx.fillStyle = '#4CAF50';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillText('Primavera (22 Set)', centerX, centerY + semiMinorAxis + 10);
+      
+      // Restaurar configurações padrão
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
+    }
+    
+    // Desenhar painel de informações
+    function drawInfoPanel(season) {
+      // Calcular a distância Terra-Sol
+      const earthPos = calculateEarthPosition(orbitalPosition);
+      const distance = Math.sqrt(
+        Math.pow(earthPos.x - centerX, 2) + 
+        Math.pow(earthPos.y - centerY, 2)
+      );
+      
+      const formattedDistance = (distance * 1000000 / semiMajorAxis).toFixed(1);
+      const specialDay = getSpecialDay(orbitalPosition);
+      
+      // Desenhar retângulo de fundo
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+      ctx.beginPath();
+      ctx.roundRect(20, 20, 250, specialDay ? 165 : 135, 5);
+      ctx.fill();
+      
+      // Definir estilo de texto
+      ctx.fillStyle = 'white';
+      ctx.font = 'bold 16px Arial';
+      
+      // Mostrar data
+      ctx.fillText(`Data: ${season.month}`, 30, 45);
+      
+      // Mostrar estação atual
+      ctx.font = '16px Arial';
+      ctx.fillText('Estação no Brasil: ', 30, 75);
+      ctx.fillStyle = season.color;
+      ctx.fillText(season.name, 175, 75);
+      
+      // Mostrar distância Terra-Sol
+      ctx.fillStyle = 'white';
+      ctx.fillText(`Distância Terra-Sol: ${formattedDistance} milhões km`, 30, 105);
+      
+      // Mostrar ângulo orbital
+      ctx.fillText(`Ângulo orbital: ${Math.round(orbitalPosition)}°`, 30, 135);
+      
+      // Mostrar evento especial (solstícios/equinócios)
+      if (specialDay) {
+        ctx.fillStyle = '#FFD700';
+        ctx.font = 'bold 16px Arial';
+        ctx.fillText(specialDay, 30, 165);
+      }
+    }
+    
+    // Função principal de renderização
+    function render() {
+      // Limpar o canvas
+      ctx.fillStyle = 'black';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Desenhar elementos da cena
+      drawStars();
+      drawOrbit();
+      drawSeasonMarkers();
+      drawSun();
+      
+      // Calcular a posição atual da Terra
+      const earthPosition = calculateEarthPosition(orbitalPosition);
+      
+      // Determinar a estação atual
+      const currentSeason = getCurrentSeason(orbitalPosition);
+      
+      // Desenhar o setor da estação
+      drawSeasonSector(earthPosition, currentSeason);
+      
+      // Desenhar a Terra
+      drawEarth(earthPosition, currentSeason);
+      
+      // Desenhar informações
+      drawInfoPanel(currentSeason);
+      
+      // Atualizar a posição orbital
+      if (!isPaused) {
+        orbitalPosition = (orbitalPosition + 0.5 * speed) % 360;
+      }
+      
+      // Continuar a animação
+      requestAnimationFrame(render);
+    }
+    
+    // Iniciar a animação
+    render();
+  </script>
+</body>
+</html>

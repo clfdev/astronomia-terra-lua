@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="description" content="Vídeo da Rotação da Terra - Ciclo Dia/Noite no Brasil">
+  <title>Rotação da Terra - Ciclo Dia/Noite no Brasil</title>
+  <style>
+    body {
+      background-color: #1a1a2e;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      color: #e7e6e1;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      width: 100%;
+    }
+
+    canvas {
+      border: 2px solid #444;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 0, 255, 0.2);
+      margin-bottom: 20px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    button {
+      background-color: #4361ee;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+      min-width: 100px;
+      min-height: 44px; /* Mínimo recomendado para alvos de toque */
+      touch-action: manipulation;
+    }
+
+    button:hover, button:active {
+      background-color: #3046eb;
+    }
+
+    .speed-control {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .speed-control input[type="range"] {
+      width: 150px;
+      height: 30px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: #333;
+      border-radius: 10px;
+      padding: 0;
+    }
+
+    .speed-control input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 25px;
+      height: 25px;
+      background: #4361ee;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .speed-control input[type="range"]::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: #4361ee;
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+    }
+
+    .info-section {
+      max-width: 800px;
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      border-radius: 8px;
+      line-height: 1.6;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+    }
+
+    h2 {
+      color: #e7e6e1;
+      border-bottom: 1px solid #444;
+      padding-bottom: 8px;
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+    }
+
+    .info-section p {
+      margin-bottom: 15px;
+    }
+
+    .keyboard-controls {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    .keyboard-controls p {
+      margin: 5px 0;
+    }
+    
+    .back-button {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background-color: rgba(25, 25, 35, 0.9);
+      color: #8be9fd;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      z-index: 100;
+      transition: all 0.3s ease;
+      min-width: auto;
+    }
+    
+    .back-button:hover, .back-button:active {
+      background-color: rgba(35, 35, 45, 0.9);
+      transform: scale(1.05);
+    }
+    
+    @media (max-width: 600px) {
+      body {
+        padding: 15px;
+      }
+      
+      .back-button {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+      
+      .controls {
+        gap: 10px;
+      }
+      
+      button {
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+      
+      .info-section {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="back-button" onclick="window.location.href='index.html'">←</button>
+  
+  <h1>Rotação da Terra e Ciclo Dia/Noite no Brasil</h1>
+  
+  <div id="canvas-container">
+    <!-- O canvas será inserido aqui pelo JavaScript -->
+  </div>
+  
+  <div class="controls">
+    <button id="pauseBtn">Pausar</button>
+    <div class="speed-control">
+      <span>Velocidade:</span>
+      <input type="range" id="speedSlider" min="0.1" max="5" step="0.1" value="1">
+      <span id="speedValue">1.0x</span>
+    </div>
+  </div>
+  
+  <div class="info-section">
+    <h2>Sobre esta Visualização</h2>
+    <p>
+      Esta animação demonstra a rotação da Terra em torno de seu próprio eixo, destacando 
+      como o Brasil experimenta a alternância entre dia e noite durante um período de 24 horas.
+    </p>
+    <p>
+      <strong>Aspectos físicos importantes:</strong>
+    </p>
+    <p>
+      • O Sol (representado pela esfera amarela à direita) é fixo nesta visualização
+    </p>
+    <p>
+      • A Terra gira em torno de seu eixo completando uma volta a cada 24 horas
+    </p>
+    <p>
+      • A metade da Terra voltada para o Sol está sempre iluminada (dia)
+    </p>
+    <p>
+      • A metade oposta ao Sol está sempre na sombra (noite)
+    </p>
+    <p>
+      • À medida que a Terra gira, diferentes regiões (incluindo o Brasil) passam pelos 
+      períodos de dia e noite
+    </p>
+    <p>
+      A linha laranja na visualização representa o <strong>terminadouro</strong>, a fronteira 
+      entre as regiões iluminadas e escuras da Terra. Esta linha permanece fixa em relação ao Sol, 
+      enquanto a Terra gira, levando diferentes regiões a experimentar dia e noite.
+    </p>
+    
+    <div class="keyboard-controls">
+      <p><strong>Controles:</strong></p>
+      <p>• Clique no botão "Pausar/Continuar" ou pressione a barra de espaço para interromper ou retomar a animação</p>
+      <p>• Use o controle deslizante ou as teclas de seta (↑/↓) para ajustar a velocidade da rotação</p>
+    </div>
+  </div>
+
+  <script>
+    // O código JavaScript será colocado aqui
+    // Configuração do canvas
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 800;
+    canvas.height = 600;
+    document.getElementById('canvas-container').appendChild(canvas);
+
+    // Definição de constantes
+    const earthRadius = 150;
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const sunRadius = 50;
+    const sunCenterX = canvas.width - 120;
+    const sunCenterY = centerY;
+
+    // Estado da animação
+    let rotation = 0;
+    let isPaused = false;
+    let speed = 1;
+
+    // Coordenadas aproximadas para o contorno do Brasil (simplificado)
+    const brazilPoints = [
+      { lon: -48, lat: -1 },   // Norte
+      { lon: -35, lat: -5 },   // Nordeste
+      { lon: -38, lat: -12 },  // Leste
+      { lon: -43, lat: -23 },  // Sudeste
+      { lon: -52, lat: -30 },  // Sul
+      { lon: -65, lat: -18 },  // Centro-Oeste
+      { lon: -67, lat: -10 },  // Oeste
+      { lon: -60, lat: -5 },   // Noroeste
+      { lon: -48, lat: -1 }    // Fecha o caminho
+    ];
+
+    // Função para desenhar estrelas aleatórias
+    function drawStars() {
+      for (let i = 0; i < 100; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const radius = Math.random() * 1.5;
+        const opacity = Math.random() * 0.8 + 0.2;
+        
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+        ctx.fill();
+      }
+    }
+
+    // Função para desenhar o Sol
+    function drawSun() {
+      // Glow externo
+      const gradient = ctx.createRadialGradient(
+        sunCenterX, sunCenterY, sunRadius / 2,
+        sunCenterX, sunCenterY, sunRadius * 1.5
+      );
+      gradient.addColorStop(0, 'rgba(255, 215, 0, 0.8)');
+      gradient.addColorStop(1, 'rgba(255, 215, 0, 0)');
+      
+      ctx.beginPath();
+      ctx.arc(sunCenterX, sunCenterY, sunRadius * 1.5, 0, Math.PI * 2);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+      
+      // Sol principal
+      ctx.beginPath();
+      ctx.arc(sunCenterX, sunCenterY, sunRadius, 0, Math.PI * 2);
+      ctx.fillStyle = '#FFD700';
+      ctx.fill();
+      
+      // Raios de luz
+      drawSunRays();
+    }
+
+    // Função para desenhar raios solares
+    function drawSunRays() {
+      ctx.strokeStyle = 'rgba(255, 215, 0, 0.2)';
+      ctx.lineWidth = 1;
+      
+      // Raio central
+      ctx.beginPath();
+      ctx.moveTo(sunCenterX, sunCenterY);
+      ctx.lineTo(centerX, centerY);
+      ctx.stroke();
+      
+      // Raios adicionais
+      for (let i = 0; i < 5; i++) {
+        const angle = (i / 5) * Math.PI;
+        const offsetY = Math.sin(angle) * 50;
+        
+        ctx.beginPath();
+        ctx.moveTo(sunCenterX, sunCenterY + offsetY);
+        ctx.lineTo(centerX, centerY + offsetY);
+        ctx.stroke();
+      }
+    }
+
+    // Função para determinar se um ponto está visível (na parte da frente da esfera)
+    function isVisible(longitude, rotationAngle) {
+      const adjustedLon = (longitude + 180) % 360 - 180; // Normalizar para -180 a 180
+      const angle = (adjustedLon * Math.PI) / 180 + rotationAngle;
+      return Math.cos(angle) > 0;
+    }
+
+    // Função para determinar se um ponto está na parte iluminada pelo Sol
+    function isIlluminated(longitude, rotationAngle) {
+      // CORRIGIDO: Sol está à direita, então pontos voltados para a direita estão iluminados
+      const adjustedLon = (longitude + 180) % 360 - 180; // Normalizar para -180 a 180
+      const angle = (adjustedLon * Math.PI) / 180 + rotationAngle;
+      
+      // Quando o cosseno é positivo, o ponto está voltado para a direita (para o Sol)
+      return Math.cos(angle) > 0;
+    }
+
+    // Função para desenhar a Terra com sua rotação atual
+    function drawEarth() {
+      // Terra base (oceanos)
+      ctx.save();
+      
+      // CORRIGIDO: Rotacionar todo o globo terrestre, incluindo os continentes
+      ctx.translate(centerX, centerY);
+      ctx.rotate(rotation);
+      
+      // Desenhar o globo
+      ctx.beginPath();
+      ctx.arc(0, 0, earthRadius, 0, Math.PI * 2);
+      ctx.fillStyle = '#1E90FF';
+      ctx.fill();
+      
+      // Desenhar continentes simplificados
+      ctx.beginPath();
+      ctx.moveTo(0, -earthRadius * 0.7);
+      ctx.bezierCurveTo(
+        earthRadius * 0.6, -earthRadius * 0.5,
+        earthRadius * 0.7, earthRadius * 0.3,
+        0, earthRadius * 0.6
+      );
+      ctx.bezierCurveTo(
+        -earthRadius * 0.5, earthRadius * 0.4,
+        -earthRadius * 0.6, -earthRadius * 0.3,
+        0, -earthRadius * 0.7
+      );
+      
+      ctx.fillStyle = 'rgba(34, 139, 34, 0.7)';
+      ctx.fill();
+      
+      // Desenhar o Brasil na Terra em rotação
+      drawBrazilOnGlobe();
+      
+      ctx.restore();
+      
+      // Desenhar o lado noturno (sombra) - fixo em relação ao Sol
+      drawNightSide();
+      
+      // Linha do terminadouro (separação dia/noite) - fixa em relação ao Sol
+      drawTerminator();
+    }
+
+    function drawBrazilOnGlobe() {
+  // O Brasil estará iluminado se estiver no lado positivo do eixo X após a rotação
+  // Isso é calculado verificando se a projeção do Brasil no eixo X (após rotação) é positiva
+  const brazilAngle = (-Math.PI/3 + rotation) % (2 * Math.PI);
+  const isBrazilIlluminated = Math.cos(brazilAngle) > 0;
+  
+  // CORRIGIDO: Cor mais viva quando iluminado, cor mais escura quando na sombra
+  // Invertendo as cores para ficar correto
+  const fillColor = isBrazilIlluminated ? '#004400' : '#7CFC00';  // Invertido aqui
+  
+  // Coordenadas do Brasil em relação ao centro da Terra
+  const brazilX = 0;  // Centralizado horizontalmente
+  const brazilY = earthRadius * 0.2;  // Na parte superior dos continentes
+  
+  // Desenhar o losango que representa o Brasil
+  ctx.beginPath();
+  ctx.moveTo(brazilX, brazilY - earthRadius * 0.08); // Ponto superior
+  ctx.lineTo(brazilX + earthRadius * 0.08, brazilY); // Ponto direito
+  ctx.lineTo(brazilX, brazilY + earthRadius * 0.08); // Ponto inferior
+  ctx.lineTo(brazilX - earthRadius * 0.08, brazilY); // Ponto esquerdo
+  ctx.closePath();
+  
+  ctx.fillStyle = fillColor;
+  ctx.fill();
+  ctx.strokeStyle = 'white';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+}
+
+ // Função para desenhar o lado noturno (sombra)
+    function drawNightSide() {
+      ctx.save();
+      
+      // Criar um clipping path para a metade da Terra
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, earthRadius, 0, Math.PI * 2);
+      ctx.clip();
+      
+      // Desenhar retângulo que cobre a metade esquerda da Terra (lado noturno)
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+      ctx.fillRect(centerX - earthRadius, centerY - earthRadius, earthRadius, earthRadius * 2);
+      
+      ctx.restore();
+    }
+
+    // Função para desenhar o terminadouro (linha entre dia e noite)
+    function drawTerminator() {
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY - earthRadius);
+      ctx.lineTo(centerX, centerY + earthRadius);
+      ctx.strokeStyle = 'rgba(255, 165, 0, 0.5)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    // Função para desenhar as informações de texto
+    function drawInfo() {
+      // Calcular se o Brasil está na parte visível e iluminada
+      const brazilRotatedAngle = (-Math.PI/3 + rotation) % (2 * Math.PI);
+      const isBrazilVisible = Math.cos(brazilRotatedAngle) > 0;
+      const isBrazilIlluminated = Math.cos(brazilRotatedAngle) > 0;
+      
+      // Calcular hora aproximada no Brasil
+      // 0° corresponde ao meio-dia (Sol à direita), 180° à meia-noite
+      const brazilHour = ((((-Math.PI/3 + rotation) * 12 / Math.PI) + 12) % 24).toFixed(1);
+      
+      ctx.fillStyle = 'white';
+      ctx.font = 'bold 16px Arial';
+      ctx.fillText(`Ângulo de rotação: ${(rotation * 180 / Math.PI).toFixed(0)}°`, 20, 30);
+      
+      ctx.font = '16px Arial';
+      ctx.fillText(`Hora local aproximada no Brasil: ${brazilHour}h`, 20, 60);
+      ctx.fillText(`Brasil está ${isBrazilVisible ? 'visível' : 'não visível'} (lado ${isBrazilVisible ? 'próximo' : 'oposto'})`, 20, 90);
+      ctx.fillText(`Brasil está ${isBrazilIlluminated ? 'iluminado (dia)' : 'na sombra (noite)'}`, 20, 120);
+    }
+
+    // Função principal de renderização
+    function render() {
+      // Limpar o canvas
+      ctx.fillStyle = 'black';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Desenhar elementos da cena
+      drawStars();
+      drawSun();
+      drawEarth();
+      drawInfo();
+      
+      // Atualizar rotação se não estiver pausado
+      if (!isPaused) {
+        rotation = (rotation + 0.01 * speed) % (2 * Math.PI);
+      }
+      
+      // Continuar a animação
+      requestAnimationFrame(render);
+    }
+
+    // Controles de interface
+    const pauseBtn = document.getElementById('pauseBtn');
+    const speedSlider = document.getElementById('speedSlider');
+    const speedValue = document.getElementById('speedValue');
+
+    pauseBtn.addEventListener('click', () => {
+      isPaused = !isPaused;
+      pauseBtn.textContent = isPaused ? 'Continuar' : 'Pausar';
+    });
+
+    speedSlider.addEventListener('input', () => {
+      speed = parseFloat(speedSlider.value);
+      speedValue.textContent = speed.toFixed(1) + 'x';
+    });
+
+    // Controles de teclado
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') {
+        isPaused = !isPaused;
+        pauseBtn.textContent = isPaused ? 'Continuar' : 'Pausar';
+      } else if (e.code === 'ArrowUp') {
+        speed = Math.min(5, speed + 0.1);
+        speedSlider.value = speed;
+        speedValue.textContent = speed.toFixed(1) + 'x';
+      } else if (e.code === 'ArrowDown') {
+        speed = Math.max(0.1, speed - 0.1);
+        speedSlider.value = speed;
+        speedValue.textContent = speed.toFixed(1) + 'x';
+      }
+    });
+
+    // Iniciar a animação
+    render();
+  </script>
+</body>
+</html>

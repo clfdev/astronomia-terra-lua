@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="description" content="Vídeo do Movimento e Fases da Lua">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content="#1a1a2e">
+  <title>Movimento e Fases da Lua</title>
+  <style>
+    body {
+      background-color: #1a1a2e;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      color: #e7e6e1;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      width: 100%;
+    }
+
+    canvas {
+      border: 2px solid #444;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(108, 99, 255, 0.2);
+      margin-bottom: 20px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    button {
+      background-color: #4361ee;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+      min-width: 100px;
+      min-height: 44px; /* Mínimo recomendado para alvos de toque */
+      touch-action: manipulation;
+    }
+
+    button:hover, button:active {
+      background-color: #3046eb;
+    }
+
+    .speed-control {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .speed-control input[type="range"] {
+      width: 150px;
+      height: 30px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: #333;
+      border-radius: 10px;
+      padding: 0;
+    }
+
+    .speed-control input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 25px;
+      height: 25px;
+      background: #4361ee;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .speed-control input[type="range"]::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: #4361ee;
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+    }
+
+    .info-section {
+      max-width: 800px;
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      border-radius: 8px;
+      line-height: 1.6;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+      width: 100%;
+    }
+
+    h2 {
+      color: #e7e6e1;
+      border-bottom: 1px solid #444;
+      padding-bottom: 8px;
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+    }
+
+    .moon-phases {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .phase-card {
+      background-color: rgba(0, 0, 0, 0.2);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      width: 150px;
+      transition: transform 0.3s;
+    }
+
+    .phase-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .phase-image {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 10px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .phase-name {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #e7e6e1;
+    }
+
+    .phase-day {
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    .info-section h3 {
+      color: #8be9fd;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    }
+
+    .info-section p, .info-section li {
+      margin-bottom: 10px;
+    }
+
+    .info-section ul {
+      padding-left: 20px;
+    }
+
+    .keyboard-controls {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    .keyboard-controls p {
+      margin: 5px 0;
+    }
+    
+    .back-button {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background-color: rgba(25, 25, 35, 0.9);
+      color: #8be9fd;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 100;
+      text-decoration: none;
+      transition: background-color 0.3s, transform 0.2s;
+      min-height: 44px; /* Mínimo recomendado para alvos de toque */
+      touch-action: manipulation;
+    }
+    
+    .back-button:hover, .back-button:active {
+      background-color: rgba(35, 35, 50, 0.95);
+      transform: scale(1.05);
+    }
+    
+    @media (max-width: 600px) {
+      body {
+        padding: 15px;
+      }
+      
+      .back-button {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+      
+      .controls {
+        gap: 10px;
+      }
+      
+      button {
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+      
+      .info-section {
+        padding: 15px;
+      }
+      
+      canvas {
+        max-height: 50vh;
+      }
+      
+      .moon-phases {
+        gap: 10px;
+      }
+      
+      .phase-card {
+        width: calc(50% - 15px);
+        padding: 10px;
+      }
+      
+      .phase-image {
+        width: 60px;
+        height: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="back-button" onclick="window.location.href='index.html'">←</button>
+  
+  <h1>Movimento e Fases da Lua</h1>
+  
+  <canvas id="moonCanvas" width="800" height="600"></canvas>
+  
+  <div class="controls">
+    <button id="pauseBtn">Pausar</button>
+    <div class="speed-control">
+      <span>Velocidade:</span>
+      <input type="range" id="speedSlider" min="0.1" max="5" step="0.1" value="1">
+      <span id="speedValue">1.0x</span>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h2>Fases da Lua</h2>
+    
+    <div class="moon-phases">
+      <div class="phase-card">
+        <div class="phase-circle">
+          <div class="dark-side" style="left: 0; right: 0;"></div>
+        </div>
+        <div class="phase-name">Lua Nova</div>
+        <div class="phase-day">Dia 1</div>
+      </div>
+      
+      <div class="phase-card">
+        <div class="phase-circle">
+          <div class="dark-side" style="left: 0; width: 45px; border-radius: 60px 0 0 60px;"></div>
+        </div>
+        <div class="phase-name">Crescente</div>
+        <div class="phase-day">Dia 7</div>
+      </div>
+      
+      <div class="phase-card">
+        <div class="phase-circle">
+          <div class="dark-side" style="left: 0; width: 30px; border-radius: 60px 0 0 60px;"></div>
+        </div>
+        <div class="phase-name">Quarto Crescente</div>
+        <div class="phase-day">Dia 7.4</div>
+      </div>
+      
+      <div class="phase-card">
+        <div class="phase-circle">
+          <div class="dark-side" style="left: 0; width: 15px; border-radius: 60px 0 0 60px;"></div>
+        </div>
+        <div class="phase-name">Gibosa Crescente</div>
+        <div class="phase-day">Dia 11</div>
+      </div>
+      
+      <div class="phase-card">
+        <div class="phase-circle">
+          <!-- Lua Cheia não tem parte escura -->
+        </div>
+        <div class="phase-name">Lua Cheia</div>
+        <div class="phase-day">Dia 14.8</div>
+      </div>
+      
+      <div class="phase-card">
+        <div class="phase-circle">
+          <div class="dark-side" style="right: 0; width: 15px; border-radius: 0 60px 60px 0;"></div>
+        </div>
+        <div class="phase-name">Gibosa Minguante</div>
+        <div class="phase-day">Dia 18</div>
+      </div>
+      
+      <div class="phase-card">
+        <div class="phase-circle">
+          <div class="dark-side" style="right: 0; width: 30px; border-radius: 0 60px 60px 0;"></div>
+        </div>
+        <div class="phase-name">Quarto Minguante</div>
+        <div class="phase-day">Dia 22.1</div>
+      </div>
+      
+      <div class="phase-card">
+        <div class="phase-circle">
+          <div class="dark-side" style="right: 0; width: 45px; border-radius: 0 60px 60px 0;"></div>
+        </div>
+        <div class="phase-name">Minguante</div>
+        <div class="phase-day">Dia 26</div>
+      </div>
+    </div>
+    
+    <h2>Informações sobre o Movimento Lunar</h2>
+    
+    <p>
+      A Lua realiza um movimento elíptico ao redor da Terra, com uma excentricidade de 0,0549,
+      significativamente maior que a excentricidade da órbita da Terra ao redor do Sol (0,0167).
+    </p>
+    
+    <p>
+      <strong>A equação do deslocamento lunar:</strong><br>
+      <span style="color: #8CF; font-size: 1.2em; font-weight: bold;">r = a(1-e²)/(1+e·cos(θ))</span>
+    </p>
+    
+    <p>
+      Onde:
+      <ul>
+        <li>r é a distância Terra-Lua</li>
+        <li>a é o semi-eixo maior da órbita (384.400 km)</li>
+        <li>e é a excentricidade da órbita (0,0549)</li>
+        <li>θ é o ângulo no plano orbital</li>
+      </ul>
+    </p>
+    
+    <p>
+      A variação da distância entre o perigeu e o apogeu é de aproximadamente 42.207 km,
+      o que representa cerca de 11% da distância média Terra-Lua.
+    </p>
+    
+    <table>
+      <tr>
+        <th>Parâmetro</th>
+        <th>Valor</th>
+      </tr>
+      <tr>
+        <td>Período orbital sideral</td>
+        <td>27,32 dias</td>
+      </tr>
+      <tr>
+        <td>Período sinódico (ciclo de fases)</td>
+        <td>29,53 dias</td>
+      </tr>
+      <tr>
+        <td>Distância média Terra-Lua</td>
+        <td>384.400 km</td>
+      </tr>
+      <tr>
+        <td>Distância no perigeu (mínima)</td>
+        <td>363.296 km</td>
+      </tr>
+      <tr>
+        <td>Distância no apogeu (máxima)</td>
+        <td>405.504 km</td>
+      </tr>
+      <tr>
+        <td>Excentricidade da órbita</td>
+        <td>0,0549</td>
+      </tr>
+      <tr>
+        <td>Inclinação orbital</td>
+        <td>5,14°</td>
+      </tr>
+    </table>
+    
+    <h2>Características das Fases Lunares</h2>
+    
+    <p>
+      As fases da Lua resultam da posição relativa entre a Lua, a Terra e o Sol. À medida que a Lua
+      orbita a Terra, diferentes porções da face iluminada pelo Sol são visíveis da Terra:
+    </p>
+    
+    <ul>
+      <li><strong>Lua Nova:</strong> A face iluminada da Lua está voltada para o Sol e não é visível da Terra.</li>
+      <li><strong>Quarto Crescente:</strong> Metade da face visível da Lua está iluminada, formando um "D".</li>
+      <li><strong>Lua Cheia:</strong> A face visível da Lua está completamente iluminada.</li>
+      <li><strong>Quarto Minguante:</strong> Metade da face visível está iluminada, formando um "C".</li>
+    </ul>
+    
+    <p>
+      <strong>Características adicionais:</strong>
+    </p>
+    
+    <ul>
+      <li><strong>Rotação síncrona:</strong> A Lua sempre mostra a mesma face para a Terra, pois seu período de rotação é igual ao seu período orbital.</li>
+      <li><strong>Inclinação orbital:</strong> A órbita da Lua tem uma inclinação de aproximadamente 5,14° em relação ao plano da eclíptica (órbita da Terra ao redor do Sol).</li>
+      <li><strong>Esta inclinação é responsável por eclipses não ocorrerem mensalmente.</strong></li>
+    </ul>
+    
+    <div class="keyboard-controls">
+      <p><strong>Controles:</strong></p>
+      <p>• Barra de espaço: Pausar/Continuar a animação</p>
+      <p>• Setas para cima/baixo: Ajustar a velocidade da rotação</p>
+    </div>
+  </div>
+
+  <script>
+    // Configuração do canvas
+    const canvas = document.getElementById('moonCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Definição de constantes
+    const earthRadius = 50;
+    const lunarRadius = 15;
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const orbitMajorAxis = 200; // Eixo maior da elipse orbital
+    const orbitMinorAxis = 190; // Eixo menor da elipse orbital
+    const lunarOrbitEccentricity = 0.0549; // Excentricidade da órbita lunar
+    
+    // Dados fundamentais sobre a órbita lunar
+    const lunarOrbitalPeriod = 27.32; // Período orbital sideral em dias
+    const lunarSynodicPeriod = 29.53; // Período sinódico (ciclo completo de fases) em dias
+    const lunarSemiMajorAxis = 384400; // Semi-eixo maior em km
+    const perigee = lunarSemiMajorAxis * (1 - lunarOrbitEccentricity); // Distância mínima (perigeu)
+    const apogee = lunarSemiMajorAxis * (1 + lunarOrbitEccentricity); // Distância máxima (apogeu)
+
+    // Estado da animação
+    let orbitalPosition = 0; // Posição orbital em graus
+    let isPaused = false;
+    let speed = 1;
+    
+    // Controles da interface
+    const pauseBtn = document.getElementById('pauseBtn');
+    const speedSlider = document.getElementById('speedSlider');
+    const speedValue = document.getElementById('speedValue');
+    
+    pauseBtn.addEventListener('click', function() {
+      isPaused = !isPaused;
+      pauseBtn.textContent = isPaused ? 'Continuar' : 'Pausar';
+    });
+    
+    speedSlider.addEventListener('input', function() {
+      speed = parseFloat(this.value);
+      speedValue.textContent = `${speed.toFixed(1)}x`;
+    });
+    
+    // Controles de teclado
+    document.addEventListener('keydown', function(e) {
+      if (e.code === 'Space') {
+        isPaused = !isPaused;
+        pauseBtn.textContent = isPaused ? 'Continuar' : 'Pausar';
+      } else if (e.code === 'ArrowUp') {
+        speed = Math.min(5, speed + 0.1);
+        speedSlider.value = speed;
+        speedValue.textContent = `${speed.toFixed(1)}x`;
+      } else if (e.code === 'ArrowDown') {
+        speed = Math.max(0.1, speed - 0.1);
+        speedSlider.value = speed;
+        speedValue.textContent = `${speed.toFixed(1)}x`;
+      }
+    });
+
+    // Função para calcular a distância lunar em função do ângulo θ na órbita
+    function lunarDistance(theta) {
+      // Equação da elipse em coordenadas polares
+      return lunarSemiMajorAxis * (1 - lunarOrbitEccentricity**2) / 
+             (1 + lunarOrbitEccentricity * Math.cos(theta));
+    }
+    
+    // Função para calcular a posição da Lua na órbita
+    function calculateMoonPosition(angle) {
+      // Converter para radianos
+      const rad = (angle * Math.PI) / 180;
+      
+      // Calcular posição na elipse
+      const scaledDistance = orbitMajorAxis * (1 - lunarOrbitEccentricity**2) / 
+                            (1 + lunarOrbitEccentricity * Math.cos(rad));
+      
+      const x = centerX + scaledDistance * Math.cos(rad);
+      const y = centerY + scaledDistance * Math.sin(rad);
+      
+      return { x, y };
+    }
+    
+    // Função para determinar a fase da Lua com base no ângulo
+    function getMoonPhase(angle) {
+      // Normalize o ângulo para 0-360
+      const normalizedAngle = (angle % 360 + 360) % 360;
+      
+      // Definir as fases principais
+      if (normalizedAngle >= 350 || normalizedAngle < 10) {
+        return { name: "Lua Nova", day: 1 };
+      } else if (normalizedAngle >= 10 && normalizedAngle < 80) {
+        return { name: "Lua Crescente", day: 7 };
+      } else if (normalizedAngle >= 80 && normalizedAngle < 100) {
+        return { name: "Quarto Crescente", day: 7.4 };
+      } else if (normalizedAngle >= 100 && normalizedAngle < 170) {
+        return { name: "Lua Gibosa Crescente", day: 11 };
+      } else if (normalizedAngle >= 170 && normalizedAngle < 190) {
+        return { name: "Lua Cheia", day: 14.8 };
+      } else if (normalizedAngle >= 190 && normalizedAngle < 260) {
+        return { name: "Lua Gibosa Minguante", day: 18 };
+      } else if (normalizedAngle >= 260 && normalizedAngle < 280) {
+        return { name: "Quarto Minguante", day: 22.1 };
+      } else {
+        return { name: "Lua Minguante", day: 26 };
+      }
+    }
+
+    // Desenhar estrelas no fundo
+    function drawStars() {
+      const numStars = 200;
+      
+      for (let i = 0; i < numStars; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const radius = Math.random() * 1.5;
+        const opacity = Math.random() * 0.8 + 0.2;
+        
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+        ctx.fill();
+      }
+    }
+    
+    // Desenhar a órbita da Lua
+    function drawOrbit() {
+      ctx.beginPath();
+      ctx.ellipse(centerX, centerY, orbitMajorAxis, orbitMinorAxis, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = '#444';
+      ctx.setLineDash([2, 2]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+    
+    // Desenhar a Terra
+    function drawEarth() {
+      // Glow da Terra
+      const gradient = ctx.createRadialGradient(
+        centerX, centerY, earthRadius * 0.8,
+        centerX, centerY, earthRadius * 1.2
+      );
+      gradient.addColorStop(0, 'rgba(30, 144, 255, 0.8)');
+      gradient.addColorStop(1, 'rgba(30, 144, 255, 0)');
+      
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, earthRadius * 1.2, 0, Math.PI * 2);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+      
+      // Terra principal
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, earthRadius, 0, Math.PI * 2);
+      
+      // Gradiente para a Terra
+      const earthGradient = ctx.createRadialGradient(
+        centerX, centerY, 0,
+        centerX, centerY, earthRadius
+      );
+      earthGradient.addColorStop(0, '#4477CC');
+      earthGradient.addColorStop(0.6, '#1E90FF');
+      earthGradient.addColorStop(1, '#104E8B');
+      
+      ctx.fillStyle = earthGradient;
+      ctx.fill();
+      
+      // Adicionar continentes simplificados
+      ctx.beginPath();
+      ctx.arc(centerX - 10, centerY - 10, earthRadius * 0.4, 0, Math.PI * 1.2);
+      ctx.arc(centerX + 15, centerY + 5, earthRadius * 0.3, 0, Math.PI * 1.5);
+      ctx.fillStyle = 'rgba(34, 139, 34, 0.7)';
+      ctx.fill();
+    }
+    
+    // Desenhar a Lua em sua posição atual com a fase correta
+    function drawMoon(position, phase) {
+      const { x, y } = position;
+      
+      // Linha entre Terra e Lua
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY);
+      ctx.lineTo(x, y);
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+      ctx.setLineDash([2, 2]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      
+      // Calcular a direção para o Sol (fixo à direita)
+      const sunDirection = 0; // 0 radianos = direção leste
+      
+      // Ângulo da Lua em torno da Terra
+      const moonAngle = Math.atan2(y - centerY, x - centerX);
+      
+      // Diferença de ângulo entre a posição da Lua e a direção do Sol
+      // Isto determina qual parte da Lua está iluminada
+      const phaseAngle = (moonAngle - sunDirection + Math.PI * 2) % (Math.PI * 2);
+      
+      // Desenhar a Lua básica
+      ctx.beginPath();
+      ctx.arc(x, y, lunarRadius, 0, Math.PI * 2);
+      ctx.fillStyle = '#DDD';
+      ctx.fill();
+      
+      // Desenhar a parte sombreada da Lua com base na fase
+      ctx.save();
+      ctx.translate(x, y);
+      
+      // Normalizar o ângulo para 0-360
+      const normalizedOrbitalPosition = (orbitalPosition % 360 + 360) % 360;
+      
+      // Desenhar diferentes padrões de sombra com base na fase
+      if (normalizedOrbitalPosition < 170) {
+        // Lua Nova até quase Lua Cheia - sombra à esquerda diminuindo
+        const shadowWidth = lunarRadius * 2 * (1 - normalizedOrbitalPosition / 170);
+        
+        ctx.beginPath();
+        ctx.rect(-lunarRadius, -lunarRadius, shadowWidth, lunarRadius * 2);
+        ctx.fillStyle = '#111';
+        ctx.fill();
+      } else if (normalizedOrbitalPosition > 190 && normalizedOrbitalPosition <= 360) {
+        // Após Lua Cheia até Lua Nova - sombra à direita aumentando
+        const phase = (normalizedOrbitalPosition - 190) / 170;
+        const shadowWidth = lunarRadius * 2 * phase;
+        
+        ctx.beginPath();
+        ctx.rect(lunarRadius - shadowWidth, -lunarRadius, shadowWidth, lunarRadius * 2);
+        ctx.fillStyle = '#111';
+        ctx.fill();
+      }
+      
+      ctx.restore();
+      
+      // Mostrar nome da fase atual
+      ctx.fillStyle = 'white';
+      ctx.font = '14px Arial';
+      ctx.fillText(phase.name, x + lunarRadius + 5, y - 5);
+      ctx.font = '12px Arial';
+      ctx.fillText(`Dia ${phase.day}`, x + lunarRadius + 5, y + 15);
+    }
+    
+    // Desenhar setas indicando a direção do Sol
+    function drawSunDirection() {
+      // Sol está sempre à direita
+      ctx.save();
+      
+      // Seta principal
+      ctx.beginPath();
+      ctx.moveTo(canvas.width - 50, centerY);
+      ctx.lineTo(canvas.width - 100, centerY - 20);
+      ctx.lineTo(canvas.width - 100, centerY + 20);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(255, 215, 0, 0.5)';
+      ctx.fill();
+      
+      // Texto
+      ctx.fillStyle = 'rgba(255, 215, 0, 0.8)';
+      ctx.font = '16px Arial';
+      ctx.fillText("Luz Solar", canvas.width - 170, centerY - 25);
+      
+      // Raios de luz
+      for (let i = 0; i < 5; i++) {
+        const yOffset = (i - 2) * 30;
+        
+        ctx.beginPath();
+        ctx.moveTo(canvas.width, centerY + yOffset);
+        ctx.lineTo(canvas.width - 200, centerY + yOffset);
+        ctx.strokeStyle = 'rgba(255, 215, 0, 0.1)';
+        ctx.lineWidth = 10;
+        ctx.stroke();
+      }
+      
+      ctx.restore();
+    }
+    
+    // Desenhar painel de informações
+    function drawInfoPanel(phase) {
+      // Calcular a distância Terra-Lua
+      const rad = (orbitalPosition * Math.PI) / 180;
+      const distanceKm = lunarDistance(rad);
+      const formattedDistance = Math.round(distanceKm).toLocaleString();
+      
+      // Normalizar o ângulo para 0-360
+      const normalizedAngle = (orbitalPosition % 360 + 360) % 360;
+      
+      // Calcular o dia do ciclo lunar
+      const lunarDay = (normalizedAngle * lunarSynodicPeriod / 360).toFixed(1);
+      
+      // Desenhar retângulo de fundo
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+      ctx.beginPath();
+      ctx.roundRect(20, 20, 280, 130, 5);
+      ctx.fill();
+      
+      // Definir estilo de texto
+      ctx.fillStyle = 'white';
+      ctx.font = 'bold 16px Arial';
+      
+      // Mostrar fase atual
+      ctx.fillText(`Fase atual: ${phase.name}`, 30, 45);
+      
+      // Mostrar dia do ciclo lunar
+      ctx.font = '16px Arial';
+      ctx.fillText(`Dia do ciclo lunar: ${lunarDay} de ${lunarSynodicPeriod}`, 30, 75);
+      
+      // Mostrar distância Terra-Lua
+      ctx.fillText(`Distância Terra-Lua: ${formattedDistance} km`, 30, 105);
+      
+      // Mostrar ângulo orbital
+      ctx.fillText(`Ângulo orbital: ${Math.round(orbitalPosition)}°`, 30, 135);
+    }
+    
+    // Função principal de renderização
+    function render() {
+      // Limpar o canvas
+      ctx.fillStyle = 'black';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Desenhar elementos do fundo
+      drawStars();
+      drawSunDirection();
+      
+      // Desenhar órbita
+      drawOrbit();
+      
+      // Determinar a fase atual da Lua
+      const moonPhase = getMoonPhase(orbitalPosition);
+      
+      // Calcular a posição atual da Lua
+      const moonPosition = calculateMoonPosition(orbitalPosition);
+      
+      // Desenhar a Terra
+      drawEarth();
+      
+      // Desenhar a Lua
+      drawMoon(moonPosition, moonPhase);
+      
+      // Desenhar informações
+      drawInfoPanel(moonPhase);
+      
+      // Atualizar a posição orbital
+      if (!isPaused) {
+        orbitalPosition = (orbitalPosition + 1 * speed) % 360;
+      }
+      
+      // Continuar a animação
+      requestAnimationFrame(render);
+    }
+    
+    // Iniciar a animação
+    render();
+  </script>
+</body>
+</html>
