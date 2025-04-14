@@ -86,11 +86,11 @@
     .info-section p {
       line-height: 1.6;
       margin-bottom: 20px;
-      font-size: clamp(1.5rem, 3vw, 1.5rem);
+      font-size: clamp(1.0rem, 2.5vw, 1.5rem);
     }
 
     .info{
-      font-size: clamp(1.5rem, 3vw, 1.5rem);
+      font-size: clamp(1.0rem, 2.5vw, 1.5rem);
     }
 
     .moon-phases {
@@ -159,7 +159,7 @@
     li {
       margin-bottom: 10px;
       line-height: 1.6;
-      font-size: clamp(1rem, 2vw, 1.1rem);
+      font-size: clamp(1.0rem, 2.5vw, 1.5rem);
     }
 
     strong {
@@ -232,86 +232,88 @@
         <circle cx="0" cy="0" r="20" fill="rgba(30,144,255,0.3)" />
         
         <!-- Direção do Sol (simplificado, como se estivesse muito longe à direita) -->
-        <line x1="0" y1="0" x2="400" y2="0" stroke="#FFD700" stroke-width="1" stroke-dasharray="5,5" />
-        <text x="240" y="20" fill="#FFD700" font-size="19">Luz Solar</text>
+        <line x1="-400" y1="0" x2="400" y2="0" stroke="#FFD700" stroke-width="2" stroke-dasharray="5,5" />
+        <text x="280" y="20" fill="#FFD700" font-size="24">Luz Solar</text>
         <polygon points="400,0 390,5 390,-5" fill="#FFD700" />
         
         <!-- Lua em diferentes posições e fases -->
-        <!-- Posição 1: Lua Nova (0°) -->
+        <!-- Posição 1: Lua Nova (0°) - CORRETA -->
         <g transform="translate(192, 0)">
           <circle cx="0" cy="0" r="8" fill="#888" />
           <circle cx="0" cy="0" r="8" fill="#111" />
-          <text x="15" y="-15" fill="white" font-size="18">Lua Nova</text>
-          <text x="15" y="5" fill="#AAA" font-size="16">363.296 km</text>
-          <text x="15" y="25" fill="#AAA" font-size="16">Dia 1</text>
+          <text x="15" y="-15" fill="white" font-size="22">Lua Nova</text>
+          <text x="15" y="5" fill="#AAA" font-size="20">363.296 km</text>
+          <text x="15" y="25" fill="#AAA" font-size="20">Dia 1</text>
         </g>
         
-        <!-- Posição 2: Lua Minguante (45°) -->
+        <!-- Posição 2: Lua Crescente (45°) - CORRIGIDO -->
         <g transform="translate(135.76, -135.76)">
           <circle cx="0" cy="0" r="8" fill="#888" />
-          <!-- Parte escura à esquerda (como na seção de fases) -->
-          <path d="M -8,-8 L -8,8 A 8,8 0 0 0 8,8 A 8,8 0 0 0 8,-8 Z" fill="#111" />
-          <text x="15" y="-15" fill="white" font-size="18">Lua Minguante</text>
-          <text x="15" y="5" fill="#AAA" font-size="16">~373.000 km</text>
-          <text x="15" y="25" fill="#AAA" font-size="16">~Dia 26</text>
+          <!-- Parte clara à direita um pouco maior -->
+          <path d="M -8,-8 A 8,8 0 0 0 -8,8 A 8,8 0 0 0 8,8 A 8,8 0 0 0 8,-8 Z" fill="#111" />
+          <path d="M -4,-8 A 8,8 0 0 1 -4,8 L 8,8 L 8,-8 Z" fill="#888" />
+          <text x="25" y="-15" fill="white" font-size="22">Lua Crescente</text>
+          <text x="25" y="5" fill="#AAA" font-size="20">~373.000 km</text>
+          <text x="25" y="25" fill="#AAA" font-size="20">~Dia 7</text>
         </g>
         
-        <!-- Posição 3: Quarto Minguante (90°) -->
+        <!-- Posição 3: Quarto Crescente (90°) - CORRIGIDO -->
         <g transform="translate(0, -191.91)">
           <circle cx="0" cy="0" r="8" fill="#888" />
           <!-- Metade escura à esquerda (como na seção de fases) -->
-          <path d="M -8,-8 L -8,8 A 8,8 0 0 0 0,8 L 0,-8 Z" fill="#111" />
-          <text x="15" y="-15" fill="white" font-size="18">Quarto Minguante</text>
-          <text x="15" y="5" fill="#AAA" font-size="16">383.241 km</text>
-          <text x="15" y="25" fill="#AAA" font-size="16">Dia ~22.1</text>
+          <path d="M -8,-8 A 8,8 0 0 0 -8,8 A 8,8 0 0 0 0,8 L 0,-8 Z" fill="#111" />
+          <text x="-15" y="-65" fill="white" font-size="22">Quarto Crescente</text>
+          <text x="-15" y="-35" fill="#AAA" font-size="20">383.241 km</text>
+          <text x="-15" y="-15" fill="#AAA" font-size="20">Dia ~7.4</text>
         </g>
         
-        <!-- Posição 4: Lua Gibosa Minguante (135°) -->
+        <!-- Posição 4: Lua Gibosa Crescente (135°) - CORRIGIDO -->
         <g transform="translate(-135.76, -135.76)">
           <circle cx="0" cy="0" r="8" fill="#888" />
           <!-- Pequena parte escura à esquerda (como na seção de fases) -->
-          <path d="M -8,-8 L -8,8 A 8,8 0 0 0 -2,8 L -2,-8 Z" fill="#111" />
-          <text x="-140" y="-15" fill="white" font-size="18">Lua Gibosa Minguante</text>
-          <text x="-140" y="5" fill="#AAA" font-size="16">~395.000 km</text>
-          <text x="-140" y="25" fill="#AAA" font-size="16">~Dia 18</text>
+          <path d="M -8,-8 A 8,8 0 0 0 -8,8 A 8,8 0 0 0 -5,8 L -5,-8 Z" fill="#111" />
+          <text x="-170" y="-15" fill="white" font-size="22">Lua Gibosa Crescente</text>
+          <text x="-140" y="5" fill="#AAA" font-size="20">~395.000 km</text>
+          <text x="-140" y="25" fill="#AAA" font-size="20">~Dia 11</text>
         </g>
         
-        <!-- Posição 5: Lua Cheia (180°) -->
+        <!-- Posição 5: Lua Cheia (180°) - CORRETA -->
         <g transform="translate(-192, 0)">
           <circle cx="0" cy="0" r="8" fill="#DDD" />
-          <text x="-100" y="-15" fill="white" font-size="18">Lua Cheia</text>
-          <text x="-100" y="5" fill="#AAA" font-size="16">405.504 km</text>
-          <text x="-100" y="25" fill="#AAA" font-size="16">Dia ~14.8</text>
+          <text x="-120" y="-15" fill="white" font-size="22">Lua Cheia</text>
+          <text x="-120" y="5" fill="#AAA" font-size="20">405.504 km</text>
+          <text x="-120" y="25" fill="#AAA" font-size="20">Dia ~14.8</text>
         </g>
         
-        <!-- Posição 6: Lua Gibosa Crescente (225°) -->
+        <!-- Posição 6: Lua Gibosa Minguante (225°) - CORRIGIDO -->
         <g transform="translate(-135.76, 135.76)">
           <circle cx="0" cy="0" r="8" fill="#888" />
           <!-- Pequena parte escura à direita (como na seção de fases) -->
-          <path d="M 2,-8 L 2,8 A 8,8 0 0 0 8,8 L 8,-8 Z" fill="#111" />
-          <text x="-140" y="25" fill="white" font-size="18">Lua Gibosa Crescente</text>
-          <text x="-140" y="45" fill="#AAA" font-size="16">~395.000 km</text>
-          <text x="-140" y="65" fill="#AAA" font-size="16">~Dia 11</text>
+          <path d="M 5,-8 L 5,8 A 8,8 0 0 0 8,8 A 8,8 0 0 0 8,-8 Z" fill="#111" />
+          <text x="-170" y="25" fill="white" font-size="22">Lua Gibosa Minguante</text>
+          <text x="-140" y="45" fill="#AAA" font-size="20">~395.000 km</text>
+          <text x="-140" y="65" fill="#AAA" font-size="20">~Dia 18</text>
         </g>
         
-        <!-- Posição 7: Quarto Crescente (270°) -->
+        <!-- Posição 7: Quarto Minguante (270°) - CORRIGIDO -->
         <g transform="translate(0, 191.91)">
           <circle cx="0" cy="0" r="8" fill="#888" />
-          <!-- Metade escura à direita -->
+          <!-- Metade escura à direita (como na seção de fases) -->
           <path d="M 0,-8 L 0,8 A 8,8 0 0 0 8,8 A 8,8 0 0 0 8,-8 Z" fill="#111" />
-          <text x="15" y="25" fill="white" font-size="18">Quarto Crescente</text>
-          <text x="15" y="45" fill="#AAA" font-size="16">383.241 km</text>
-          <text x="15" y="65" fill="#AAA" font-size="16">Dia ~7.4</text>
+          <text x="-25" y="45" fill="white" font-size="22">Quarto Minguante</text>
+          <text x="-25" y="65" fill="#AAA" font-size="20">383.241 km</text>
+          <text x="-25" y="85" fill="#AAA" font-size="20">Dia ~22.1</text>
         </g>
         
-        <!-- Posição 8: Lua Crescente (315°) -->
+        <!-- Posição 8: Lua Minguante (315°) - CORRIGIDO -->
         <g transform="translate(135.76, 135.76)">
           <circle cx="0" cy="0" r="8" fill="#888" />
-          <!-- Parte escura à direita (como na seção de fases) -->
-          <path d="M 0,-8 A 8,8 0 0 1 0,8 A 8,8 0 0 0 8,8 A 8,8 0 0 0 8,-8 Z" fill="#111" />
-          <text x="15" y="25" fill="white" font-size="18">Lua Crescente</text>
-          <text x="15" y="45" fill="#AAA" font-size="16">~373.000 km</text>
-          <text x="15" y="65" fill="#AAA" font-size="16">~Dia 7</text>
+          <!-- Parte escura BEM maior à direita, parte clara BEM menorzinha à esquerda -->
+          <circle cx="0" cy="0" r="8" fill="#888" />
+          <path d="M -5,-8 L -5,8 A 8,8 0 0 0 8,8 A 8,8 0 0 0 8,-8 Z" fill="#111" />
+          <text x="15" y="25" fill="white" font-size="22">Lua Minguante</text>
+          <text x="15" y="45" fill="#AAA" font-size="20">~373.000 km</text>
+          <text x="15" y="65" fill="#AAA" font-size="20">~Dia 26</text>
         </g>
       </g>
     </svg>

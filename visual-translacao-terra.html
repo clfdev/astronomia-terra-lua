@@ -58,6 +58,10 @@
             margin-top: 60px; /* Aumentada a margem superior */
             box-sizing: border-box;
         }
+
+        .info{
+          font-size: clamp(1rem, 2vw, 1.1rem);
+        }
         
         h1, h2 {
             color: #66D9E8; /* Cor azul esverdeado para h1 e h2 */
@@ -194,31 +198,31 @@
     </div>
     <div class="info-section">
       <!-- Informações adicionais -->
-      <h2 style="color: #66D9E8; font-size: 35px;">Informações sobre a Órbita Terrestre</h2>
+      <h2 style="color: #66D9E8; font-size: 27px;">Informações sobre a Órbita Terrestre</h2>
       
-      <p style="font-size: 27px;">
+      <p class="info">
         A Terra realiza um movimento elíptico ao redor do Sol, embora seja uma elipse com baixa 
         excentricidade (0,0167), muito próxima de um círculo perfeito.
       </p>
       
-      <p style="font-size: 27px; font-weight: bold;">A equação da órbita terrestre:</p>
-      <p style="color: #8CF; font-size: 27px; font-weight: bold;">r = a(1-e²)/(1+e·cos(θ))</p>
+      <p style="font-size: 20px; font-weight: bold;">A equação da órbita terrestre:</p>
+      <p style="color: #8CF; font-size: 20px; font-weight: bold;">r = a(1-e²)/(1+e·cos(θ))</p>
       
-      <p style="font-size: 27px;">Onde:</p>
-      <ul style="font-size: 27px;">
+      <p style="font-size: 20px;">Onde:</p>
+      <ul class="info">
         <li>r é a distância Terra-Sol</li>
         <li>a é o semi-eixo maior da órbita (149,6 milhões km)</li>
         <li>e é a excentricidade da órbita (0,0167)</li>
         <li>θ é o ângulo no plano orbital</li>
       </ul>
       
-      <p style="font-size: 27px;">
+      <p style="font-size: 20px;">
         A variação da distância entre o periélio e o afélio é de aproximadamente 5 milhões de
         quilômetros, o que representa cerca de 3,4% da distância média Terra-Sol.
       </p>
       
-      <h3 style="color: #66D9E8; font-size: 27px; font-weight: bold;">Características da órbita terrestre:</h3>
-      <ul style="font-size: 27px;">
+      <h3 style="color: #66D9E8; font-size: 20px; font-weight: bold;">Características da órbita terrestre:</h3>
+      <ul class="info">
         <li>Período orbital (ano sideral): 365,256 dias</li>
         <li>Período orbital (ano tropical): 365,242 dias</li>
         <li>Velocidade orbital média: 29,78 km/s</li>
@@ -226,8 +230,8 @@
         <li>Velocidade no afélio: 29,29 km/s</li>
       </ul>
       
-      <h3 style="color: #66D9E8; font-size: 27px; font-weight: bold;">Pontos importantes da órbita:</h3>
-      <ul style="font-size: 27px;">
+      <h3 style="color: #66D9E8; font-size: 20px; font-weight: bold;">Pontos importantes da órbita:</h3>
+      <ul class="info">
         <li>Periélio: ponto mais próximo do Sol (3 de janeiro)</li>
         <li>Afélio: ponto mais distante do Sol (4 de julho)</li>
         <li>Equinócio de Outono: 20 de março (hemisfério sul)</li>
@@ -236,16 +240,16 @@
         <li>Solstício de Verão: 21 de dezembro (hemisfério sul)</li>
       </ul>
       
-      <h3 style="color: #66D9E8; font-size: 27px; font-weight: bold;">Inclinação do eixo terrestre:</h3>
-      <ul style="font-size: 27px;">
+      <h3 style="color: #66D9E8; font-size: 20px; font-weight: bold;">Inclinação do eixo terrestre:</h3>
+      <ul class="info">
         <li>A Terra tem seu eixo de rotação inclinado em 23,5° em relação ao plano de sua órbita (plano da eclíptica).</li>
         <li>Esta inclinação é responsável pelas estações do ano, pois altera a quantidade de luz solar recebida em diferentes latitudes ao longo do ano.</li>
         <li>Nos solstícios, um dos hemisférios recebe mais luz solar que o outro.</li>
         <li>Nos equinócios, ambos os hemisférios recebem a mesma quantidade de luz.</li>
       </ul>
 
-      <h3 style="color: #66D9E8; font-size: 27px; font-weight: bold;">Estações do ano no hemisfério sul:</h3>
-      <ul style="font-size: 27px;">
+      <h3 style="color: #66D9E8; font-size: 20px; font-weight: bold;">Estações do ano no hemisfério sul:</h3>
+      <ul class="info">
         <li>Verão no Brasil: entre o Solstício de Verão (21 Dez) e o Equinócio de Outono (20 Mar)</li>
         <li>Outono no Brasil: entre o Equinócio de Outono (20 Mar) e o Solstício de Inverno (21 Jun)</li>
         <li>Inverno no Brasil: entre o Solstício de Inverno (21 Jun) e o Equinócio de Primavera (22 Set)</li>

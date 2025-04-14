@@ -107,23 +107,23 @@
       margin-top: 20px;
       max-width: 800px;
       width: 100%;
-      font-size: clamp(1.3rem, 3vw, 1.5rem);
+      font-size: clamp(1rem, 2vw, 1.1rem);
     }
 
     .explanation{
-      font-size: clamp(1.3rem, 2.5vw, 1.5rem);
+      font-size: clamp(1.0rem, 2.5vw, 1.5rem);
       color: #8be9fd;
     }
 
     .keyboard-controls{
-      font-size: clamp(1.3rem, 2.5vw, 1.5rem);
+      font-size: clamp(1.0rem, 2.5vw, 1.5rem);
     }
     h3{
       font-size: clamp(1.3rem, 3vw, 1.5rem);
     }
 
     .note{
-      font-size: clamp(1.3rem, 2.5vw, 1.5rem);
+      font-size: clamp(1.0rem, 2.5vw, 1.5rem);
     }
 
     .back-button {
@@ -555,31 +555,34 @@
     
     // Desenhar os marcadores de estações
     function drawSeasonMarkers() {
-      ctx.font = '18px Arial';
+      ctx.font = '20px Arial';
       ctx.textBaseline = 'middle';
       
       // Verão (21 Dez)
       ctx.fillStyle = '#FF5722';
       ctx.textAlign = 'right';
-      ctx.fillText('Verão (21 Dez)', centerX - semiMajorAxis - 10, centerY);
+      ctx.fillText('Verão nos EUA', centerX - semiMajorAxis - 10, centerY);
+      ctx.fillText('(21 Dez)', centerX - semiMajorAxis - 10, centerY + 20);
       
       // Outono (20 Mar)
       ctx.fillStyle = '#FF9800';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'bottom';
-      ctx.fillText('Outono (20 Mar)', centerX, centerY - semiMinorAxis - 10);
+      
+      ctx.fillText('Outono nos EUA(20 Mar)', centerX, centerY - semiMinorAxis - 10);
       
       // Inverno (21 Jun)
       ctx.fillStyle = '#2196F3';
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
-      ctx.fillText('Inverno (21 Jun)', centerX + semiMajorAxis + 10, centerY);
+      ctx.fillText('Inverno nos EUA', centerX + semiMajorAxis + 10, centerY);
+      ctx.fillText('(21 Jun)', centerX + semiMajorAxis + 10, centerY + 20);
       
       // Primavera (22 Set)
       ctx.fillStyle = '#4CAF50';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'top';
-      ctx.fillText('Primavera (22 Set)', centerX, centerY + semiMinorAxis + 10);
+      ctx.fillText('Primavera nos EUA(22 Set)', centerX, centerY + semiMinorAxis + 10);
       
       // Restaurar configurações padrão
       ctx.textAlign = 'left';
