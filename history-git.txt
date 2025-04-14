@@ -1,0 +1,68 @@
+# Histórico de Operações Git - Astronomia: Terra e Lua
+
+Data: 14 de abril de 2025
+
+## Operações realizadas para publicar a versão 1.0 no GitHub
+
+1. Inicialização do repositório Git
+```
+git init
+```
+
+2. Criação do arquivo README.md com informações sobre o projeto
+
+3. Adição de todos os arquivos ao repositório
+```
+git add .
+```
+
+4. Commit inicial com a versão 1.0 do aplicativo
+```
+git commit -m "Initial commit: Version 1.0 of Astronomia Terra e Lua app"
+```
+
+5. Configuração do repositório remoto no GitHub
+```
+git remote add origin https://github.com/clfirme/astronomia-terra-lua.git
+```
+
+6. Envio do código para o GitHub
+```
+git push -u origin master
+```
+
+## Resultado do commit inicial
+
+Arquivos incluídos no commit inicial:
+- README.md
+- index.html
+- js/movimentoLunarTexto.js
+- js/translacaoTerra.js
+- js/video-rotacaoTerra.js
+- js/video-translação.js
+- melhorias.txt
+- video-rotacao-terra.html
+- video-translacao-lua.html
+- video-translacao-terra.html
+- visual-translacao-lua.html
+- visual-translacao-terra.html
+
+## Próximos passos para a versão 2.0
+
+Para futuras atualizações e versão 2.0:
+1. Desenvolver as novas funcionalidades localmente
+2. Adicionar as mudanças ao staging:
+   ```
+   git add .
+   ```
+3. Criar um commit com mensagem descritiva:
+   ```
+   git commit -m "Versão 2.0: Descrição das novas funcionalidades"
+   ```
+4. Enviar as mudanças para o GitHub:
+   ```
+   git push origin master
+   ```
+
+## URL do repositório
+https://github.com/clfirme/astronomia-terra-lua
