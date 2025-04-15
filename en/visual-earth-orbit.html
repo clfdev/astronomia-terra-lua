@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="description" content="Visualização da Translação da Terra - Astronomia: Terra e Lua">
-    <title>Visualização da Translação da Terra</title>
-    <link rel="stylesheet" href="css/language-switcher.css">
+    <meta name="description" content="Earth's Orbit Visualization - Astronomy: Earth and Moon">
+    <title>Earth's Orbit Visualization</title>
+    <link rel="stylesheet" href="../css/language-switcher.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -56,7 +56,7 @@
             width: 100%;
             max-width: 900px;
             padding: 20px;
-            margin-top: 60px; /* Aumentada a margem superior */
+            margin-top: 60px; /* Increased top margin */
             box-sizing: border-box;
         }
 
@@ -65,7 +65,7 @@
         }
         
         h1, h2 {
-            color: #66D9E8; /* Cor azul esverdeado para h1 e h2 */
+            color: #66D9E8; /* Blue-green color for h1 and h2 */
             text-align: center;
             margin-bottom: 30px;
         }
@@ -95,30 +95,30 @@
 <body>
     <button class="back-button" onclick="window.location.href='index.html'">←</button>
     
-    <h1>Visualização da Translação da Terra</h1>
+    <h1>Earth's Orbit Visualization</h1>
     
     <div class="info-section">
         <svg viewBox="0 0 1000 750" xmlns="http://www.w3.org/2000/svg">
-            <!-- Fundo -->
+            <!-- Background -->
             <rect width="1000" height="750" fill="#111" />
             
-            <!-- Área da visualização -->
+            <!-- Visualization area -->
             <g transform="translate(100, 100)">
-              <!-- Linhas de referência -->
+              <!-- Reference lines -->
               <line x1="405" y1="50" x2="405" y2="550" stroke="#333" stroke-width="1" />
               <line x1="205" y1="250" x2="605" y2="250" stroke="#333" stroke-width="1" />
               
-              <!-- Órbita da Terra (elipse) -->
+              <!-- Earth's orbit (ellipse) -->
               <ellipse cx="405" cy="250" rx="299.2" ry="299.16" 
                      fill="none" stroke="#444" stroke-width="1.5" />
               
-              <!-- Sol no centro -->
+              <!-- Sun in the center -->
               <circle cx="400" cy="250" r="25" fill="#FFD700">
-                <title>Sol</title>
+                <title>Sun</title>
               </circle>
               <circle cx="400" cy="250" r="35" fill="rgba(255,215,0,0.3)" />
               
-              <!-- Raios solares -->
+              <!-- Sun rays -->
               <g>
                 <line x1="400" y1="200" x2="400" y2="180" stroke="#FFD700" stroke-width="1.5" />
                 <line x1="400" y1="300" x2="400" y2="320" stroke="#FFD700" stroke-width="1.5" />
@@ -130,133 +130,134 @@
                 <line x1="435" y1="215" x2="450" y2="200" stroke="#FFD700" stroke-width="1.5" />
               </g>
               
-              <!-- Terra em diferentes posições -->
-              <!-- Posição 1: Periélio (3 de janeiro) -->
+              <!-- Earth in different positions -->
+              <!-- Position 1: Perihelion (January 3) -->
               <g transform="translate(704.2, 250)">
                 <circle cx="0" cy="0" r="12" fill="#1E90FF">
-                  <title>Terra - Periélio (3 de janeiro)</title>
+                  <title>Earth - Perihelion (January 3)</title>
                 </circle>
                 <circle cx="0" cy="0" r="16" fill="rgba(30,144,255,0.3)" />
-                <!-- Linha de inclinação do eixo da Terra para a direita -->
+                <!-- Earth's axis tilt line to the right -->
                 <line x1="3" y1="-16" x2="-6" y2="16" stroke="#FFF" stroke-width="1.5" />
-                <text x="40" y="-50" fill="white" font-size="20">Periélio</text>
-                <text x="40" y="-30" fill="#AAA" font-size="18">3 de Janeiro</text>
-                <text x="40" y="-10" fill="#AAA" font-size="18">147,1 milhões km</text>
+                <text x="40" y="-50" fill="white" font-size="20">Perihelion</text>
+                <text x="40" y="-30" fill="#AAA" font-size="18">January 3</text>
+                <text x="40" y="-10" fill="#AAA" font-size="18">147.1 million km</text>
               </g>
               
-              <!-- Posição 2: Equinócio de Outono (20 de março) -->
+              <!-- Position 2: Autumn Equinox (March 20) -->
               <g transform="translate(405, -49.16)">
                 <circle cx="0" cy="0" r="12" fill="#1E90FF">
-                  <title>Terra - Equinócio de Outono (20 de março)</title>
+                  <title>Earth - Autumn Equinox (March 20)</title>
                 </circle>
                 <circle cx="0" cy="0" r="16" fill="rgba(30,144,255,0.3)" />
-                <!-- Linha de inclinação do eixo da Terra para a direita -->
+                <!-- Earth's axis tilt line to the right -->
                 <line x1="3" y1="-16" x2="-6" y2="16" stroke="#FFF" stroke-width="1.5" />
-                <text x="20" y="-20" fill="white" font-size="20">Equinócio de Outono</text>
-                <text x="20" y="0" fill="#AAA" font-size="18">20 de Março</text>
-                <text x="20" y="20" fill="#AAA" font-size="18">~149 milhões km</text>
+                <text x="20" y="-20" fill="white" font-size="20">Autumn Equinox</text>
+                <text x="20" y="0" fill="#AAA" font-size="18">March 20</text>
+                <text x="20" y="20" fill="#AAA" font-size="18">~149 million km</text>
               </g>
               
-              <!-- Posição 3: Afélio (4 de julho) -->
+              <!-- Position 3: Aphelion (July 4) -->
               <g transform="translate(105.8, 250)">
                 <circle cx="0" cy="0" r="12" fill="#1E90FF">
-                  <title>Terra - Afélio (4 de julho)</title>
+                  <title>Earth - Aphelion (July 4)</title>
                 </circle>
                 <circle cx="0" cy="0" r="16" fill="rgba(30,144,255,0.3)" />
-                <!-- Linha de inclinação do eixo da Terra para a direita -->
+                <!-- Earth's axis tilt line to the right -->
                 <line x1="3" y1="-16" x2="-6" y2="16" stroke="#FFF" stroke-width="1.5" />
-                <text x="-150" y="-50" fill="white" font-size="20">Afélio</text>
-                <text x="-150" y="-30" fill="#AAA" font-size="18">4 de Julho</text>
-                <text x="-150" y="-10" fill="#AAA" font-size="18">152,1 milhões km</text>
+                <text x="-150" y="-50" fill="white" font-size="20">Aphelion</text>
+                <text x="-150" y="-30" fill="#AAA" font-size="18">July 4</text>
+                <text x="-150" y="-10" fill="#AAA" font-size="18">152.1 million km</text>
               </g>
               
-              <!-- Posição 4: Equinócio de Primavera (22 de setembro) -->
+              <!-- Position 4: Spring Equinox (September 22) -->
               <g transform="translate(405, 549.16)">
                 <circle cx="0" cy="0" r="12" fill="#1E90FF">
-                  <title>Terra - Equinócio de Primavera (22 de setembro)</title>
+                  <title>Earth - Spring Equinox (September 22)</title>
                 </circle>
                 <circle cx="0" cy="0" r="16" fill="rgba(30,144,255,0.3)" />
-                <!-- Linha de inclinação do eixo da Terra para a direita -->
+                <!-- Earth's axis tilt line to the right -->
                 <line x1="3" y1="-16" x2="-6" y2="16" stroke="#FFF" stroke-width="1.5" />
-                <text x="40" y="30" fill="white" font-size="20">Equinócio de Primavera</text>
-                <text x="40" y="50" fill="#AAA" font-size="18">22 de Setembro</text>
-                <text x="40" y="70" fill="#AAA" font-size="18">~149 milhões km</text>
+                <text x="40" y="30" fill="white" font-size="20">Spring Equinox</text>
+                <text x="40" y="50" fill="#AAA" font-size="18">September 22</text>
+                <text x="40" y="70" fill="#AAA" font-size="18">~149 million km</text>
               </g>
               
-              <!-- Linhas de solstícios e equinócios -->
+              <!-- Solstice and equinox lines -->
               <line x1="400" y1="250" x2="105.8" y2="250" stroke="#FFD700" stroke-width="1.5" stroke-dasharray="10,5" />
               <line x1="400" y1="250" x2="704.2" y2="250" stroke="#FFD700" stroke-width="1.5" stroke-dasharray="10,5" />
               <line x1="400" y1="250" x2="405" y2="-49.16" stroke="#87CEEB" stroke-width="1.5" stroke-dasharray="10,5" />
               <line x1="400" y1="250" x2="405" y2="549.16" stroke="#87CEEB" stroke-width="1.5" stroke-dasharray="10,5" />
               
-              <!-- Legendas -->
-              <text x="550" y="280" fill="#FFD700" font-size="24">Solstício de Verão (21 Dez)</text>
-              <text x="20" y="280" fill="#FFD700" font-size="24">Solstício de Inverno (21 Jun)</text>
-              <text x="415" y="0" fill="#87CEEB" font-size="24">Equinócio de Outono (20 Mar)</text>
-              <text x="415" y="550" fill="#87CEEB" font-size="24">Equinócio de Primavera (22 Set)</text>
+              <!-- Labels -->
+              <text x="550" y="280" fill="#FFD700" font-size="24">Summer Solstice (Dec 21)</text>
+              <text x="20" y="280" fill="#FFD700" font-size="24">Winter Solstice (Jun 21)</text>
+              <text x="415" y="0" fill="#87CEEB" font-size="24">Autumn Equinox (Mar 20)</text>
+              <text x="415" y="550" fill="#87CEEB" font-size="24">Spring Equinox (Sep 22)</text>
             </g>
           </svg>
     </div>
     <div class="info-section">
-      <!-- Informações adicionais -->
-      <h2 style="color: #66D9E8; font-size: 27px;">Informações sobre a Órbita Terrestre</h2>
+      <!-- Additional information -->
+      <h2 style="color: #66D9E8; font-size: 27px;">Earth's Orbit Information</h2>
       
       <p class="info">
-        A Terra realiza um movimento elíptico ao redor do Sol, embora seja uma elipse com baixa 
-        excentricidade (0,0167), muito próxima de um círculo perfeito.
+        Earth follows an elliptical path around the Sun, although it's an ellipse with low 
+        eccentricity (0.0167), very close to a perfect circle.
       </p>
       
-      <p style="font-size: 20px; font-weight: bold;">A equação da órbita terrestre:</p>
+      <p style="font-size: 20px; font-weight: bold;">The equation of Earth's orbit:</p>
       <p style="color: #8CF; font-size: 20px; font-weight: bold;">r = a(1-e²)/(1+e·cos(θ))</p>
       
-      <p style="font-size: 20px;">Onde:</p>
+      <p style="font-size: 20px;">Where:</p>
       <ul class="info">
-        <li>r é a distância Terra-Sol</li>
-        <li>a é o semi-eixo maior da órbita (149,6 milhões km)</li>
-        <li>e é a excentricidade da órbita (0,0167)</li>
-        <li>θ é o ângulo no plano orbital</li>
+        <li>r is the Earth-Sun distance</li>
+        <li>a is the semi-major axis of the orbit (149.6 million km)</li>
+        <li>e is the eccentricity of the orbit (0.0167)</li>
+        <li>θ is the angle in the orbital plane</li>
       </ul>
       
       <p style="font-size: 20px;">
-        A variação da distância entre o periélio e o afélio é de aproximadamente 5 milhões de
-        quilômetros, o que representa cerca de 3,4% da distância média Terra-Sol.
+        The distance variation between perihelion and aphelion is approximately 5 million
+        kilometers, which represents about 3.4% of the average Earth-Sun distance.
       </p>
       
-      <h3 style="color: #66D9E8; font-size: 20px; font-weight: bold;">Características da órbita terrestre:</h3>
+      <h3 style="color: #66D9E8; font-size: 20px; font-weight: bold;">Characteristics of Earth's orbit:</h3>
       <ul class="info">
-        <li>Período orbital (ano sideral): 365,256 dias</li>
-        <li>Período orbital (ano tropical): 365,242 dias</li>
-        <li>Velocidade orbital média: 29,78 km/s</li>
-        <li>Velocidade no periélio: 30,29 km/s</li>
-        <li>Velocidade no afélio: 29,29 km/s</li>
+        <li>Orbital period (sidereal year): 365.256 days</li>
+        <li>Orbital period (tropical year): 365.242 days</li>
+        <li>Average orbital velocity: 29.78 km/s</li>
+        <li>Velocity at perihelion: 30.29 km/s</li>
+        <li>Velocity at aphelion: 29.29 km/s</li>
       </ul>
       
-      <h3 style="color: #66D9E8; font-size: 20px; font-weight: bold;">Pontos importantes da órbita:</h3>
+      <h3 style="color: #66D9E8; font-size: 20px; font-weight: bold;">Important points in the orbit:</h3>
       <ul class="info">
-        <li>Periélio: ponto mais próximo do Sol (3 de janeiro)</li>
-        <li>Afélio: ponto mais distante do Sol (4 de julho)</li>
-        <li>Equinócio de Outono: 20 de março (hemisfério sul)</li>
-        <li>Solstício de Inverno: 21 de junho (hemisfério sul)</li>
-        <li>Equinócio de Primavera: 22 de setembro (hemisfério sul)</li>
-        <li>Solstício de Verão: 21 de dezembro (hemisfério sul)</li>
+        <li>Perihelion: closest point to the Sun (January 3)</li>
+        <li>Aphelion: farthest point from the Sun (July 4)</li>
+        <li>Autumn Equinox: March 20 (southern hemisphere)</li>
+        <li>Winter Solstice: June 21 (southern hemisphere)</li>
+        <li>Spring Equinox: September 22 (southern hemisphere)</li>
+        <li>Summer Solstice: December 21 (southern hemisphere)</li>
       </ul>
       
-      <h3 style="color: #66D9E8; font-size: 20px; font-weight: bold;">Inclinação do eixo terrestre:</h3>
+      <h3 style="color: #66D9E8; font-size: 20px; font-weight: bold;">Earth's axial tilt:</h3>
       <ul class="info">
-        <li>A Terra tem seu eixo de rotação inclinado em 23,5° em relação ao plano de sua órbita (plano da eclíptica).</li>
-        <li>Esta inclinação é responsável pelas estações do ano, pois altera a quantidade de luz solar recebida em diferentes latitudes ao longo do ano.</li>
-        <li>Nos solstícios, um dos hemisférios recebe mais luz solar que o outro.</li>
-        <li>Nos equinócios, ambos os hemisférios recebem a mesma quantidade de luz.</li>
+        <li>Earth's rotation axis is tilted 23.5° relative to the plane of its orbit (the ecliptic plane).</li>
+        <li>This tilt is responsible for the seasons, as it changes the amount of sunlight received at different latitudes throughout the year.</li>
+        <li>During solstices, one hemisphere receives more sunlight than the other.</li>
+        <li>During equinoxes, both hemispheres receive the same amount of light.</li>
       </ul>
 
-      <h3 style="color: #66D9E8; font-size: 20px; font-weight: bold;">Estações do ano no hemisfério sul:</h3>
+      <h3 style="color: #66D9E8; font-size: 20px; font-weight: bold;">Seasons in the southern hemisphere:</h3>
       <ul class="info">
-        <li>Verão no Brasil: entre o Solstício de Verão (21 Dez) e o Equinócio de Outono (20 Mar)</li>
-        <li>Outono no Brasil: entre o Equinócio de Outono (20 Mar) e o Solstício de Inverno (21 Jun)</li>
-        <li>Inverno no Brasil: entre o Solstício de Inverno (21 Jun) e o Equinócio de Primavera (22 Set)</li>
-        <li>Primavera no Brasil: entre o Equinócio de Primavera (22 Set) e o Solstício de Verão (21 Dez)</li>
+        <li>Summer in Brazil: between the Summer Solstice (Dec 21) and the Autumn Equinox (Mar 20)</li>
+        <li>Autumn in Brazil: between the Autumn Equinox (Mar 20) and the Winter Solstice (Jun 21)</li>
+        <li>Winter in Brazil: between the Winter Solstice (Jun 21) and the Spring Equinox (Sep 22)</li>
+        <li>Spring in Brazil: between the Spring Equinox (Sep 22) and the Summer Solstice (Dec 21)</li>
       </ul>
     </div>
-    <script src="js/language-switcher.js"></script>
+    
+    <script src="../js/language-switcher.js"></script>
 </body>
 </html>

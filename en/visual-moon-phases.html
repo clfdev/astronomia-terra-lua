@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="description" content="Visualização interativa das fases da Lua - Astronomia: Terra e Lua">
-    <title>Fases da Lua - Astronomia</title>
-    <link rel="stylesheet" href="css/language-switcher.css">
+    <meta name="description" content="Interactive visualization of Moon phases - Astronomy: Earth and Moon">
+    <title>Moon Phases - Astronomy</title>
+    <link rel="stylesheet" href="../css/language-switcher.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -32,6 +32,7 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         header {
@@ -308,11 +309,11 @@
 </head>
 <body>
     <div class="container">
-        <a href="index.html" class="back-button">← Voltar</a>
+        <a href="index.html" class="back-button">← Back</a>
         
         <header>
-            <h1>Fases da Lua</h1>
-            <p>Explore as diferentes fases da Lua e entenda como elas ocorrem</p>
+            <h1>Moon Phases</h1>
+            <p>Explore the different phases of the Moon and understand how they occur</p>
         </header>
         
         <div class="content">
@@ -324,7 +325,7 @@
                             <circle cx="60" cy="60" r="58" fill="#121212" />
                         </svg>
                     </div>
-                    <h3>Lua Nova</h3>
+                    <h3>New Moon</h3>
                 </div>
                 
                 <div class="moon-phase" data-phase="0.125">
@@ -334,7 +335,7 @@
                             <path d="M60,2 A58,58 0 0,0 60,118 A29,58 0 0,1 60,2" fill="#121212" />
                         </svg>
                     </div>
-                    <h3>Lua Crescente</h3>
+                    <h3>Waxing Crescent</h3>
                 </div>
                 
                 <div class="moon-phase" data-phase="0.25">
@@ -344,7 +345,7 @@
                             <path d="M60,2 A58,58 0 0,0 60,118 A0,58 0 0,1 60,2" fill="#121212" />
                         </svg>
                     </div>
-                    <h3>Quarto Crescente</h3>
+                    <h3>First Quarter</h3>
                 </div>
                 
                 <div class="moon-phase" data-phase="0.375">
@@ -354,7 +355,7 @@
                             <path d="M60,2 A58,58 0 0,0 60,118 A-29,58 0 0,1 60,2" fill="#121212" />
                         </svg>
                     </div>
-                    <h3>Gibosa Crescente</h3>
+                    <h3>Waxing Gibbous</h3>
                 </div>
                 
                 <div class="moon-phase" data-phase="0.5">
@@ -363,7 +364,7 @@
                             <circle cx="60" cy="60" r="58" fill="#f0f0f0" stroke="#aaa" stroke-width="1" />
                         </svg>
                     </div>
-                    <h3>Lua Cheia</h3>
+                    <h3>Full Moon</h3>
                 </div>
                 
                 <div class="moon-phase" data-phase="0.625">
@@ -373,7 +374,7 @@
                             <path d="M60,2 A58,58 0 0,1 60,118 A-29,58 0 0,0 60,2" fill="#121212" />
                         </svg>
                     </div>
-                    <h3>Gibosa Minguante</h3>
+                    <h3>Waning Gibbous</h3>
                 </div>
                 
                 <div class="moon-phase" data-phase="0.75">
@@ -383,7 +384,7 @@
                             <path d="M60,2 A58,58 0 0,1 60,118 A0,58 0 0,0 60,2" fill="#121212" />
                         </svg>
                     </div>
-                    <h3>Quarto Minguante</h3>
+                    <h3>Last Quarter</h3>
                 </div>
                 
                 <div class="moon-phase" data-phase="0.875">
@@ -393,40 +394,40 @@
                             <path d="M60,2 A58,58 0 0,1 60,118 A29,58 0 0,0 60,2" fill="#121212" />
                         </svg>
                     </div>
-                    <h3>Lua Minguante</h3>
+                    <h3>Waning Crescent</h3>
                 </div>
             </div>
             
             <div class="interactive-section">
-                <h2>Visualização Interativa</h2>
+                <h2>Interactive Visualization</h2>
                 <div class="interactive-moon">
                     <div class="shadow" id="moonShadow"></div>
                 </div>
                 
                 <div class="controls">
                     <div class="slider-container">
-                        <label for="phase-slider">Ajuste a fase da Lua:</label>
+                        <label for="phase-slider">Adjust Moon phase:</label>
                         <input type="range" min="0" max="100" value="0" class="slider" id="phase-slider">
                     </div>
                     
-                    <button id="animate-button" class="animate-button">Iniciar Animação</button>
+                    <button id="animate-button" class="animate-button">Start Animation</button>
                     
                     <div class="phase-info" id="phase-info">
-                        <h3>Lua Nova</h3>
-                        <p>Na fase de Lua Nova, a face da Lua voltada para a Terra não está iluminada pelo Sol. Isso ocorre quando a Lua está entre a Terra e o Sol.</p>
-                        <p>Nesta fase, a Lua não é visível no céu noturno, pois sua face iluminada está voltada para o lado oposto à Terra.</p>
+                        <h3>New Moon</h3>
+                        <p>During the New Moon phase, the side of the Moon facing Earth is not illuminated by the Sun. This occurs when the Moon is between the Earth and the Sun.</p>
+                        <p>In this phase, the Moon is not visible in the night sky, as its illuminated face is facing away from Earth.</p>
                     </div>
                 </div>
             </div>
         </div>
         
         <div class="footer">
-            <p>Astronomia: Terra e Lua - Versão 3.0</p>
-            <p>&copy; 2025. Desenvolvido por Caio Lima Firme e Claude 3.7</p>
+            <p>Astronomy: Earth and Moon - Version 3.0</p>
+            <p>&copy; 2025. Developed by Caio Lima Firme and Claude 3.7</p>
         </div>
     </div>
 
-    <script src="js/fasesLua.js"></script>
-    <script src="js/language-switcher.js"></script>
+    <script src="../js/moonPhases.js"></script>
+    <script src="../js/language-switcher.js"></script>
 </body>
 </html>

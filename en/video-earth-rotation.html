@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="description" content="Earth's Rotation Video - Day/Night Cycle in Brazil">
+  <title>Earth's Rotation - Day/Night Cycle in Brazil</title>
+  <style>
+    body {
+      background-color: #1a1a2e;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      color: #e7e6e1;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      width: 100%;
+    }
+
+    canvas {
+      border: 2px solid #444;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 0, 255, 0.2);
+      margin-bottom: 20px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    button {
+      background-color: #4361ee;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+      min-width: 100px;
+      min-height: 44px; /* Minimum recommended for touch targets */
+      touch-action: manipulation;
+    }
+
+    button:hover, button:active {
+      background-color: #3046eb;
+    }
+
+    .speed-control {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .speed-control input[type="range"] {
+      width: 150px;
+      height: 30px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: #333;
+      border-radius: 10px;
+      padding: 0;
+    }
+
+    .speed-control input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 25px;
+      height: 25px;
+      background: #4361ee;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .speed-control input[type="range"]::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: #4361ee;
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+    }
+
+    .info-section {
+      max-width: 800px;
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      border-radius: 8px;
+      line-height: 1.6;
+      font-size: clamp(1.0rem, 2.5vw, 1.5rem);
+    }
+
+    h2 {
+      color: #e7e6e1;
+      border-bottom: 1px solid #444;
+      color:#8be9fd;
+      padding-bottom: 8px;
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+    }
+
+    .strong{
+      color:#8be9fd;
+    }
+
+    .info-section p {
+      margin-bottom: 15px;
+    }
+
+    .keyboard-controls {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    .keyboard-controls p {
+      margin: 5px 0;
+    }
+    
+    .back-button {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background-color: rgba(25, 25, 35, 0.9);
+      color: #8be9fd;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      z-index: 100;
+      transition: all 0.3s ease;
+      min-width: auto;
+    }
+    
+    .back-button:hover, .back-button:active {
+      background-color: rgba(35, 35, 45, 0.9);
+      transform: scale(1.05);
+    }
+    
+    @media (max-width: 600px) {
+      body {
+        padding: 15px;
+      }
+      
+      .back-button {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+      
+      .controls {
+        gap: 10px;
+      }
+      
+      button {
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+      
+      .info-section {
+        padding: 15px;
+      }
+    }
+
+    /* Language switcher button */
+    .language-switcher {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 100;
+    }
+    
+    .language-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    
+    .language-btn:hover {
+      transform: scale(1.1);
+      border-color: #8be9fd;
+    }
+    
+    .language-btn.active {
+      border-color: #ff79c6;
+    }
+  </style>
+  <link rel="stylesheet" href="../css/language-switcher.css">
+</head>
+<body>
+  <button class="back-button" onclick="window.location.href='index.html'">←</button>
+  
+  <!-- Language Switcher -->
+  <div class="language-switcher">
+    <div class="language-btn" id="languageToggle" style="background-image: url('https://flagcdn.com/w40/br.png');" title="Mudar para Português"></div>
+  </div>
+  
+  <h1>Earth's Rotation and Day/Night Cycle in Brazil</h1>
+  
+  <div id="canvas-container">
+    <!-- Canvas will be inserted here by JavaScript -->
+  </div>
+  
+  <div class="controls">
+    <button id="pauseBtn">Pause</button>
+    <button id="resetBtn">Reset</button>
+    <div class="speed-control">
+      <span>Speed: </span>
+      <input type="range" id="speedSlider" min="0.1" max="5" step="0.1" value="1">
+      <span id="speedValue">1x</span>
+    </div>
+  </div>
+  
+  <div class="info-section">
+    <h2>Earth's Rotation and the Day/Night Cycle</h2>
+    <p>
+      The Earth rotates on its axis, completing a full rotation in approximately <span class="strong">24 hours</span>. 
+      This rotation is responsible for the alternation between day and night that we experience.
+    </p>
+    <p>
+      As the Earth rotates, different parts of its surface face the Sun, receiving sunlight (day), 
+      while other parts face away from the Sun, experiencing darkness (night).
+    </p>
+    <p>
+      In this simulation, you can observe how Brazil moves through the day/night cycle as the Earth rotates. 
+      The highlighted area represents Brazil's approximate location on the globe.
+    </p>
+    
+    <h2>Keyboard Controls</h2>
+    <div class="keyboard-controls">
+      <p><strong>Space</strong> - Pause/Resume</p>
+      <p><strong>R</strong> - Reset</p>
+      <p><strong>Up Arrow</strong> - Increase speed</p>
+      <p><strong>Down Arrow</strong> - Decrease speed</p>
+    </div>
+  </div>
+
+  <script>
+    // Create canvas and get context
+    const canvasContainer = document.getElementById('canvas-container');
+    const canvas = document.createElement('canvas');
+    canvas.width = 800;
+    canvas.height = 600;
+    canvasContainer.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+    
+    // Animation variables
+    let rotationAngle = 0;
+    let animationSpeed = 1;
+    let isPaused = false;
+    let animationId;
+    
+    // Earth parameters
+    const earthRadius = 150;
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    
+    // Brazil's approximate coordinates (simplified for visualization)
+    const brazilLongitude = -50; // Approximate central longitude of Brazil
+    const brazilLatitude = -15;  // Approximate central latitude of Brazil
+    
+    // Function to draw random stars
+    function drawStars() {
+      ctx.fillStyle = 'white';
+      for (let i = 0; i < 200; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const size = Math.random() * 2;
+        ctx.beginPath();
+        ctx.arc(x, y, size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    
+    // Function to draw the Sun
+    function drawSun() {
+      const sunX = centerX - 300;
+      const sunY = centerY;
+      const sunRadius = 50;
+      
+      // Sun glow
+      const gradient = ctx.createRadialGradient(
+        sunX, sunY, sunRadius * 0.5,
+        sunX, sunY, sunRadius * 3
+      );
+      gradient.addColorStop(0, 'rgba(255, 255, 0, 1)');
+      gradient.addColorStop(0.3, 'rgba(255, 200, 0, 0.5)');
+      gradient.addColorStop(1, 'rgba(255, 100, 0, 0)');
+      
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(sunX, sunY, sunRadius * 3, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Sun body
+      ctx.fillStyle = 'yellow';
+      ctx.beginPath();
+      ctx.arc(sunX, sunY, sunRadius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    
+    // Function to draw sun rays
+    function drawSunRays() {
+      const sunX = centerX - 300;
+      const sunY = centerY;
+      const rayLength = 30;
+      const numRays = 12;
+      
+      ctx.strokeStyle = 'rgba(255, 255, 0, 0.7)';
+      ctx.lineWidth = 3;
+      
+      for (let i = 0; i < numRays; i++) {
+        const angle = (i / numRays) * Math.PI * 2;
+        const innerX = sunX + Math.cos(angle) * 60;
+        const innerY = sunY + Math.sin(angle) * 60;
+        const outerX = sunX + Math.cos(angle) * (60 + rayLength);
+        const outerY = sunY + Math.sin(angle) * (60 + rayLength);
+        
+        ctx.beginPath();
+        ctx.moveTo(innerX, innerY);
+        ctx.lineTo(outerX, outerY);
+        ctx.stroke();
+      }
+    }
+    
+    // Function to determine if a point is visible (on the front side of the sphere)
+    function isVisible(longitude, rotationAngle) {
+      const adjustedLongitude = longitude - rotationAngle;
+      return Math.abs(adjustedLongitude) < 90;
+    }
+    
+    // Function to determine if a point is on the illuminated side
+    function isIlluminated(longitude, rotationAngle) {
+      const adjustedLongitude = longitude - rotationAngle;
+      // Sun is to the left (-X direction), so points with longitude -90 to +90 are illuminated
+      return adjustedLongitude > -90 && adjustedLongitude < 90;
+    }
+    
+    // Function to draw the Earth with current rotation
+    function drawEarth() {
+      // Draw Earth base (blue sphere)
+      ctx.fillStyle = '#1e90ff';
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, earthRadius, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Draw simplified continents (just rough shapes for visualization)
+      ctx.fillStyle = '#2e8b57';
+      
+      // Draw grid lines for longitude and latitude
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+      ctx.lineWidth = 1;
+      
+      // Longitude lines
+      for (let long = -180; long < 180; long += 30) {
+        if (isVisible(long, rotationAngle)) {
+          ctx.beginPath();
+          for (let lat = -90; lat <= 90; lat += 5) {
+            const x = centerX + earthRadius * Math.cos(lat * Math.PI / 180) * Math.sin((long - rotationAngle) * Math.PI / 180);
+            const y = centerY - earthRadius * Math.sin(lat * Math.PI / 180);
+            
+            if (lat === -90) {
+              ctx.moveTo(x, y);
+            } else {
+              ctx.lineTo(x, y);
+            }
+          }
+          ctx.stroke();
+        }
+      }
+      
+      // Latitude lines
+      for (let lat = -60; lat <= 60; lat += 30) {
+        ctx.beginPath();
+        for (let long = -180; long <= 180; long += 5) {
+          if (isVisible(long, rotationAngle)) {
+            const x = centerX + earthRadius * Math.cos(lat * Math.PI / 180) * Math.sin((long - rotationAngle) * Math.PI / 180);
+            const y = centerY - earthRadius * Math.sin(lat * Math.PI / 180);
+            
+            if (long === -180) {
+              ctx.moveTo(x, y);
+            } else {
+              ctx.lineTo(x, y);
+            }
+          }
+        }
+        ctx.stroke();
+      }
+    }
+    
+    // Function to draw Brazil on the globe
+    function drawBrazilOnGlobe() {
+      // Only draw Brazil if it's visible from the current rotation angle
+      if (isVisible(brazilLongitude, rotationAngle)) {
+        // Calculate Brazil's position on the globe
+        const brazilX = centerX + earthRadius * Math.cos(brazilLatitude * Math.PI / 180) * Math.sin((brazilLongitude - rotationAngle) * Math.PI / 180);
+        const brazilY = centerY - earthRadius * Math.sin(brazilLatitude * Math.PI / 180);
+        
+        // Draw Brazil as a highlighted area
+        ctx.fillStyle = isIlluminated(brazilLongitude, rotationAngle) ? '#ffd700' : '#aa8800';
+        ctx.beginPath();
+        ctx.arc(brazilX, brazilY, 20, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Add label
+        ctx.fillStyle = 'white';
+        ctx.font = '14px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('Brazil', brazilX, brazilY - 25);
+      }
+    }
+    
+    // Function to draw the night side (shadow)
+    function drawNightSide() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, earthRadius, -Math.PI/2, Math.PI/2);
+      
+      // Adjust the shadow based on rotation
+      ctx.save();
+      ctx.translate(centerX, centerY);
+      ctx.rotate(rotationAngle * Math.PI / 180);
+      ctx.translate(-centerX, -centerY);
+      
+      ctx.arc(centerX, centerY, earthRadius, Math.PI/2, -Math.PI/2, true);
+      ctx.restore();
+      ctx.fill();
+    }
+    
+    // Function to draw the terminator (day/night line)
+    function drawTerminator() {
+      ctx.strokeStyle = 'rgba(255, 200, 0, 0.5)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      
+      ctx.save();
+      ctx.translate(centerX, centerY);
+      ctx.rotate(rotationAngle * Math.PI / 180);
+      ctx.arc(0, 0, earthRadius, -Math.PI/2, Math.PI/2);
+      ctx.restore();
+      ctx.stroke();
+    }
+    
+    // Function to draw text information
+    function drawInfo() {
+      ctx.fillStyle = 'white';
+      ctx.font = '16px Arial';
+      ctx.textAlign = 'left';
+      
+      // Calculate local time in Brazil based on rotation
+      const brazilHour = (((rotationAngle + 50) % 360) / 15) % 24;
+      const hours = Math.floor(brazilHour);
+      const minutes = Math.floor((brazilHour - hours) * 60);
+      
+      const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+      
+      ctx.fillText(`Rotation Angle: ${Math.round(rotationAngle)}°`, 20, 30);
+      ctx.fillText(`Local Time in Brazil: ${timeString}`, 20, 60);
+      ctx.fillText(`Animation Speed: ${animationSpeed.toFixed(1)}x`, 20, 90);
+      
+      // Indicate if Brazil is in day or night
+      const isDaytime = isIlluminated(brazilLongitude, rotationAngle);
+      ctx.fillText(`Brazil is in: ${isDaytime ? 'DAY' : 'NIGHT'}`, 20, 120);
+    }
+    
+    // Main render function
+    function render() {
+      // Clear canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw background and stars
+      ctx.fillStyle = '#000';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      drawStars();
+      
+      // Draw sun and rays
+      drawSun();
+      drawSunRays();
+      
+      // Draw Earth
+      drawEarth();
+      
+      // Draw the terminator line
+      drawTerminator();
+      
+      // Draw Brazil
+      drawBrazilOnGlobe();
+      
+      // Draw night side
+      drawNightSide();
+      
+      // Draw information text
+      drawInfo();
+      
+      // Update rotation angle for next frame
+      if (!isPaused) {
+        rotationAngle += 0.1 * animationSpeed;
+        if (rotationAngle >= 360) {
+          rotationAngle -= 360;
+        }
+      }
+      
+      // Continue animation
+      animationId = requestAnimationFrame(render);
+    }
+    
+    // UI controls
+    const pauseBtn = document.getElementById('pauseBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const speedSlider = document.getElementById('speedSlider');
+    const speedValue = document.getElementById('speedValue');
+    
+    pauseBtn.addEventListener('click', () => {
+      isPaused = !isPaused;
+      pauseBtn.textContent = isPaused ? 'Resume' : 'Pause';
+    });
+    
+    resetBtn.addEventListener('click', () => {
+      rotationAngle = 0;
+      animationSpeed = 1;
+      isPaused = false;
+      pauseBtn.textContent = 'Pause';
+      speedSlider.value = 1;
+      speedValue.textContent = '1x';
+    });
+    
+    speedSlider.addEventListener('input', () => {
+      animationSpeed = parseFloat(speedSlider.value);
+      speedValue.textContent = `${animationSpeed.toFixed(1)}x`;
+    });
+    
+    // Keyboard controls
+    document.addEventListener('keydown', (e) => {
+      switch (e.key) {
+        case ' ':
+          // Space - toggle pause
+          isPaused = !isPaused;
+          pauseBtn.textContent = isPaused ? 'Resume' : 'Pause';
+          break;
+        case 'r':
+        case 'R':
+          // R - reset
+          rotationAngle = 0;
+          animationSpeed = 1;
+          isPaused = false;
+          pauseBtn.textContent = 'Pause';
+          speedSlider.value = 1;
+          speedValue.textContent = '1x';
+          break;
+        case 'ArrowUp':
+          // Up arrow - increase speed
+          animationSpeed = Math.min(animationSpeed + 0.1, 5);
+          speedSlider.value = animationSpeed;
+          speedValue.textContent = `${animationSpeed.toFixed(1)}x`;
+          break;
+        case 'ArrowDown':
+          // Down arrow - decrease speed
+          animationSpeed = Math.max(animationSpeed - 0.1, 0.1);
+          speedSlider.value = animationSpeed;
+          speedValue.textContent = `${animationSpeed.toFixed(1)}x`;
+          break;
+      }
+    });
+    
+    // Start the animation
+    render();
+  </script>
+  <script src="../js/language-switcher.js"></script>
+</body>
+</html>

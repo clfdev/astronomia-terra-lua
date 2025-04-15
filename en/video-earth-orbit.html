@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-  <meta name="description" content="Vídeo da Translação da Terra e Estações do Ano no Brasil">
-  <title>Translação da Terra e Estações do Ano no Brasil</title>
-  <link rel="stylesheet" href="css/language-switcher.css">
+  <meta name="description" content="Earth's Orbit Video and Seasons in Brazil">
+  <title>Earth's Orbit and Seasons in Brazil</title>
+  <link rel="stylesheet" href="../css/language-switcher.css">
   <style>
     body {
       background-color: #1a1a2e;
@@ -56,7 +56,7 @@
       font-size: 16px;
       transition: background-color 0.3s;
       min-width: 100px;
-      min-height: 44px; /* Mínimo recomendado para alvos de toque */
+      min-height: 44px; /* Minimum recommended for touch targets */
       touch-action: manipulation;
     }
 
@@ -181,102 +181,137 @@
         max-height: 50vh;
       }
     }
+    
+    /* Language switcher button */
+    .language-switcher {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 100;
+    }
+    
+    .language-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    
+    .language-btn:hover {
+      transform: scale(1.1);
+      border-color: #8be9fd;
+    }
+    
+    .language-btn.active {
+      border-color: #ff79c6;
+    }
   </style>
 </head>
 <body>
   <a href="index.html" class="back-button">←</a>
-  <h1>Translação da Terra e Estações do Ano no Brasil</h1>
+  
+  <!-- Language Switcher -->
+  <div class="language-switcher">
+    <div class="language-btn" id="languageToggle" style="background-image: url('https://flagcdn.com/w40/br.png');" title="Mudar para Português"></div>
+  </div>
+  
+  <h1>Earth's Orbit and Seasons in Brazil</h1>
   
   <canvas id="orbitCanvas" width="800" height="700"></canvas>
   
   <div class="controls">
-    <button id="pauseBtn">Pausar</button>
+    <button id="pauseBtn">Pause</button>
     <div class="speed-control">
-      <span>Velocidade:</span>
+      <span>Speed:</span>
       <input type="range" id="speedSlider" min="0.1" max="5" step="0.1" value="1">
       <span id="speedValue">1.0x</span>
     </div>
   </div>
   
   <div class="info-section">
-    <h2>Estações do Ano no Brasil</h2>
+    <h2>Seasons in Brazil</h2>
     
     <div class="seasons-grid">
       <div class="season-card" style="background-color: rgba(255, 87, 34, 0.2);">
-        <h3 style="color: #FF5722;">Verão</h3>
-        <p class="note">Dezembro a Março</p>
-        <p class="note">Periélio - Terra mais próxima do Sol</p>
+        <h3 style="color: #FF5722;">Summer</h3>
+        <p class="note">December to March</p>
+        <p class="note">Perihelion - Earth closest to the Sun</p>
       </div>
       
       <div class="season-card" style="background-color: rgba(255, 152, 0, 0.2);">
-        <h3 style="color: #FF9800;">Outono</h3>
-        <p class="note">Março a Junho</p>
-        <p class="note">Equinócio - Dia e noite com mesma duração</p>
+        <h3 style="color: #FF9800;">Autumn</h3>
+        <p class="note">March to June</p>
+        <p class="note">Equinox - Day and night of equal length</p>
       </div>
       
       <div class="season-card" style="background-color: rgba(33, 150, 243, 0.2);">
-        <h3 style="color: #2196F3;">Inverno</h3>
-        <p class="note">Junho a Setembro</p>
-        <p class="note">Afélio - Terra mais distante do Sol</p>
+        <h3 style="color: #2196F3;">Winter</h3>
+        <p class="note">June to September</p>
+        <p class="note">Aphelion - Earth farthest from the Sun</p>
       </div>
       
       <div class="season-card" style="background-color: rgba(76, 175, 80, 0.2);">
-        <h3 style="color: #4CAF50;">Primavera</h3>
-        <p class="note">Setembro a Dezembro</p>
-        <p class="note">Equinócio - Dia e noite com mesma duração</p>
+        <h3 style="color: #4CAF50;">Spring</h3>
+        <p class="note">September to December</p>
+        <p class="note">Equinox - Day and night of equal length</p>
       </div>
     </div>
     
     <div class="explanation">
       <p>
-        Esta animação mostra a Terra em sua órbita elíptica ao redor do Sol, com foco nas estações
-        do ano no Brasil.
+        This animation shows Earth in its elliptical orbit around the Sun, focusing on the seasons
+        in Brazil.
       </p>
       <p>
-        As estações são causadas principalmente pela inclinação do eixo da Terra (aproximadamente 23,5°)
-        em relação ao plano orbital. Esta inclinação faz com que diferentes hemisférios recebam
-        diferentes quantidades de luz solar ao longo do ano.
+        Seasons are primarily caused by Earth's axial tilt (approximately 23.5°)
+        relative to its orbital plane. This tilt causes different hemispheres to receive
+        different amounts of sunlight throughout the year.
       </p>
       <p>
-        No Brasil (hemisfério sul), o verão ocorre quando o polo sul está inclinado na direção do Sol,
-        recebendo mais luz solar direta. O inverno ocorre quando o polo sul está inclinado para longe do Sol.
+        In Brazil (southern hemisphere), summer occurs when the south pole is tilted toward the Sun,
+        receiving more direct sunlight. Winter occurs when the south pole is tilted away from the Sun.
       </p>
     </div>
     
     <div class="keyboard-controls">
-      <p><strong>Controles:</strong></p>
-      <p>• Barra de espaço: Pausar/Continuar a animação</p>
-      <p>• Setas para cima/baixo: Ajustar a velocidade da translação</p>
+      <p><strong>Controls:</strong></p>
+      <p>• Space bar: Pause/Resume animation</p>
+      <p>• Up/Down arrows: Adjust orbit speed</p>
     </div>
   </div>
 
   <script>
-    // Configuração do canvas
+    // Canvas setup
     const canvas = document.getElementById('orbitCanvas');
     const ctx = canvas.getContext('2d');
 
-    // Definição de constantes
+    // Constants definition
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-    const semiMajorAxis = 250; // Eixo maior da elipse orbital
-    const semiMinorAxis = 240; // Eixo menor da elipse orbital
+    const semiMajorAxis = 250; // Major axis of orbital ellipse
+    const semiMinorAxis = 240; // Minor axis of orbital ellipse
     const earthRadius = 20;
     const sunRadius = 40;
-    const axialTilt = 23.5; // Inclinação do eixo da Terra (em graus)
+    const axialTilt = 23.5; // Earth's axial tilt (in degrees)
 
-    // Estado da animação
+    // Animation state
     let orbitalPosition = 0;
     let isPaused = false;
     let speed = 1;
     
-    // Controles da interface
+    // Interface controls
     const pauseBtn = document.getElementById('pauseBtn');
     const speedSlider = document.getElementById('speedSlider');
     const speedValue = document.getElementById('speedValue');
     
     pauseBtn.addEventListener('click', function() {
       isPaused = !isPaused;
-      pauseBtn.textContent = isPaused ? 'Continuar' : 'Pausar';
+      pauseBtn.textContent = isPaused ? 'Resume' : 'Pause';
     });
     
     speedSlider.addEventListener('input', function() {
@@ -284,11 +319,11 @@
       speedValue.textContent = `${speed.toFixed(1)}x`;
     });
     
-    // Controles de teclado
+    // Keyboard controls
     document.addEventListener('keydown', function(e) {
       if (e.code === 'Space') {
         isPaused = !isPaused;
-        pauseBtn.textContent = isPaused ? 'Continuar' : 'Pausar';
+        pauseBtn.textContent = isPaused ? 'Resume' : 'Pause';
       } else if (e.code === 'ArrowUp') {
         speed = Math.min(5, speed + 0.1);
         speedSlider.value = speed;
@@ -300,109 +335,109 @@
       }
     });
 
-    // Calcular a posição da Terra na órbita
+    // Calculate Earth's position in orbit
     function calculateEarthPosition(angle) {
-      // Converter para radianos
+      // Convert to radians
       const rad = (angle * Math.PI) / 180;
       
-      // Calcular posição na elipse
+      // Calculate position in ellipse
       const x = centerX + semiMajorAxis * Math.cos(rad);
       const y = centerY + semiMinorAxis * Math.sin(rad);
       
       return { x, y };
     }
 
-    // Determinar a estação atual no Brasil (hemisfério sul)
+    // Determine current season in Brazil (southern hemisphere)
     function getCurrentSeason(angle) {
-      // No hemisfério sul:
-      // 0° (periélio) - Verão (Dezembro a Março)
-      // 90° - Outono (Março a Junho)
-      // 180° (afélio) - Inverno (Junho a Setembro)
-      // 270° - Primavera (Setembro a Dezembro)
+      // In southern hemisphere:
+      // 0° (perihelion) - Summer (December to March)
+      // 90° - Autumn (March to June)
+      // 180° (aphelion) - Winter (June to September)
+      // 270° - Spring (September to December)
       
       if (angle >= 315 || angle < 45) {
         return { 
-          name: "Verão", 
+          name: "Summer", 
           color: "#FF5722", 
           month: getDayMonth(angle) 
         };
       } else if (angle >= 45 && angle < 135) {
         return { 
-          name: "Outono", 
+          name: "Autumn", 
           color: "#FF9800", 
           month: getDayMonth(angle) 
         };
       } else if (angle >= 135 && angle < 225) {
         return { 
-          name: "Inverno", 
+          name: "Winter", 
           color: "#2196F3", 
           month: getDayMonth(angle) 
         };
       } else {
         return { 
-          name: "Primavera", 
+          name: "Spring", 
           color: "#4CAF50", 
           month: getDayMonth(angle) 
         };
       }
     }
 
-    // Obter mês e dia aproximados com base no ângulo orbital
+    // Get approximate month and day based on orbital angle
     function getDayMonth(angle) {
-      // 0° = 21 de dezembro (solstício)
-      // 90° = 20 de março (equinócio)
-      // 180° = 21 de junho (solstício)
-      // 270° = 22 de setembro (equinócio)
+      // 0° = December 21 (solstice)
+      // 90° = March 20 (equinox)
+      // 180° = June 21 (solstice)
+      // 270° = September 22 (equinox)
       
       const months = [
-        "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
       ];
       
-      // Ajuste para que 0° corresponda a 21 de dezembro
+      // Adjust so that 0° corresponds to December 21
       const adjustedAngle = (angle + 10) % 360;
       const dayOfYear = Math.floor(adjustedAngle * 365 / 360);
       
-      // Dias aproximados em cada mês
+      // Approximate days in each month
       const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
       let month = 0;
       
-      // Começar em dezembro (21 de dezembro)
+      // Start in December (December 21)
       let remainingDays = dayOfYear;
       if (remainingDays < 10) {
-        return "21 de Dezembro";
+        return "December 21";
       }
       
-      remainingDays -= 10; // Dias restantes de dezembro
+      remainingDays -= 10; // Remaining days of December
       
       for (let i = 0; i < 12; i++) {
         month = (i) % 12;
         if (remainingDays < daysInMonth[month]) {
-          return `${remainingDays + 1} de ${months[month]}`;
+          return `${months[month]} ${remainingDays + 1}`;
         }
         remainingDays -= daysInMonth[month];
       }
       
-      return "21 de Dezembro";
+      return "December 21";
     }
 
-    // Função para determinar se estamos em um solstício ou equinócio
+    // Function to determine if we're at a solstice or equinox
     function getSpecialDay(angle) {
-      const tolerance = 3; // Tolerância em graus
+      const tolerance = 3; // Tolerance in degrees
       
       if (Math.abs(angle - 0) < tolerance || Math.abs(angle - 360) < tolerance) {
-        return "Solstício de Verão (Sul)";
+        return "Summer Solstice (South)";
       } else if (Math.abs(angle - 90) < tolerance) {
-        return "Equinócio de Outono (Sul)";
+        return "Autumn Equinox (South)";
       } else if (Math.abs(angle - 180) < tolerance) {
-        return "Solstício de Inverno (Sul)";
+        return "Winter Solstice (South)";
       } else if (Math.abs(angle - 270) < tolerance) {
-        return "Equinócio de Primavera (Sul)";
+        return "Spring Equinox (South)";
       }
       return "";
     }
 
-    // Desenhar estrelas no fundo
+    // Draw stars in background
     function drawStars() {
       const numStars = 200;
       
@@ -419,7 +454,7 @@
       }
     }
 
-    // Desenhar a órbita da Terra
+    // Draw Earth's orbit
     function drawOrbit() {
       ctx.beginPath();
       ctx.ellipse(centerX, centerY, semiMajorAxis, semiMinorAxis, 0, 0, Math.PI * 2);
@@ -428,7 +463,7 @@
       ctx.stroke();
       ctx.setLineDash([]);
       
-      // Linhas de solstícios e equinócios
+      // Solstice and equinox lines
       ctx.beginPath();
       ctx.moveTo(centerX - semiMajorAxis, centerY);
       ctx.lineTo(centerX + semiMajorAxis, centerY);
@@ -441,9 +476,9 @@
       ctx.stroke();
     }
 
-    // Desenhar o Sol
+    // Draw the Sun
     function drawSun() {
-      // Glow externo
+      // Outer glow
       const gradient = ctx.createRadialGradient(
         centerX, centerY, sunRadius / 2,
         centerX, centerY, sunRadius * 1.5
@@ -456,13 +491,13 @@
       ctx.fillStyle = gradient;
       ctx.fill();
       
-      // Sol principal
+      // Main Sun
       ctx.beginPath();
       ctx.arc(centerX, centerY, sunRadius, 0, Math.PI * 2);
       ctx.fillStyle = '#FDB813';
       ctx.fill();
       
-      // Círculos de glow adicional
+      // Additional glow circles
       ctx.beginPath();
       ctx.arc(centerX, centerY, sunRadius + 10, 0, Math.PI * 2);
       ctx.fillStyle = 'rgba(253, 184, 19, 0.3)';
@@ -474,11 +509,11 @@
       ctx.fill();
     }
 
-    // Desenhar a Terra na sua posição atual
+    // Draw Earth at its current position
     function drawEarth(position, season) {
       const { x, y } = position;
       
-      // Linha entre Sol e Terra
+      // Line between Sun and Earth
       ctx.beginPath();
       ctx.moveTo(centerX, centerY);
       ctx.lineTo(x, y);
@@ -487,22 +522,22 @@
       ctx.stroke();
       ctx.setLineDash([]);
       
-      // Salvar o contexto antes de aplicar transformações
+      // Save context before applying transformations
       ctx.save();
       
-      // Transladar para a posição da Terra
+      // Translate to Earth's position
       ctx.translate(x, y);
       
-      // Aplicar a inclinação do eixo
+      // Apply axial tilt
       ctx.rotate((axialTilt * Math.PI) / 180);
       
-      // Desenhar o globo terrestre
+      // Draw Earth globe
       ctx.beginPath();
       ctx.arc(0, 0, earthRadius, 0, Math.PI * 2);
       ctx.fillStyle = '#1E88E5';
       ctx.fill();
       
-      // Desenhar continentes simplificados
+      // Draw simplified continents
       ctx.beginPath();
       ctx.moveTo(-earthRadius/2, -earthRadius/3);
       ctx.quadraticCurveTo(
@@ -514,13 +549,13 @@
       ctx.fill();
       ctx.globalAlpha = 1.0;
       
-      // Desenhar o Brasil (destacado com a cor da estação)
+      // Draw Brazil (highlighted with season color)
       ctx.beginPath();
       ctx.arc(-earthRadius/2, earthRadius/4, earthRadius/5, 0, Math.PI * 2);
       ctx.fillStyle = season.color;
       ctx.fill();
       
-      // Desenhar o eixo da Terra
+      // Draw Earth's axis
       ctx.beginPath();
       ctx.moveTo(0, -earthRadius * 1.2);
       ctx.lineTo(0, earthRadius * 1.2);
@@ -528,11 +563,11 @@
       ctx.lineWidth = 1;
       ctx.stroke();
       
-      // Restaurar o contexto
+      // Restore context
       ctx.restore();
     }
     
-    // Desenhar o setor da estação atual
+    // Draw the current season sector
     function drawSeasonSector(position, season) {
       const prevAngle = (orbitalPosition - 45 + 360) % 360;
       const prevPos = calculateEarthPosition(prevAngle);
@@ -554,44 +589,44 @@
       ctx.globalAlpha = 1.0;
     }
     
-    // Desenhar os marcadores de estações
+    // Draw season markers
     function drawSeasonMarkers() {
       ctx.font = '20px Arial';
       ctx.textBaseline = 'middle';
       
-      // Inverno (21 Jun)
+      // Winter (Jun 21)
       ctx.fillStyle = '#FF5722';
       ctx.textAlign = 'right';
-      ctx.fillText('Inverno', centerX - semiMajorAxis - 10, centerY);
-      ctx.fillText('(21 Jun)', centerX - semiMajorAxis - 10, centerY + 20);
+      ctx.fillText('Winter', centerX - semiMajorAxis - 10, centerY);
+      ctx.fillText('(Jun 21)', centerX - semiMajorAxis - 10, centerY + 20);
       
-      // primavera (22 Set)
+      // Spring (Sep 22)
       ctx.fillStyle = '#FF9800';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'bottom';
-      ctx.fillText('Primavera(22 Set)', centerX, centerY - semiMinorAxis - 10);
+      ctx.fillText('Spring (Sep 22)', centerX, centerY - semiMinorAxis - 10);
       
-      // Verão (21 Dez)
+      // Summer (Dec 21)
       ctx.fillStyle = '#2196F3';
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
-      ctx.fillText('Verão', centerX + semiMajorAxis + 10, centerY);
-      ctx.fillText('(21 Dez)', centerX + semiMajorAxis + 10, centerY + 20);
+      ctx.fillText('Summer', centerX + semiMajorAxis + 10, centerY);
+      ctx.fillText('(Dec 21)', centerX + semiMajorAxis + 10, centerY + 20);
       
-      // Outono (20 Mar)
+      // Autumn (Mar 20)
       ctx.fillStyle = '#4CAF50';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'top';
-      ctx.fillText('Outono(22 Mar)', centerX, centerY + semiMinorAxis + 10);
+      ctx.fillText('Autumn (Mar 20)', centerX, centerY + semiMinorAxis + 10);
       
-      // Restaurar configurações padrão
+      // Restore default settings
       ctx.textAlign = 'left';
       ctx.textBaseline = 'alphabetic';
     }
     
-    // Desenhar painel de informações
+    // Draw information panel
     function drawInfoPanel(season) {
-      // Calcular a distância Terra-Sol
+      // Calculate Earth-Sun distance
       const earthPos = calculateEarthPosition(orbitalPosition);
       const distance = Math.sqrt(
         Math.pow(earthPos.x - centerX, 2) + 
@@ -601,33 +636,33 @@
       const formattedDistance = (distance * 1000000 / semiMajorAxis).toFixed(1);
       const specialDay = getSpecialDay(orbitalPosition);
       
-      // Desenhar retângulo de fundo
+      // Draw background rectangle
       ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
       ctx.beginPath();
       ctx.roundRect(20, 20, 250, specialDay ? 165 : 135, 5);
       ctx.fill();
       
-      // Definir estilo de texto
+      // Set text style
       ctx.fillStyle = 'white';
       ctx.font = 'bold 16px Arial';
       
-      // Mostrar data
-      ctx.fillText(`Data: ${season.month}`, 30, 45);
+      // Show date
+      ctx.fillText(`Date: ${season.month}`, 30, 45);
       
-      // Mostrar estação atual
+      // Show current season
       ctx.font = '16px Arial';
-      ctx.fillText('Estação no Brasil: ', 30, 75);
+      ctx.fillText('Season in Brazil: ', 30, 75);
       ctx.fillStyle = season.color;
       ctx.fillText(season.name, 175, 75);
       
-      // Mostrar distância Terra-Sol
+      // Show Earth-Sun distance
       ctx.fillStyle = 'white';
-      ctx.fillText(`Distância Terra-Sol: ${formattedDistance} milhões km`, 30, 105);
+      ctx.fillText(`Earth-Sun distance: ${formattedDistance} million km`, 30, 105);
       
-      // Mostrar ângulo orbital
-      ctx.fillText(`Ângulo orbital: ${Math.round(orbitalPosition)}°`, 30, 135);
+      // Show orbital angle
+      ctx.fillText(`Orbital angle: ${Math.round(orbitalPosition)}°`, 30, 135);
       
-      // Mostrar evento especial (solstícios/equinócios)
+      // Show special event (solstices/equinoxes)
       if (specialDay) {
         ctx.fillStyle = '#FFD700';
         ctx.font = 'bold 16px Arial';
@@ -635,45 +670,45 @@
       }
     }
     
-    // Função principal de renderização
+    // Main render function
     function render() {
-      // Limpar o canvas
+      // Clear canvas
       ctx.fillStyle = 'black';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       
-      // Desenhar elementos da cena
+      // Draw scene elements
       drawStars();
       drawOrbit();
       drawSeasonMarkers();
       drawSun();
       
-      // Calcular a posição atual da Terra
+      // Calculate current Earth position
       const earthPosition = calculateEarthPosition(orbitalPosition);
       
-      // Determinar a estação atual
+      // Determine current season
       const currentSeason = getCurrentSeason(orbitalPosition);
       
-      // Desenhar o setor da estação
+      // Draw season sector
       drawSeasonSector(earthPosition, currentSeason);
       
-      // Desenhar a Terra
+      // Draw Earth
       drawEarth(earthPosition, currentSeason);
       
-      // Desenhar informações
+      // Draw information
       drawInfoPanel(currentSeason);
       
-      // Atualizar a posição orbital
+      // Update orbital position
       if (!isPaused) {
         orbitalPosition = (orbitalPosition + 0.5 * speed) % 360;
       }
       
-      // Continuar a animação
+      // Continue animation
       requestAnimationFrame(render);
     }
     
-    // Iniciar a animação
+    // Start animation
     render();
   </script>
-  <script src="js/language-switcher.js"></script>
+  <script src="../js/language-switcher.js"></script>
 </body>
 </html>

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-  <meta name="description" content="Visualização da Translação da Lua">
+  <meta name="description" content="Visualization of Moon's Movement and Phases">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="theme-color" content="#1a1a2e">
-  <title>Visualização da Translação da Lua</title>
-  <link rel="stylesheet" href="css/language-switcher.css">
+  <title>Moon's Movement and Phases</title>
+  <link rel="stylesheet" href="../css/language-switcher.css">
   <style>
     body {
       background-color: #1a1a2e;
@@ -205,248 +205,249 @@
 <body>
   <button class="back-button" onclick="window.location.href='index.html'">←</button>
   
-  <h1>Movimento e Fases da Lua</h1>
+  <h1>Moon's Movement and Phases</h1>
   
   <div class="svg-container">
     <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
-      <!-- Fundo -->
+      <!-- Background -->
       <rect width="800" height="600" fill="#1a1a2e" />
       
-      <!-- Espaço para a órbita da Lua ao redor da Terra -->
+      <!-- Space for the Moon's orbit around Earth -->
       <g transform="translate(400, 320)">
-        <!-- Órbita da Lua (elipse) -->
+        <!-- Moon's orbit (ellipse) -->
         <ellipse cx="0" cy="0" rx="192" ry="191.91" 
                 fill="none" stroke="#444" stroke-width="1" stroke-dasharray="2,2" />
         
-        <!-- Eixo maior -->
+        <!-- Major axis -->
         <line x1="-192" y1="0" x2="192" y2="0" 
               stroke="#444" stroke-width="1" stroke-dasharray="5,5" />
         
-        <!-- Eixo menor -->
+        <!-- Minor axis -->
         <line x1="0" y1="-191.91" x2="0" y2="191.91" 
               stroke="#444" stroke-width="1" stroke-dasharray="5,5" />
         
-        <!-- Terra no centro -->
+        <!-- Earth at center -->
         <circle cx="0" cy="0" r="16" fill="#1E90FF">
-          <title>Terra</title>
+          <title>Earth</title>
         </circle>
         <circle cx="0" cy="0" r="20" fill="rgba(30,144,255,0.3)" />
         
-        <!-- Direção do Sol (simplificado, como se estivesse muito longe à direita) -->
+        <!-- Direction of the Sun (simplified, as if it were far away to the right) -->
         <line x1="-400" y1="0" x2="400" y2="0" stroke="#FFD700" stroke-width="2" stroke-dasharray="5,5" />
-        <text x="280" y="20" fill="#FFD700" font-size="24">Luz Solar</text>
+        <text x="280" y="20" fill="#FFD700" font-size="24">Sunlight</text>
         <polygon points="400,0 390,5 390,-5" fill="#FFD700" />
         
-        <!-- Lua em diferentes posições e fases -->
-        <!-- Posição 1: Lua Nova (0°) - NÃO ALTERADA -->
+        <!-- Moon in different positions and phases -->
+        <!-- Position 1: New Moon (0°) -->
         <g transform="translate(192, 0)">
           <circle cx="0" cy="0" r="8" fill="#888" />
           <circle cx="0" cy="0" r="8" fill="#111" />
-          <text x="15" y="-15" fill="white" font-size="22">Lua Nova</text>
-          <text x="15" y="5" fill="#AAA" font-size="20">363.296 km</text>
-          <text x="15" y="25" fill="#AAA" font-size="20">Dia 1</text>
+          <text x="15" y="-15" fill="white" font-size="22">New Moon</text>
+          <text x="15" y="5" fill="#AAA" font-size="20">363,296 km</text>
+          <text x="15" y="25" fill="#AAA" font-size="20">Day 1</text>
         </g>
         
-        <!-- Posição 2: Lua Minguante (45°) - AINDA MAIS ESCURA E MENOS CLARA -->
+        <!-- Position 2: Waning Crescent (45°) -->
         <g transform="translate(135.76, -135.76)">
           <circle cx="0" cy="0" r="8" fill="#111" />
-          <!-- Parte clara MINÚSCULA À ESQUERDA e parte ESCURA QUASE TOTAL -->
+          <!-- Tiny bright part on the LEFT and almost total DARK part -->
           <path d="M -8,-8 A 8,8 0 0 0 -8,8 L -7.9,8 L -7.9,-8 Z" fill="#888" />
-          <text x="25" y="-15" fill="white" font-size="22">Lua Minguante</text>
-          <text x="25" y="5" fill="#AAA" font-size="20">~373.000 km</text>
-          <text x="25" y="25" fill="#AAA" font-size="20">~Dia 26</text>
+          <text x="25" y="-15" fill="white" font-size="22">Waning Crescent</text>
+          <text x="25" y="5" fill="#AAA" font-size="20">~373,000 km</text>
+          <text x="25" y="25" fill="#AAA" font-size="20">~Day 26</text>
         </g>
         
-        <!-- Posição 3: Quarto Minguante (90°) - JÁ ESTÁ CORRETA -->
+        <!-- Position 3: Last Quarter (90°) -->
         <g transform="translate(0, -191.91)">
           <circle cx="0" cy="0" r="8" fill="#888" />
-          <!-- Metade escura à direita -->
+          <!-- Dark half on the right -->
           <path d="M 0,-8 L 0,8 A 8,8 0 0 0 8,8 A 8,8 0 0 0 8,-8 Z" fill="#111" />
-          <text x="-15" y="-65" fill="white" font-size="22">Quarto Minguante</text>
-          <text x="-15" y="-35" fill="#AAA" font-size="20">383.241 km</text>
-          <text x="-15" y="-15" fill="#AAA" font-size="20">Dia ~22.1</text>
+          <text x="-15" y="-65" fill="white" font-size="22">Last Quarter</text>
+          <text x="-15" y="-35" fill="#AAA" font-size="20">383,241 km</text>
+          <text x="-15" y="-15" fill="#AAA" font-size="20">Day ~22.1</text>
         </g>
         
-        <!-- Posição 4: Lua Gibosa Minguante (135°) - JÁ ESTÁ CORRETA -->
+        <!-- Position 4: Waning Gibbous (135°) -->
         <g transform="translate(-135.76, -135.76)">
           <circle cx="0" cy="0" r="8" fill="#888" />
-          <!-- Parte clara BEM MAIOR PARA A ESQUERDA e parte escura BEM MENOR PARA A DIREITA -->
+          <!-- LARGER bright part to the LEFT and SMALLER dark part to the RIGHT -->
           <path d="M 6,-8 L 6,8 A 8,8 0 0 0 8,8 A 8,8 0 0 0 8,-8 Z" fill="#111" />
-          <text x="-170" y="-15" fill="white" font-size="22">Lua Gibosa Minguante</text>
-          <text x="-140" y="5" fill="#AAA" font-size="20">~395.000 km</text>
-          <text x="-140" y="25" fill="#AAA" font-size="20">~Dia 18</text>
+          <text x="-170" y="-15" fill="white" font-size="22">Waning Gibbous</text>
+          <text x="-140" y="5" fill="#AAA" font-size="20">~395,000 km</text>
+          <text x="-140" y="25" fill="#AAA" font-size="20">~Day 18</text>
         </g>
         
-        <!-- Posição 5: Lua Cheia (180°) - NÃO ALTERADA -->
+        <!-- Position 5: Full Moon (180°) -->
         <g transform="translate(-192, 0)">
           <circle cx="0" cy="0" r="8" fill="#DDD" />
-          <text x="-120" y="-15" fill="white" font-size="22">Lua Cheia</text>
-          <text x="-120" y="5" fill="#AAA" font-size="20">405.504 km</text>
-          <text x="-120" y="25" fill="#AAA" font-size="20">Dia ~14.8</text>
+          <text x="-120" y="-15" fill="white" font-size="22">Full Moon</text>
+          <text x="-120" y="5" fill="#AAA" font-size="20">405,504 km</text>
+          <text x="-120" y="25" fill="#AAA" font-size="20">Day ~14.8</text>
         </g>
         
-        <!-- Posição 6: Lua Gibosa Crescente (225°) - JÁ ESTÁ CORRETA -->
+        <!-- Position 6: Waxing Gibbous (225°) -->
         <g transform="translate(-135.76, 135.76)">
           <circle cx="0" cy="0" r="8" fill="#888" />
-          <!-- Parte clara BEM MAIOR PARA A DIREITA e parte escura BEM MENOR PARA A ESQUERDA -->
+          <!-- LARGER bright part to the RIGHT and SMALLER dark part to the LEFT -->
           <path d="M -8,-8 L -8,8 A 8,8 0 0 0 -7,8 A 8,8 0 0 0 -7,-8 Z" fill="#111" />
-          <text x="-170" y="25" fill="white" font-size="22">Lua Gibosa Crescente</text>
-          <text x="-140" y="45" fill="#AAA" font-size="20">~395.000 km</text>
-          <text x="-140" y="65" fill="#AAA" font-size="20">~Dia 11</text>
+          <text x="-170" y="25" fill="white" font-size="22">Waxing Gibbous</text>
+          <text x="-140" y="45" fill="#AAA" font-size="20">~395,000 km</text>
+          <text x="-140" y="65" fill="#AAA" font-size="20">~Day 11</text>
         </g>
         
-        <!-- Posição 7: Quarto Crescente (270°) - JÁ ESTÁ CORRETA -->
+        <!-- Position 7: First Quarter (270°) -->
         <g transform="translate(0, 191.91)">
           <circle cx="0" cy="0" r="8" fill="#888" />
-          <!-- Metade escura à esquerda -->
+          <!-- Dark half on the left -->
           <path d="M -8,-8 L -8,8 A 8,8 0 0 0 0,8 L 0,-8 Z" fill="#111" />
-          <text x="-25" y="45" fill="white" font-size="22">Quarto Crescente</text>
-          <text x="-25" y="65" fill="#AAA" font-size="20">383.241 km</text>
-          <text x="-25" y="85" fill="#AAA" font-size="20">Dia ~7.4</text>
+          <text x="-25" y="45" fill="white" font-size="22">First Quarter</text>
+          <text x="-25" y="65" fill="#AAA" font-size="20">383,241 km</text>
+          <text x="-25" y="85" fill="#AAA" font-size="20">Day ~7.4</text>
         </g>
         
-        <!-- Posição 8: Lua Crescente (315°) - AINDA MAIS ESCURA E MENOS CLARA -->
+        <!-- Position 8: Waxing Crescent (315°) -->
         <g transform="translate(135.76, 135.76)">
           <circle cx="0" cy="0" r="8" fill="#111" />
-          <!-- Parte clara MINÚSCULA PARA A DIREITA e parte ESCURA QUASE TOTAL -->
+          <!-- Tiny bright part on the RIGHT and almost total DARK part -->
           <path d="M 7.9,-8 L 7.9,8 A 8,8 0 0 0 8,8 A 8,8 0 0 0 8,-8 Z" fill="#888" />
-          <text x="15" y="25" fill="white" font-size="22">Lua Crescente</text>
-          <text x="15" y="45" fill="#AAA" font-size="20">~373.000 km</text>
-          <text x="15" y="65" fill="#AAA" font-size="20">~Dia 7</text>
+          <text x="15" y="25" fill="white" font-size="22">Waxing Crescent</text>
+          <text x="15" y="45" fill="#AAA" font-size="20">~373,000 km</text>
+          <text x="15" y="65" fill="#AAA" font-size="20">~Day 7</text>
         </g>
       </g>
     </svg>
   </div>
   
   <div class="info-section">
-    <h2>Fases da Lua</h2>
+    <h2>Moon Phases</h2>
     
     <div class="moon-phases">
       <div class="phase-card">
         <div class="phase-circle">
           <div class="dark-side" style="left: 0; right: 0;"></div>
         </div>
-        <div class="phase-name">Lua Nova</div>
-        <div class="phase-day">Dia 1</div>
+        <div class="phase-name">New Moon</div>
+        <div class="phase-day">Day 1</div>
       </div>
       
       <div class="phase-card">
         <div class="phase-circle">
           <div class="dark-side" style="left: 0; width: 45px; border-radius: 60px 0 0 60px;"></div>
         </div>
-        <div class="phase-name">Crescente</div>
-        <div class="phase-day">Dia 7</div>
+        <div class="phase-name">Waxing Crescent</div>
+        <div class="phase-day">Day 7</div>
       </div>
       
       <div class="phase-card">
         <div class="phase-circle">
           <div class="dark-side" style="left: 0; width: 30px; border-radius: 60px 0 0 60px;"></div>
         </div>
-        <div class="phase-name">Quarto Crescente</div>
-        <div class="phase-day">Dia 7.4</div>
+        <div class="phase-name">First Quarter</div>
+        <div class="phase-day">Day 7.4</div>
       </div>
       
       <div class="phase-card">
         <div class="phase-circle">
           <div class="dark-side" style="left: 0; width: 10px; border-radius: 60px 0 0 60px;"></div>
         </div>
-        <div class="phase-name">Gibosa Crescente</div>
-        <div class="phase-day">Dia 11</div>
+        <div class="phase-name">Waxing Gibbous</div>
+        <div class="phase-day">Day 11</div>
       </div>
       
       <div class="phase-card">
         <div class="phase-circle">
-          <!-- Lua Cheia não tem parte escura -->
+          <!-- Full Moon has no dark part -->
         </div>
-        <div class="phase-name">Lua Cheia</div>
-        <div class="phase-day">Dia 14.8</div>
+        <div class="phase-name">Full Moon</div>
+        <div class="phase-day">Day 14.8</div>
       </div>
       
       <div class="phase-card">
         <div class="phase-circle">
           <div class="dark-side" style="right: 0; width: 15px; border-radius: 0 60px 60px 0;"></div>
         </div>
-        <div class="phase-name">Gibosa Minguante</div>
-        <div class="phase-day">Dia 18</div>
+        <div class="phase-name">Waning Gibbous</div>
+        <div class="phase-day">Day 18</div>
       </div>
       
       <div class="phase-card">
         <div class="phase-circle">
           <div class="dark-side" style="right: 0; width: 30px; border-radius: 0 60px 60px 0;"></div>
         </div>
-        <div class="phase-name">Quarto Minguante</div>
-        <div class="phase-day">Dia 22.1</div>
+        <div class="phase-name">Last Quarter</div>
+        <div class="phase-day">Day 22.1</div>
       </div>
       
       <div class="phase-card">
         <div class="phase-circle">
           <div class="dark-side" style="right: 0; width: 45px; border-radius: 0 60px 60px 0;"></div>
         </div>
-        <div class="phase-name">Minguante</div>
-        <div class="phase-day">Dia 26</div>
+        <div class="phase-name">Waning Crescent</div>
+        <div class="phase-day">Day 26</div>
       </div>
     </div>
     
-    <h2>Informações sobre o Movimento Lunar</h2>
+    <h2>Information about Lunar Movement</h2>
     <div class="info">
     <p>
-      A Lua realiza um movimento elíptico ao redor da Terra, com uma excentricidade de 0,0549,
-      significativamente maior que a excentricidade da órbita da Terra ao redor do Sol (0,0167).
+      The Moon follows an elliptical path around Earth, with an eccentricity of 0.0549,
+      significantly greater than the eccentricity of Earth's orbit around the Sun (0.0167).
     </p>
     
     <p>
-      <strong class="strong">A equação do deslocamento lunar:</strong><br>
+      <strong class="strong">The equation of lunar motion:</strong><br>
       <span style="color: #8CF; font-size: 1.2em; font-weight: bold;">r = a(1-e²)/(1+e·cos(θ))</span>
     </p>
     
     <p>
-      Onde:
+      Where:
     </p>
     <ul class="info">
-      <li class="info"><strong class="strong">r</strong> é a distância Terra-Lua</li>
-      <li class="info"><strong class="strong">a</strong> é o semi-eixo maior da órbita (384.400 km)</li>
-      <li class="info"><strong class="strong">e</strong> é a excentricidade da órbita (0,0549)</li>
-      <li class="info"><strong class="strong">θ</strong> é o ângulo no plano orbital</li>
+      <li class="info"><strong class="strong">r</strong> is the Earth-Moon distance</li>
+      <li class="info"><strong class="strong">a</strong> is the semi-major axis of the orbit (384,400 km)</li>
+      <li class="info"><strong class="strong">e</strong> is the eccentricity of the orbit (0.0549)</li>
+      <li class="info"><strong class="strong">θ</strong> is the angle in the orbital plane</li>
     </ul>
     
     <p>
-      A variação da distância entre o perigeu e o apogeu é de aproximadamente 42.207 km,
-      o que representa cerca de 11% da distância média Terra-Lua.
+      The distance variation between perigee and apogee is approximately 42,207 km,
+      which represents about 11% of the average Earth-Moon distance.
     </p>
     
-    <h3>Períodos orbitais:</h3>
+    <h3>Orbital periods:</h3>
     <ul>
-      <li class="info"><strong class="strong">Período sideral:</strong> 27,32 dias - tempo para a Lua completar uma órbita em relação às estrelas fixas.</li>
-      <li class="info"><strong class="strong">Período sinódico:</strong> 29,53 dias - tempo entre fases lunares idênticas (ciclo completo de Lua Nova a Lua Nova).</li>
+      <li class="info"><strong class="strong">Sidereal period:</strong> 27.32 days - time for the Moon to complete one orbit relative to the fixed stars.</li>
+      <li class="info"><strong class="strong">Synodic period:</strong> 29.53 days - time between identical lunar phases (complete cycle from New Moon to New Moon).</li>
     </ul>
     
-    <h3>Fases da Lua:</h3>
+    <h3>Moon phases:</h3>
     <ul>
-      <li class="info"><strong class="strong">Lua Nova:</strong> A face iluminada da Lua está voltada para o Sol e não é visível da Terra.</li>
-      <li class="info"><strong class="strong">Quarto Crescente:</strong> Metade da face visível da Lua está iluminada, formando um "D" (hemisfério norte) ou um "C" invertido (hemisfério sul).</li>
-      <li class="info"><strong class="strong">Lua Cheia:</strong> A face visível da Lua está completamente iluminada.</li>
-      <li class="info"><strong class="strong">Quarto Minguante:</strong> Metade da face visível está iluminada, formando um "C" (hemisfério norte) ou um "D" invertido (hemisfério sul).</li>
+      <li class="info"><strong class="strong">New Moon:</strong> The illuminated face of the Moon is facing the Sun and is not visible from Earth.</li>
+      <li class="info"><strong class="strong">First Quarter:</strong> Half of the visible face of the Moon is illuminated, forming a "D" (northern hemisphere) or an inverted "C" (southern hemisphere).</li>
+      <li class="info"><strong class="strong">Full Moon:</strong> The visible face of the Moon is completely illuminated.</li>
+      <li class="info"><strong class="strong">Last Quarter:</strong> Half of the visible face is illuminated, forming a "C" (northern hemisphere) or an inverted "D" (southern hemisphere).</li>
     </ul>
     
-    <h3>Características adicionais:</h3>
+    <h3>Additional characteristics:</h3>
     <ul>
-      <li class="info"><strong class="strong">Rotação síncrona:</strong> A Lua sempre mostra a mesma face para a Terra, pois seu período de rotação é igual ao seu período orbital.</li>
-      <li class="info"><strong class="strong">Inclinação orbital:</strong> A órbita da Lua tem uma inclinação de aproximadamente 5,14° em relação ao plano da eclíptica (órbita da Terra ao redor do Sol).</li>
-      <li class="info">Esta inclinação é responsável por eclipses não ocorrerem mensalmente.</li>
+      <li class="info"><strong class="strong">Synchronous rotation:</strong> The Moon always shows the same face to Earth because its rotation period equals its orbital period.</li>
+      <li class="info"><strong class="strong">Orbital inclination:</strong> The Moon's orbit has an inclination of approximately 5.14° relative to the ecliptic plane (Earth's orbit around the Sun).</li>
+      <li class="info">This inclination is responsible for eclipses not occurring monthly.</li>
     </ul>
-    <h3>Informações adicionais</h3>
-            <!-- Legenda -->
-            <p><strong class="strong">Órbita da Lua</strong></p>
+    <h3>Additional information</h3>
+            <!-- Legend -->
+            <p><strong class="strong">Moon's Orbit</strong></p>
             <ul>
-              <li> Distância média Terra-Lua: 384.400 km</li>
-              <li> Perigeu (ponto mais próximo): 363.296 km</li>
-              <li> Apogeu (ponto mais distante): 405.504 km</li>
-              <li> Período orbital sideral: 27,32 dias</li>
-              <li> Período sinódico (ciclo de fases): 29,53 dias</li>
-              <li> Excentricidade da órbita: 0,0549</li>
+              <li> Average Earth-Moon distance: 384,400 km</li>
+              <li> Perigee (closest point): 363,296 km</li>
+              <li> Apogee (farthest point): 405,504 km</li>
+              <li> Sidereal orbital period: 27.32 days</li>
+              <li> Synodic period (phase cycle): 29.53 days</li>
+              <li> Orbit eccentricity: 0.0549</li>
             </ul>
     </div>
   </div>
-  <script src="js/language-switcher.js"></script>
+  
+  <script src="../js/language-switcher.js"></script>
 </body>
 </html>
