@@ -88,6 +88,18 @@
             font-size: 1.2rem;
         }
 
+        .version-badge {
+            display: inline-block;
+            background-color: #ff79c6;
+            color: #121212;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
         @media (max-width: 600px) {
             .container {
                 padding: 20px;
@@ -121,7 +133,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Astronomia: Terra e Lua</h1>
+        <h1>Astronomia: Terra e Lua <span class="version-badge">v2.0</span></h1>
         
         <ul class="menu-list">
             <li class="menu-item">
@@ -149,10 +161,16 @@
                     Vídeo da Rotação da Terra <span>🎬</span>
                 </a>
             </li>
+            <li class="menu-item">
+                <a href="visual-fases-lua.html" class="menu-link">
+                    Visualização das Fases da Lua <span>🌓</span>
+                </a>
+            </li>
         </ul>
 
         <div class="footer">
             <p>Explore os movimentos da Terra e da Lua através de visualizações e vídeos.</p>
+            <p>Versão 2.0 - Abril 2025</p>
             <p>&copy 2025. Desenvolvido por Caio Lima Firme e Claude 3.7</p>
         </div>
     </div>

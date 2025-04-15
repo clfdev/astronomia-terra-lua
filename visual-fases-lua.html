@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Visualização interativa das fases da Lua - Astronomia: Terra e Lua">
+    <title>Fases da Lua - Astronomia</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400"><rect width="400" height="400" fill="%23121212"/><circle cx="50" cy="50" r="1" fill="%23ffffff"/><circle cx="100" cy="150" r="0.8" fill="%23ffffff"/><circle cx="200" cy="50" r="0.6" fill="%23ffffff"/><circle cx="300" cy="200" r="1" fill="%23ffffff"/><circle cx="150" cy="300" r="0.7" fill="%23ffffff"/><circle cx="250" cy="350" r="0.9" fill="%23ffffff"/><circle cx="350" cy="100" r="0.5" fill="%23ffffff"/><circle cx="75" cy="200" r="0.8" fill="%23ffffff"/><circle cx="280" cy="120" r="0.6" fill="%23ffffff"/><circle cx="120" cy="80" r="0.7" fill="%23ffffff"/><circle cx="220" cy="180" r="0.4" fill="%23ffffff"/><circle cx="320" cy="280" r="0.6" fill="%23ffffff"/><circle cx="180" cy="380" r="0.8" fill="%23ffffff"/><circle cx="380" cy="180" r="0.7" fill="%23ffffff"/><circle cx="30" cy="280" r="0.5" fill="%23ffffff"/><circle cx="130" cy="380" r="0.9" fill="%23ffffff"/><circle cx="330" cy="30" r="0.6" fill="%23ffffff"/><circle cx="230" cy="130" r="0.5" fill="%23ffffff"/></svg>');
+            background-attachment: fixed;
+            background-size: 400px 400px;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 90%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(25, 25, 35, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #8be9fd;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            text-shadow: 0 0 10px rgba(139, 233, 253, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #303048, #1e1e2a);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            border-left: 5px solid #ff79c6;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            min-height: 44px;
+            min-width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            align-self: flex-start;
+            touch-action: manipulation;
+        }
+
+        .back-button:hover, .back-button:active {
+            background: linear-gradient(45deg, #3a3a5e, #282840);
+            border-left-color: #8be9fd;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .moon-phases-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .moon-phase {
+            text-align: center;
+            width: 150px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .moon-phase:hover {
+            transform: scale(1.05);
+        }
+
+        .moon-phase img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #000;
+            margin-bottom: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .moon-phase h3 {
+            margin: 5px 0;
+            color: #ff79c6;
+            font-size: 1.1rem;
+        }
+
+        .interactive-section {
+            margin-top: 30px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .interactive-moon {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            position: relative;
+            margin-bottom: 30px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+        }
+
+        .shadow {
+            position: absolute;
+            top: 0;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background-color: #121212;
+            transition: transform 0.5s ease;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .slider-container {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .slider {
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 10px;
+            background: linear-gradient(45deg, #303048, #1e1e2a);
+            border-radius: 5px;
+            outline: none;
+            margin: 10px 0;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #ff79c6;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #ff79c6;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider::-webkit-slider-thumb:hover {
+            background: #8be9fd;
+            transform: scale(1.1);
+        }
+
+        .slider::-moz-range-thumb:hover {
+            background: #8be9fd;
+            transform: scale(1.1);
+        }
+
+        .animate-button {
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #303048, #1e1e2a);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            border-left: 5px solid #ff79c6;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            min-height: 44px;
+            touch-action: manipulation;
+        }
+
+        .animate-button:hover, .animate-button:active {
+            background: linear-gradient(45deg, #3a3a5e, #282840);
+            border-left-color: #8be9fd;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .phase-info {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(30, 30, 42, 0.7);
+            border-radius: 10px;
+            width: 100%;
+        }
+
+        .phase-info h3 {
+            color: #ff79c6;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .phase-info p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .fenomenos {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .moon-phases-container {
+                gap: 10px;
+            }
+            
+            .moon-phase {
+                width: 120px;
+            }
+            
+            .moon-phase img {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .interactive-moon {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .shadow {
+                width: 200px;
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+                width: 95%;
+            }
+            
+            .moon-phases-container {
+                gap: 5px;
+            }
+            
+            .moon-phase {
+                width: 100px;
+            }
+            
+            .moon-phase img {
+                width: 80px;
+                height: 80px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .moon-phase, .slider::-webkit-slider-thumb, .slider::-moz-range-thumb, .shadow {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-button">← Voltar</a>
+        
+        <header>
+            <h1>Fases da Lua</h1>
+            <p>Explore as diferentes fases da Lua e entenda como elas ocorrem</p>
+        </header>
+        
+        <div class="content">
+            <div class="moon-phases-container">
+                <div class="moon-phase" data-phase="0">
+                    <div class="moon-img">
+                        <svg width="120" height="120" viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="58" fill="#f0f0f0" stroke="#aaa" stroke-width="1" />
+                            <circle cx="60" cy="60" r="58" fill="#121212" />
+                        </svg>
+                    </div>
+                    <h3>Lua Nova</h3>
+                </div>
+                
+                <div class="moon-phase" data-phase="0.125">
+                    <div class="moon-img">
+                        <svg width="120" height="120" viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="58" fill="#f0f0f0" stroke="#aaa" stroke-width="1" />
+                            <path d="M60,2 A58,58 0 0,0 60,118 A29,58 0 0,1 60,2" fill="#121212" />
+                        </svg>
+                    </div>
+                    <h3>Lua Crescente</h3>
+                </div>
+                
+                <div class="moon-phase" data-phase="0.25">
+                    <div class="moon-img">
+                        <svg width="120" height="120" viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="58" fill="#f0f0f0" stroke="#aaa" stroke-width="1" />
+                            <path d="M60,2 A58,58 0 0,0 60,118 A0,58 0 0,1 60,2" fill="#121212" />
+                        </svg>
+                    </div>
+                    <h3>Quarto Crescente</h3>
+                </div>
+                
+                <div class="moon-phase" data-phase="0.375">
+                    <div class="moon-img">
+                        <svg width="120" height="120" viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="58" fill="#f0f0f0" stroke="#aaa" stroke-width="1" />
+                            <path d="M60,2 A58,58 0 0,0 60,118 A-29,58 0 0,1 60,2" fill="#121212" />
+                        </svg>
+                    </div>
+                    <h3>Gibosa Crescente</h3>
+                </div>
+                
+                <div class="moon-phase" data-phase="0.5">
+                    <div class="moon-img">
+                        <svg width="120" height="120" viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="58" fill="#f0f0f0" stroke="#aaa" stroke-width="1" />
+                        </svg>
+                    </div>
+                    <h3>Lua Cheia</h3>
+                </div>
+                
+                <div class="moon-phase" data-phase="0.625">
+                    <div class="moon-img">
+                        <svg width="120" height="120" viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="58" fill="#f0f0f0" stroke="#aaa" stroke-width="1" />
+                            <path d="M60,2 A58,58 0 0,1 60,118 A-29,58 0 0,0 60,2" fill="#121212" />
+                        </svg>
+                    </div>
+                    <h3>Gibosa Minguante</h3>
+                </div>
+                
+                <div class="moon-phase" data-phase="0.75">
+                    <div class="moon-img">
+                        <svg width="120" height="120" viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="58" fill="#f0f0f0" stroke="#aaa" stroke-width="1" />
+                            <path d="M60,2 A58,58 0 0,1 60,118 A0,58 0 0,0 60,2" fill="#121212" />
+                        </svg>
+                    </div>
+                    <h3>Quarto Minguante</h3>
+                </div>
+                
+                <div class="moon-phase" data-phase="0.875">
+                    <div class="moon-img">
+                        <svg width="120" height="120" viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="58" fill="#f0f0f0" stroke="#aaa" stroke-width="1" />
+                            <path d="M60,2 A58,58 0 0,1 60,118 A29,58 0 0,0 60,2" fill="#121212" />
+                        </svg>
+                    </div>
+                    <h3>Lua Minguante</h3>
+                </div>
+            </div>
+            
+            <div class="interactive-section">
+                <h2>Visualização Interativa</h2>
+                <div class="interactive-moon">
+                    <div class="shadow" id="moonShadow"></div>
+                </div>
+                
+                <div class="controls">
+                    <div class="slider-container">
+                        <label for="phase-slider">Ajuste a fase da Lua:</label>
+                        <input type="range" min="0" max="100" value="0" class="slider" id="phase-slider">
+                    </div>
+                    
+                    <button id="animate-button" class="animate-button">Iniciar Animação</button>
+                    
+                    <div class="phase-info" id="phase-info">
+                        <h3>Lua Nova</h3>
+                        <p>Na fase de Lua Nova, a face da Lua voltada para a Terra não está iluminada pelo Sol. Isso ocorre quando a Lua está entre a Terra e o Sol.</p>
+                        <p>Nesta fase, a Lua não é visível no céu noturno, pois sua face iluminada está voltada para o lado oposto à Terra.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Astronomia: Terra e Lua - Versão 2.0</p>
+            <p>&copy; 2025. Desenvolvido por Caio Lima Firme e Claude 3.7</p>
+        </div>
+    </div>
+
+    <script src="js/fasesLua.js"></script>
+</body>
+</html>
