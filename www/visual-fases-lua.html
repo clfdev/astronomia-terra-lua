@@ -150,58 +150,6 @@
             display: block;
         }
 
-        .controls {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 500px;
-        }
-
-        .animate-button {
-            padding: 12px 25px;
-            background: linear-gradient(45deg, #50507a, #303048);
-            color: #ffffff;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            margin: 20px auto;
-            display: block;
-            transition: all 0.3s ease;
-            border-left: 5px solid #ff79c6;
-            min-height: 44px;
-            min-width: 120px;
-            touch-action: manipulation;
-        }
-
-        .animate-button:hover, .animate-button:active {
-            background: linear-gradient(45deg, #606096, #404060);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            border-left-color: #8be9fd;
-        }
-
-        .phase-info {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: rgba(40, 42, 54, 0.7);
-            border-radius: 10px;
-            border-left: 5px solid #bd93f9;
-            text-align: left;
-        }
-
-        .phase-info h3 {
-            color: #ff79c6;
-            margin-bottom: 15px;
-            font-size: 1.4rem;
-        }
-
-        .phase-info p {
-            margin-bottom: 12px;
-            line-height: 1.5;
-            color: #f8f8f2;
-        }
-
         .footer {
             text-align: center;
             margin-top: 40px;
@@ -353,20 +301,9 @@
                     <div class="shadow" id="moonShadow"></div>
                 </div>
                 
-                <div class="controls">
-                    <div class="slider-container">
-                        <label for="phase-slider">Posição da Lua:</label>
-                        <input type="range" id="phase-slider" class="slider" min="0" max="100" value="0">
-                    </div>
-                    
-                    <button id="animate-button" class="animate-button">Iniciar Animação</button>
-                    
-                    <div id="phase-info" class="phase-info">
-                        <h3 id="phase-name">Lua Nova</h3>
-                        <p id="phase-description">Na fase de Lua Nova, a face da Lua voltada para a Terra não está iluminada pelo Sol. Isso ocorre quando a Lua está entre a Terra e o Sol.</p>
-                        <p id="phase-details">Nesta fase, a Lua não é visível no céu noturno, pois sua face iluminada está voltada para o lado oposto à Terra.</p>
-                        <p id="phase-phenomena">Durante a Lua Nova podem ocorrer eclipses solares, quando a Lua bloqueia a luz do Sol vista da Terra.</p>
-                    </div>
+                <div class="slider-container">
+                    <label for="moonPosition">Posição da Lua:</label>
+                    <input type="range" id="moonPosition" class="slider" min="0" max="360" value="0">
                 </div>
             </div>
         </div>
@@ -378,7 +315,6 @@
     </div>
 
     <script src="js/fasesLua.js"></script>
-    <script src="js/language-switcher.js"></script>
     <script src="js/dynamic-language-switcher.js"></script>
 </body>
 </html>
