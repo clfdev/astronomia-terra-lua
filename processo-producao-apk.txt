@@ -1,0 +1,245 @@
+# Processo de Produção de APK para o Aplicativo "Astronomia: Terra e Lua"
+# Versão 4.0 - Abril 2025
+
+## Requisitos Prévios
+- Node.js e npm instalados
+- Android Studio instalado
+- JDK (Java Development Kit) instalado
+- Variáveis de ambiente JAVA_HOME e ANDROID_HOME configuradas
+
+## Etapas para Criar um APK usando Capacitor
+
+### 1. Inicialização do Projeto npm
+```
+npm init -y
+```
+
+### 2. Instalação do Capacitor
+```
+npm install @capacitor/core @capacitor/cli
+npm install @capacitor/android
+```
+
+### 3. Estruturação dos Arquivos Web
+- Criar uma pasta "www" no diretório raiz do projeto
+- Copiar todos os arquivos HTML para a pasta www:
+  ```
+  xcopy *.html www\ /Y
+  ```
+- Copiar a pasta CSS para www:
+  ```
+  xcopy css www\css\ /E /I /Y
+  ```
+- Copiar a pasta JS para www:
+  ```
+  xcopy js www\js\ /E /I /Y
+  ```
+- Criar a pasta para arquivos em inglês e copiar os arquivos:
+  ```
+  mkdir www\en
+  xcopy en\*.html www\en\ /Y
+  ```
+- Copiar quaisquer outros recursos (imagens, fontes, etc.) para a pasta www
+
+### 4. Adaptações para o Ambiente Android
+
+#### 4.1. Ajuste dos Botões de Retorno
+Para garantir que os botões de retorno sejam consistentes e legíveis em todas as páginas:
+- Usar o mesmo estilo de botão em todas as páginas
+- Incluir texto "← Voltar" em vez de apenas uma seta
+- Usar gradiente de fundo e borda colorida para melhor visibilidade
+- Garantir tamanho adequado para interação em telas touch (mínimo 44px)
+
+#### 4.2. Sistema de Troca de Idioma Dinâmico
+Para resolver problemas de navegação entre páginas em diferentes idiomas no ambiente Android, implementamos um sistema de troca de idioma dinâmico que não requer navegação entre arquivos:
+
+1. **Criação do arquivo dynamic-language-switcher.js**:
+   ```javascript
+   // Criar um arquivo js/dynamic-language-switcher.js com o seguinte conteúdo:
+   document.addEventListener('DOMContentLoaded', function() {
+     // Configuração inicial
+     setupLanguageSwitcher();
+   });
+   
+   function setupLanguageSwitcher() {
+     // Idioma atual (padrão: português)
+     let currentLang = document.documentElement.lang || 'pt-BR';
+     
+     // Cria o botão de troca de idioma
+     const languageSwitcher = document.createElement('div');
+     languageSwitcher.className = 'language-switcher';
+     
+     const languageBtn = document.createElement('button');
+     languageBtn.className = 'language-btn ' + (currentLang === 'pt-BR' ? 'flag-usa' : 'flag-brazil');
+     
+     // Adiciona evento de clique para alternar o idioma
+     languageBtn.addEventListener('click', function() {
+       // Alterna o idioma
+       currentLang = currentLang === 'pt-BR' ? 'en' : 'pt-BR';
+       
+       // Traduz o conteúdo da página
+       translatePage(currentLang);
+     });
+     
+     // Adiciona o botão ao corpo da página
+     languageSwitcher.appendChild(languageBtn);
+     document.body.appendChild(languageSwitcher);
+   }
+   ```
+
+2. **Detecção Robusta da Página Atual**:
+   ```javascript
+   function translatePage(lang) {
+     // Obtém o nome da página atual
+     const currentPath = window.location.pathname;
+     let pageName = currentPath.split('/').pop().replace('.html', '');
+     
+     // Detecta a página atual pelo título ou elementos específicos
+     // Isso é mais confiável do que usar apenas o nome do arquivo
+     if (document.title.includes('Rotação da Terra')) {
+       pageName = 'video-rotacao-terra';
+     } else if (document.title.includes('Translação da Terra e Estações')) {
+       pageName = 'video-translacao-terra';
+     } else if (document.title.includes('Movimento e Fases da Lua') && document.querySelector('canvas#moonCanvas')) {
+       pageName = 'video-translacao-lua';
+     } else if (document.title.includes('Visualização da Translação da Terra')) {
+       pageName = 'visual-translacao-terra';
+     } else if (document.title.includes('Visualização da Translação da Lua')) {
+       pageName = 'visual-translacao-lua';
+     } else if (document.title.includes('Fases da Lua')) {
+       pageName = 'visual-fases-lua';
+     } else if (document.title.includes('Menu de Astronomia') || document.title.includes('Astronomy Menu')) {
+       pageName = 'index';
+     }
+     
+     // Resto do código de tradução...
+   }
+   ```
+
+3. **Dicionário de Traduções**:
+   - Criar um dicionário de traduções para cada página do aplicativo
+   - Organizar as traduções por página e idioma
+   - Incluir todos os textos visíveis que precisam ser traduzidos
+   - Garantir que todas as páginas do aplicativo estejam incluídas no dicionário
+
+4. **Implementação em Todas as Páginas**:
+   - Adicionar os scripts no final do corpo da página (antes do fechamento da tag `</body>`):
+     ```html
+     <script src="js/language-switcher.js"></script>
+     <script src="js/dynamic-language-switcher.js"></script>
+     ```
+   - IMPORTANTE: A ordem dos scripts é crucial! O script language-switcher.js DEVE vir ANTES do script dynamic-language-switcher.js
+   - IMPORTANTE: Os scripts devem ser colocados no final do corpo da página, não no cabeçalho `<head>`, para garantir que funcionem corretamente
+   - A ordem correta é:
+     ```html
+     <!-- Outros scripts da página -->
+     <script src="js/language-switcher.js"></script>
+     <script src="js/dynamic-language-switcher.js"></script>
+     </body>
+     </html>
+     ```
+
+5. **Vantagens desta Abordagem**:
+   - Funciona perfeitamente no ambiente Android sem depender de navegação entre arquivos
+   - Troca de idioma instantânea sem recarregar a página
+   - Melhor experiência do usuário, especialmente em conexões lentas
+   - Centralização das traduções em um único arquivo para facilitar manutenção
+   - Detecção robusta da página atual, independente do nome do arquivo
+
+6. **Sincronização com o Projeto Android**:
+   ```
+   xcopy js\dynamic-language-switcher.js www\js\ /Y
+   xcopy *.html www\ /Y
+   npx cap sync android
+   ```
+
+### 5. Inicialização do Capacitor
+```
+npx cap init "Astronomia Terra Lua" "com.caiolimafirme.astronomia" --web-dir "www"
+```
+
+### 6. Configuração do Capacitor
+- Editar o arquivo capacitor.config.json para garantir que esteja configurado corretamente:
+```json
+{
+  "appId": "com.caiolimafirme.astronomia",
+  "appName": "Astronomia Terra Lua",
+  "webDir": "www"
+}
+```
+- Importante: Não incluir configurações de servidor local no arquivo de configuração para evitar erros de conexão no aplicativo Android
+
+### 7. Adição da Plataforma Android
+```
+npx cap add android
+```
+
+### 8. Sincronização do Projeto
+```
+npx cap sync android
+```
+
+### 9. Abertura do Projeto no Android Studio
+```
+npx cap open android
+```
+
+### 10. Geração do APK no Android Studio
+1. Aguardar a sincronização do projeto no Android Studio
+2. No menu superior, selecionar "Build" > "Build Bundle(s) / APK(s)" > "Build APK(s)"
+3. Aguardar a conclusão da compilação
+4. Clicar no link "locate" na notificação para encontrar o arquivo APK gerado
+
+### 11. Localização do APK
+O APK gerado geralmente está localizado em:
+```
+android/app/build/outputs/apk/debug/app-debug.apk
+```
+
+### 12. Instalação do APK em um Dispositivo Android
+1. Transferir o APK para o dispositivo (via USB, email, nuvem, etc.)
+2. No dispositivo, navegar até o local do arquivo APK
+3. Tocar no arquivo para iniciar a instalação
+4. Se necessário, permitir a instalação de aplicativos de fontes desconhecidas nas configurações de segurança
+5. Seguir as instruções na tela para concluir a instalação
+
+### 13. Solução de Problemas Comuns
+- Se o aplicativo exibir "Página da Web não disponível" ou erro de conexão com localhost:
+  - Verifique se a configuração do servidor foi removida do arquivo capacitor.config.json
+  - Certifique-se de que os caminhos de arquivo no JavaScript estão corretos para o ambiente Android
+- Se o botão de troca de idioma não funcionar:
+  - Verifique se o arquivo dynamic-language-switcher.js foi incluído em todas as páginas
+  - Confirme que o script está posicionado no final do corpo da página, não no cabeçalho
+  - **MUITO IMPORTANTE**: Verifique se os scripts estão na ordem correta (language-switcher.js ANTES de dynamic-language-switcher.js)
+  - Verifique se o dicionário de traduções inclui todas as páginas do aplicativo
+  - Verifique se a detecção da página atual está funcionando corretamente (adicione console.log para depuração)
+  - Se estiver usando o método antigo, verifique se os arquivos em inglês foram copiados para a pasta www/en
+- Se houver problemas com recursos não carregando, verifique se todos os arquivos foram copiados corretamente para a pasta www
+- Para problemas de compilação no Android Studio, verifique se o JDK está configurado corretamente
+
+### 14. Criação de uma Versão de Produção (Release)
+Para criar uma versão de produção assinada:
+1. No Android Studio, selecionar "Build" > "Generate Signed Bundle / APK"
+2. Escolher "APK"
+3. Criar ou selecionar um keystore existente
+4. Preencher as informações da chave
+5. Selecionar "release" como variante de compilação
+6. Clicar em "Finish"
+
+### 15. Publicação na Google Play Store
+1. Criar uma conta de desenvolvedor na Google Play Console
+2. Criar uma nova aplicação
+3. Preencher todas as informações necessárias (descrição, capturas de tela, ícones, etc.)
+4. Fazer upload do APK assinado
+5. Definir preço e distribuição
+6. Publicar o aplicativo
+
+## Observações Importantes
+- Mantenha o arquivo keystore em um local seguro. Perdê-lo significa que você não poderá atualizar seu aplicativo na Play Store
+- Sempre teste o aplicativo em diferentes dispositivos antes de publicá-lo
+- Considere implementar atualizações automáticas para facilitar a manutenção futura
+- Para versões futuras, basta atualizar os arquivos na pasta www e executar `npx cap sync android` para sincronizar as alterações
+
+## Recursos Adicionais
+- Documentação oficial do Capacitor: https://capacitorjs.com/docs
+- Guia de publicação na Google Play: https://developer.android.com/studio/publish

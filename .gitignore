@@ -1,0 +1,17 @@
+# Dependências
+node_modules/
+package-lock.json
+
+# Arquivos de build
+android/app/build/
+android/build/
+android/.gradle/
+
+# Arquivos de configuração do IDE
+android/.idea/
+.vscode/
+.DS_Store
+
+# Arquivos temporários
+*.log
+*.tmp
