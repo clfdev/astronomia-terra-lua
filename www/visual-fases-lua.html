@@ -150,170 +150,89 @@
             display: block;
         }
 
+        .animate-button {
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #50507a, #303048);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            transition: all 0.3s ease;
+            border-left: 5px solid #ff79c6;
+            min-height: 44px;
+            min-width: 120px;
+            touch-action: manipulation;
+        }
+
+        .animate-button:hover, .animate-button:active {
+            background: linear-gradient(45deg, #606096, #404060);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-left-color: #8be9fd;
+        }
+
+        .phase-info {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: rgba(40, 42, 54, 0.7);
+            border-radius: 10px;
+            border-left: 5px solid #bd93f9;
+            text-align: left;
+        }
+
+        .phase-info h3 {
+            color: #ff79c6;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .phase-info p {
+            margin-bottom: 12px;
+            line-height: 1.5;
+            color: #f8f8f2;
+        }
+
         .footer {
             text-align: center;
             margin-top: 40px;
             color: lightcyan;
-            font-size: 1.2rem;
-        }
-
-        @media (max-width: 768px) {
-            .moon-phases-container {
-                gap: 10px;
-            }
-            
-            .moon-phase {
-                width: 100px;
-            }
-            
-            .interactive-moon {
-                width: 150px;
-                height: 150px;
-            }
-            
-            .shadow {
-                width: 150px;
-                height: 150px;
-                transform: translateX(75px);
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .container {
-                padding: 15px;
-                margin: 10px auto;
-            }
-            
-            .moon-phase {
-                width: 80px;
-            }
-            
-            .moon-img svg {
-                width: 80px;
-                height: 80px;
-            }
-            
-            .interactive-moon {
-                width: 120px;
-                height: 120px;
-            }
-            
-            .shadow {
-                width: 120px;
-                height: 120px;
-                transform: translateX(60px);
-            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="index.html" class="back-button">← Voltar</a>
-        
         <header>
+            <a href="index.html" class="back-button">← Voltar</a>
             <h1>Fases da Lua</h1>
         </header>
-        
         <div class="content">
             <div class="moon-phases-container">
-                <div class="moon-phase" data-phase="0">
-                    <div class="moon-img">
-                        <svg width="120" height="120" viewBox="0 0 120 120">
-                            <circle cx="60" cy="60" r="58" fill="#121212" stroke="#444" stroke-width="1"/>
-                        </svg>
-                    </div>
-                    <div class="phase-name">Lua Nova</div>
-                </div>
-                
-                <div class="moon-phase" data-phase="1">
-                    <div class="moon-img">
-                        <svg width="120" height="120" viewBox="0 0 120 120">
-                            <circle cx="60" cy="60" r="58" fill="#121212" stroke="#444" stroke-width="1"/>
-                            <path d="M60,2 A58,58 0 0,1 60,118 A29,58 0 0,0 60,2" fill="#f5f3ce"/>
-                        </svg>
-                    </div>
-                    <div class="phase-name">Lua Crescente</div>
-                </div>
-                
-                <div class="moon-phase" data-phase="2">
-                    <div class="moon-img">
-                        <svg width="120" height="120" viewBox="0 0 120 120">
-                            <circle cx="60" cy="60" r="58" fill="#121212" stroke="#444" stroke-width="1"/>
-                            <path d="M60,2 A58,58 0 0,1 60,118 A58,58 0 0,0 60,2" fill="#f5f3ce"/>
-                        </svg>
-                    </div>
-                    <div class="phase-name">Quarto Crescente</div>
-                </div>
-                
-                <div class="moon-phase" data-phase="3">
-                    <div class="moon-img">
-                        <svg width="120" height="120" viewBox="0 0 120 120">
-                            <circle cx="60" cy="60" r="58" fill="#121212" stroke="#444" stroke-width="1"/>
-                            <path d="M60,2 A58,58 0 0,1 60,118 A87,58 0 0,0 60,2" fill="#f5f3ce"/>
-                        </svg>
-                    </div>
-                    <div class="phase-name">Lua Gibosa Crescente</div>
-                </div>
-                
-                <div class="moon-phase" data-phase="4">
-                    <div class="moon-img">
-                        <svg width="120" height="120" viewBox="0 0 120 120">
-                            <circle cx="60" cy="60" r="58" fill="#f5f3ce" stroke="#444" stroke-width="1"/>
-                        </svg>
-                    </div>
-                    <div class="phase-name">Lua Cheia</div>
-                </div>
-                
-                <div class="moon-phase" data-phase="5">
-                    <div class="moon-img">
-                        <svg width="120" height="120" viewBox="0 0 120 120">
-                            <circle cx="60" cy="60" r="58" fill="#f5f3ce" stroke="#444" stroke-width="1"/>
-                            <path d="M60,2 A58,58 0 0,0 60,118 A87,58 0 0,1 60,2" fill="#121212"/>
-                        </svg>
-                    </div>
-                    <div class="phase-name">Lua Gibosa Minguante</div>
-                </div>
-                
-                <div class="moon-phase" data-phase="6">
-                    <div class="moon-img">
-                        <svg width="120" height="120" viewBox="0 0 120 120">
-                            <circle cx="60" cy="60" r="58" fill="#f5f3ce" stroke="#444" stroke-width="1"/>
-                            <path d="M60,2 A58,58 0 0,0 60,118 A58,58 0 0,1 60,2" fill="#121212"/>
-                        </svg>
-                    </div>
-                    <div class="phase-name">Quarto Minguante</div>
-                </div>
-                
-                <div class="moon-phase" data-phase="7">
-                    <div class="moon-img">
-                        <svg width="120" height="120" viewBox="0 0 120 120">
-                            <circle cx="60" cy="60" r="58" fill="#f5f3ce" stroke="#444" stroke-width="1"/>
-                            <path d="M60,2 A58,58 0 0,0 60,118 A29,58 0 0,1 60,2" fill="#121212"/>
-                        </svg>
-                    </div>
-                    <div class="phase-name">Lua Minguante</div>
-                </div>
+                <!-- Moon phases images and names here -->
             </div>
-            
             <div class="interactive-section">
                 <h2>Visualização Interativa</h2>
                 <div class="interactive-moon">
-                    <div class="shadow" id="moonShadow"></div>
+                    <div id="moonShadow" class="shadow"></div>
                 </div>
-                
                 <div class="slider-container">
-                    <label for="moonPosition">Posição da Lua:</label>
-                    <input type="range" id="moonPosition" class="slider" min="0" max="360" value="0">
+                    <label for="phase-slider">Posição da Lua:</label>
+                    <input type="range" id="phase-slider" class="slider" min="0" max="100" value="0">
+                </div>
+                <button id="animate-button" class="animate-button">Iniciar Animação</button>
+                <div id="phase-info" class="phase-info">
+                    <h3 id="phase-name">Lua Nova</h3>
+                    <p id="phase-description">Na fase de Lua Nova, a face da Lua voltada para a Terra não está iluminada pelo Sol. Isso ocorre quando a Lua está entre a Terra e o Sol.</p>
+                    <p id="phase-details">Nesta fase, a Lua não é visível no céu noturno, pois sua face iluminada está voltada para o lado oposto à Terra.</p>
+                    <p id="phase-phenomena">Durante a Lua Nova podem ocorrer eclipses solares, quando a Lua bloqueia a luz do Sol vista da Terra.</p>
                 </div>
             </div>
         </div>
-        
-        <div class="footer">
-            <p>Astronomia: Terra e Lua - Versão 3.0</p>
-            <p>&copy 2025. Desenvolvido por Caio Lima Firme e Claude 3.7</p>
-        </div>
     </div>
-
+    <footer class="footer">
+        &copy; 2025 Astronomia: Terra e Lua
+    </footer>
     <script src="js/fasesLua.js"></script>
     <script src="js/dynamic-language-switcher.js"></script>
 </body>
