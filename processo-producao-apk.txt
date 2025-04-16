@@ -243,3 +243,207 @@ Para criar uma versão de produção assinada:
 ## Recursos Adicionais
 - Documentação oficial do Capacitor: https://capacitorjs.com/docs
 - Guia de publicação na Google Play: https://developer.android.com/studio/publish
+
+No Play Console do aplicativo:
+
+Em Testar e Lançar > Teste > Teste Interno > Criar nova versão > Pacotes de apps, quando tento colocar meu arquivo app-debug.apk (o mesmo que testei no meu celular) ele coloca a seguinte mensagem: faça upload de um pacote de app válido.
+
+A Play Store exige um APK assinado com uma chave de produção ou um App Bundle (.aab) válido para distribuição, e não aceita APKs de debug gerados automaticamente pelo Android Studio.
+
+Vá em:
+Build > Generate Signed Bundle / APK
+
+Selecione:
+APK ou Android App Bundle (.aab)
+Clique em Next
+
+Na tela de "Key store path", clique em:
+🔹 Create new...
+
+Preencha os campos da nova keystore:
+Key store path:
+Onde você quer salvar o arquivo .jks no seu computador.
+Password:
+Uma senha para proteger o arquivo .jks
+(Anote ela! Você vai precisar sempre para assinar atualizações do app)
+
+Key alias:
+Um nome para identificar sua chave (ex: appkey)
+
+Key password:
+Pode ser a mesma do keystore ou diferente
+
+Validity (years):
+Coloque no mínimo 25 anos
+(isso garante que a chave seja válida para atualizações futuras)
+
+Finalize:
+Clique em OK
+
+Depois preencha novamente as senhas e selecione o modo release
+
+O Android Studio vai gerar o arquivo .apk ou .aab assinado
+
+
+Para gerar o arquivo mapping.txt
+
+Seu app está compilado com R8 ou Proguard (que "embaralham" o código para deixá-lo menor e mais seguro), mas você não enviou o arquivo de desofuscação (mapping.txt).
+
+✅ Como resolver (se quiser):
+Se você usa Proguard/R8, e quer ajudar o Google a entender os relatórios de erro:
+
+Encontre o arquivo mapping.txt no seu projeto (gerado durante build com Proguard).
+
+Faça upload em:
+Play Console > Testar e lançar > Visão geral das versões > Versão enviada > Upload de desofuscação
+
+🟢 Mas se você não usa Proguard/R8, ou não ligou isso:
+Pode ignorar esse aviso — não impede a publicação nem os testes.
+
+Em android > app > build.gradle
+
+buildTypes {
+        release {
+            minifyEnabled true // ATIVA a ofuscação
+            shrinkResources true // (opcional) remove recursos não utilizados
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+Abra o arquivo app/build.gradle
+
+Localize esta linha dentro do buildTypes { release { ... } }:
+
+proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+Substitua por:
+
+proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+
+Depois do build, você encontra ele em:
+
+app/build/outputs/mapping/release/mapping.txt
+
+Passo a passo:
+Acesse seu app no Play Console
+https://play.google.com/console
+
+No menu lateral, vá em:
+Testar e lançar > Versão do app
+ou
+Produção / Teste fechado / Teste interno → clique na versão que você enviou.
+
+Encontre a versão da release onde o .aab foi enviado.
+
+Clique na versão enviada (ex: versão 1 / código 1).
+
+Haverá uma seção chamada:
+"Símbolos de desofuscação" ou "Desofuscação de código"
+
+Às vezes aparece como "Upload de arquivo de desofuscação" (em português).
+
+Clique em “Upload” e envie o arquivo:
+
+Claro! Aqui está um **compilado com os pontos mais importantes**, passo a passo, para realizar o **teste interno de um aplicativo pago na Play Store**, desde o início até a distribuição para os testadores:
+
+---
+
+## ✅ COMPILADO: TESTE INTERNO NA PLAY STORE – APP PAGO
+
+### 🔧 1. **Criar o app no Google Play Console**
+- Acesse: [https://play.google.com/console](https://play.google.com/console)
+- Clique em **“Criar app”**
+- Preencha: **nome do app**, **idioma padrão**, **tipo de app (aplicativo/jogo)** e **se é pago ou gratuito**
+- Avance para as próximas etapas de configuração
+
+---
+
+### 📦 2. **Gerar e enviar o app no formato AAB (Android App Bundle)**
+- Você **não pode enviar APK** para produção/testes — precisa gerar **`.aab`** via Android Studio:
+  ```groovy
+  buildTypes {
+      release {
+          minifyEnabled true
+          proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+      }
+  }
+  ```
+- Compile a versão de release com assinatura
+- Vá no Play Console > **Testar e Lançar > Teste interno > Criar nova versão**
+- Faça o **upload do `.aab`**
+
+---
+
+### 📝 3. **Preencher as informações obrigatórias do app**
+Você precisa preencher antes de enviar para análise:
+
+- **Detalhes do app** (nome, descrição, ícone etc.)
+- **Política de privacidade**
+- **Classificação de conteúdo**
+- **Público-alvo**
+- **Anúncios (sim/não)**
+- **Segurança dos dados**
+- **Recursos financeiros/saúde**, se aplicável
+
+---
+
+### 🧪 4. **Configurar o teste interno**
+- Vá em: **Testar e lançar > Teste interno**
+- Crie uma lista de testadores (pode ser com e-mails ou um link direto)
+- Adicione **até 100 e-mails do Gmail**
+- Salve e ative a lista
+- Após isso, você pode gerar o **link do teste interno**
+
+---
+
+### 📲 5. **Distribuir o link para os testadores**
+- Copie o link gerado no Play Console
+- Envie por WhatsApp, e-mail, Telegram etc.
+- Diga aos testadores que **devem estar logados na Play Store com o mesmo Gmail informado**
+
+---
+
+### 🧑‍💻 6. **Os testadores acessam o link e instalam**
+- Eles verão algo como:
+  > "Você foi convidado para testar este aplicativo"
+- Ao aceitar, poderão baixar a versão de testes pela Play Store
+
+---
+
+### 🗣 7. **Como coletar feedback**
+Você pode receber feedback de 3 formas:
+
+1. **Pela Play Store** – botão "Enviar feedback ao desenvolvedor"
+2. **Via e-mail ou grupo de WhatsApp**
+3. **Por formulário do Google Forms** (opcional, mas ótimo para guiar respostas)
+
+---
+
+### 💰 8. **Gratuidade para testadores do app pago**
+- Testadores internos e fechados **não pagam pelo app**
+- Você também pode usar o recurso de **“Licença de Teste”** (Play Console > Configuração > Teste de Licença) e marcar os e-mails como `LICENSED`
+
+---
+
+### 🛠 9. **(Opcional) Upload do arquivo `mapping.txt`**
+- Esse arquivo ajuda na depuração de erros caso você use ofuscação (Proguard/R8)
+- No mesmo painel onde você envia o `.aab`, há uma opção para subir o arquivo `mapping.txt`
+
+---
+
+### ⏳ 10. **Duração do teste interno**
+- **Sem limite de tempo** → você decide quando ativar ou encerrar
+- **Ideal para testes rápidos e flexíveis**
+- **Teste fechado exige mínimo de 14 dias consecutivos**, mas o teste interno não
+
+---
+
+### ⚠️ AVISOS COMUNS
+- **"App não disponível para esta conta"** → o testador está logado com conta errada
+- **“Versão não será disponibilizada”** → você não configurou a faixa de testes corretamente (adicione os testadores)
+- **“Sem arquivo de desofuscação”** → opcional, mas recomendado se usar Proguard/R8
+
+---
+
+Amigo, você pode participar na fase de teste do meu aplicativo para o Google? Gostaria de convidá-lo(a) para participar do teste interno do meu aplicativo mobile (chamado Astronomia: Terra e Lua) antes do lançamento na Play Store. Conforme a política do Google, precisamos realizar um teste fechado com pelo menos 12 participantes durante 14 dias consecutivos. Para isso, preciso que me enviem um e-mail do Google (Gmail), pois criarei uma lista de testadores autorizados, e o depois eu enviarei o link de convite (criado pelo próprio Google na plataforma de desenvolvedores Google Console). Para acessar o app, será necessário estar logado na Play Store com o mesmo e-mail enviado e, ao clicar no link, você poderá instalar e testar a versão em desenvolvimento. O teste exigirá apenas que utilizem o app cerca de duas vezes por semana, explorando suas funcionalidades para verificar se tudo está funcionando corretamente. Vocês podem enviar o feedback diretamente pela Play Store (há um botão "Enviar feedback ao desenvolvedor") ou, se preferirem, por aqui mesmo no grupo ou por e-mail. Quando finalizados os 14 dias e após a aprovação do Google, disponibilizarei gratuitamente acesso vitalício ao aplicativo como forma de agradecimento. Obrigado pela ajuda!
