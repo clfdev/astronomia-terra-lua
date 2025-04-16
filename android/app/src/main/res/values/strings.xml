@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Astronomia Terra Lua</string>
+    <string name="title_activity_main">Astronomia Terra Lua</string>
+    <string name="package_name">com.caiolimafirme.astronomia</string>
+    <string name="custom_url_scheme">com.caiolimafirme.astronomia</string>
+</resources>
