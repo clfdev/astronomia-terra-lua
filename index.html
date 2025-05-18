@@ -131,12 +131,50 @@
                 transition: none;
             }
         }
+
+        .back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background-color: #003366;
+    border: 2px solid #d4af37;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+.back-button a {
+    display: flex;
+    align-items: center;
+    color: #d4af37;
+    text-decoration: none;
+    padding: 8px 16px;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.back-button:hover {
+    background-color: #002347;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+.back-icon {
+    margin-right: 8px;
+    font-size: 1.2rem;
+}
+
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Astronomia: Terra e Lua</h1>
-        
+        <div class="back-button">
+            <a href="https://affeducation.site/">
+                <span class="back-icon">⬅</span> Voltar
+            </a>
+        </div>
         <ul class="menu-list">
             <li class="menu-item">
                 <a href="visual-translacao-terra.html" class="menu-link">
